@@ -10,7 +10,7 @@
   import Checkbox from '$lib/checkbox';
   import Slider from '$lib/slider';
   import Radio from '$lib/radio/radio.svelte';
-  
+
   export let slug;
   export let data;
 
@@ -82,6 +82,9 @@
   <div class="sidebar" aria-hidden={!sidebarOpen}>
     {#if isMobile}
       <header class="sidebar__header">
+        <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+          <path d="M6 13h12v-2H6M3 6v2h18V6M10 18h4v-2h-4v2Z"/>
+        </svg>
         Sort & Filter
         <Button variant="icon" on:click={handleFilterClick}>
           <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -106,7 +109,7 @@
       <Collapsible>
         <svelte:fragment slot="heading">Sort</svelte:fragment>
         <svelte:fragment slot="content">
-          <Radio name="sort">Top Seller</Radio>
+          <Radio name="sort" checked>Top Seller</Radio>
           <Radio name="sort">Newest</Radio>
           <Radio name="sort">Top Rated</Radio>
           <Radio name="sort">Price - Low to High</Radio>
@@ -117,10 +120,10 @@
     <Collapsible>
       <svelte:fragment slot="heading">Size</svelte:fragment>
       <svelte:fragment slot="content">
-        <List scrollable>
+        <List scrollable grid={2}>
           {#each sortedSizes as size}
             <ListItem>
-              <Checkbox>
+              <Checkbox variant="swatch">
                 { size }
               </Checkbox>
             </ListItem>
@@ -209,14 +212,22 @@
     {/if}
   </header>
   <main class="content">
-    <!-- <Chips>
-      {#each testChips as i, j}
-        <Chip>
-          <div slot="avatar" class="avatar">J</div>
-          {j}
-        </Chip>
-      {/each}
-    </Chips> -->
+    <!-- <section class="filter">
+      <header class="filter__header">
+        <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+          <path d="M6 13h12v-2H6M3 6v2h18V6M10 18h4v-2h-4v2Z"/>
+        </svg>
+        All filters (5)
+      </header>
+      <Chips>
+        {#each [...Array(5).keys()] as i, j}
+          <Chip variant="outlined" size="small">
+            <div slot="avatar" class="avatar">J</div>
+            {j}
+          </Chip>
+        {/each}
+      </Chips>
+    </section> -->
     <section class="grid grid--products">
     {#each data.products as product, i}
       <div class="card product-card">
@@ -374,6 +385,28 @@
 
 .content {
   grid-area: main-content;
+}
+
+.filter {
+  /* border-top: 1px solid #21212140;
+  border-bottom: 1px solid #21212140; */
+  margin-bottom: 8px;
+}
+
+.filter__header {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 4px;
+  align-items: center;
+  height: 24px;
+  line-height: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.filter__header .icon {
+  width: 20px;
+  height: 20px;
 }
 
 .browse-header {

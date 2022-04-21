@@ -2,11 +2,13 @@
   export let variant = 'filled';
   export let size = 'medium';
   export let onDelete = null;
+  export let rounded = false;
 </script>
 <div 
   class="chip"
   class:chip--sizeSmall={ size == 'small' }
   class:chip--outlined={ variant == 'outlined' }
+  class:chip--rounded={ rounded }
   role="row">
   {#if $$slots.avatar}
     <div role="gridcell">
@@ -36,13 +38,13 @@
   letter-spacing: .0178571429em;
   height: 32px;
   line-height: 1;
-  padding: 0 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: #e5e5e5;
-  border-radius: 16px;
   outline: none;
+  padding: 4px;
+  border-radius: 4px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   appearance: none;
@@ -51,6 +53,20 @@
 
 .chip--outlined {
   background-color: #fff;
-  border: 1px solid #bdbdbd;
+  border: 2px solid #bdbdbd;
+}
+
+.chip--sizeSmall {
+  height: 24px;
+}
+
+.chip--rounded {
+  padding: 0 16px;
+  border-radius: 16px;
+}
+
+.chip--sizeSmall.chip--rounded {
+  padding: 0 12px;
+  border-radius: 12px;
 }
 </style>

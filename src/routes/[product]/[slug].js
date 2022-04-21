@@ -1,3 +1,4 @@
+// import __data from "./products.json";
 export const get = async (req) => {
   const data = {
     products: [

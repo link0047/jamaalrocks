@@ -6,14 +6,15 @@
   export let required = false;
   export let size = undefined;
   export let variant = undefined;
+  export let checked = false;
 </script>
 <div 
   class="checkbox"
   class:checkbox--sizeSmall={ size == 'small' }
-  class:checkbox-swatch={ variant == 'swatch' }
-  class:checkbox-card={ variant == 'card' } 
+  class:checkbox--swatch={ variant == 'swatch' }
+  class:checkbox--card={ variant == 'card' } 
 >
-  <input class="checkbox__native-control" id="{id}" name="{name}" type="checkbox" value="{value}" aria-labelledby="{labelId}" required={required || undefined}>
+  <input class="checkbox__native-control" id="{id}" name="{name}" type="checkbox" value="{value}" aria-labelledby="{labelId}" required={required || undefined} {checked}>
   <label id={labelId} class="checkbox__label" for="{id}">
     <slot />
   </label>
@@ -58,7 +59,7 @@
   font-size: 14px;
 }
 
-.checkbox__label:before {
+:not(.checkbox--swatch) .checkbox__label:before {
   content: '';
   width: 20px;
   height: 20px;
@@ -70,9 +71,19 @@
   background-position: center;
 }
 
-.checkbox--sizeSmall .checkbox__label:before {
+:not(.checkbox--swatch) .checkbox--sizeSmall .checkbox__label:before {
   width: 16px;
   height: 16px;
   background-size: 12px;
+}
+
+.checkbox--swatch .checkbox__label {
+  box-shadow: inset 0 0 0 2px #222;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  min-height: 32px;
 }
 </style>

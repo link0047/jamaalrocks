@@ -4,7 +4,7 @@
 >
   <slot />
 </li>
-<style>
+<style>  
 .list__item {
   position: relative;
   flex: 1 1 auto;
@@ -17,5 +17,13 @@
 
 .list__item:hover {
   background-color: #f6f6f7;
+}
+
+:global(.list--grid) .list__item {
+  padding: 0;
+}
+
+:global(.list--grid) .list__item:hover {
+  background-color: transparent;
 }
 </style>
