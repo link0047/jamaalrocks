@@ -58,6 +58,7 @@
 
 .chip--sizeSmall {
   height: 24px;
+  font-size: 14px;
 }
 
 .chip--rounded {

@@ -5,13 +5,14 @@
   function show() {
     window.setTimeout(function () {
       var instance = new Notification(
-        "poo", {
-          body: "hello friend"
+        "hello friend", {
+          body: "want to play"
         }
       );
 
       instance.onclick = function () {
         // Something to do
+        console.log('hi')
       };
       instance.onerror = function () {
         // Something to do
@@ -26,7 +27,7 @@
 
     return false;
   }
-  onMount(() => {
+  onMount(async () => {
     var Notification = window.Notification || window.mozNotification || window.webkitNotification;
 
     Notification.requestPermission(function (permission) {

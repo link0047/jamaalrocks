@@ -11,8 +11,10 @@
 <div 
   class="checkbox"
   class:checkbox--sizeSmall={ size == 'small' }
+  class:checkbox--box={ variant == 'box' }
   class:checkbox--swatch={ variant == 'swatch' }
-  class:checkbox--card={ variant == 'card' } 
+  class:checkbox--card={ variant == 'card' }
+  style={ variant == 'swatch' ?  : undefined }
 >
   <input class="checkbox__native-control" id="{id}" name="{name}" type="checkbox" value="{value}" aria-labelledby="{labelId}" required={required || undefined} {checked}>
   <label id={labelId} class="checkbox__label" for="{id}">
@@ -59,7 +61,7 @@
   font-size: 14px;
 }
 
-:not(.checkbox--swatch) .checkbox__label:before {
+:not(.checkbox--swatch):not(.checkbox--box) .checkbox__label:before {
   content: '';
   width: 20px;
   height: 20px;
@@ -83,7 +85,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50%;
-  min-height: 32px;
+  width: 100%;
+  min-height: 40px;
+}
+
+.checkbox--swatch:focus .checkbox__label,
+.checkbox--swatch:hover .checkbox__label {
+  box-shadow: inset 0 0 0 2px #285bc7;
+}
+
+.checkbox--box {
+  position: relative;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.checkbox--box:before {
+  content: '';
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px #222;
+}
+
+.checkbox--box .checkbox__label {
+  display: flex;
+  justify-content: center;
 }
 </style>

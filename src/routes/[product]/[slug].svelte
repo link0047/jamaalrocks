@@ -30,10 +30,12 @@
     "3x": 7
   };
 
-  
   let sidebarOpen = false;
-
   let isMobile = false;
+
+  function isEmpty(str) {
+    return (!str || str.length === 0 );
+  }
 
   function sortSize(a,b) {
     return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
@@ -134,10 +136,10 @@
     <Collapsible>
       <svelte:fragment slot="heading">Color</svelte:fragment>
       <svelte:fragment slot="content">
-        <List scrollable>
+        <List scrollable grid={2}>
           {#each [...colors] as color}
             <ListItem>
-              <Checkbox>
+              <Checkbox variant="box">
                 { color }
               </Checkbox>
             </ListItem>
@@ -231,7 +233,11 @@
     <section class="grid grid--products">
     {#each data.products as product, i}
       <div class="card product-card">
+        
         <picture class="card__media">
+          {#if !isEmpty(product.badge)}
+          <Chip size="small" rounded>{product.badge}</Chip>
+          {/if}
           <source media="(max-width: 560px)" srcset={product.imageUrl}/>
           <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.imageUrl} alt={product.name} decoding="async" loading="lazy" />
         </picture>
@@ -465,6 +471,9 @@
 }
 
 .card__media {
+  position: relative;
+  display: block;
+  height: auto;
   background-color: #f2f2f2;
   border-radius: 4px;
   animation: loading 1s 5;
@@ -485,6 +494,14 @@
 .product-card {
   cursor: pointer;
   overflow: initial;
+}
+
+:global(.product-card .chip) {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #2a508f;
+  color: #fff;
 }
 
 .product-card::after {
