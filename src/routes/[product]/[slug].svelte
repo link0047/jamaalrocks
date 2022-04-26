@@ -84,10 +84,12 @@
   <div class="sidebar" aria-hidden={!sidebarOpen}>
     {#if isMobile}
       <header class="sidebar__header">
-        <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-          <path d="M6 13h12v-2H6M3 6v2h18V6M10 18h4v-2h-4v2Z"/>
-        </svg>
-        Sort & Filter
+        <div class="sidebar__header-title">
+          <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+            <path d="M6 13h12v-2H6M3 6v2h18V6M10 18h4v-2h-4v2Z"/>
+          </svg>
+          Sort & Filter
+        </div>
         <Button variant="icon" on:click={handleFilterClick}>
           <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
             <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
@@ -136,7 +138,7 @@
     <Collapsible>
       <svelte:fragment slot="heading">Color</svelte:fragment>
       <svelte:fragment slot="content">
-        <List scrollable grid={2}>
+        <List scrollable grid={4}>
           {#each [...colors] as color}
             <ListItem>
               <Checkbox variant="box">
@@ -382,6 +384,11 @@
     top: 0;
     left: 0;
     z-index: 99;
+  }
+
+  .sidebar__header-title {
+    display: flex;
+    align-items: center;
   }
 }
 

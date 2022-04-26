@@ -14,7 +14,7 @@
   class:checkbox--box={ variant == 'box' }
   class:checkbox--swatch={ variant == 'swatch' }
   class:checkbox--card={ variant == 'card' }
-  style={ variant == 'swatch' ?  : undefined }
+  style={ variant == 'swatch' ? '' : undefined }
 >
   <input class="checkbox__native-control" id="{id}" name="{name}" type="checkbox" value="{value}" aria-labelledby="{labelId}" required={required || undefined} {checked}>
   <label id={labelId} class="checkbox__label" for="{id}">
