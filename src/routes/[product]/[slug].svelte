@@ -6,7 +6,7 @@
   import { Chips, Chip } from '$lib/chips';
   import { Collapsible } from '$lib/collapsible';
   import { List, ListItem } from '$lib/list';
-  import { Button } from '$lib/button';
+  import { Button, Fab } from '$lib/button';
   import Checkbox from '$lib/checkbox';
   import Slider from '$lib/slider';
   import Radio from '$lib/radio/radio.svelte';
@@ -239,7 +239,12 @@
     </section> -->
     <section class="grid grid--products">
     {#each data.products as product, i}
-      <div class="card product-card">    
+      <div class="card product-card">
+        <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
+          <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+            <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
+          </svg>
+        </Fab>  
         <picture class="card__media">
           {#if !isEmpty(product.badge)}
           <Chip size="small" rounded>{product.badge}</Chip>
@@ -360,6 +365,16 @@
   padding: 8px;
 }
 
+
+
+.sidebar {
+  grid-area: sidebar;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
 @media (max-width: 560px) {
   .page--plp {
     grid-template-columns: none;
@@ -408,14 +423,6 @@
     display: flex;
     align-items: center;
   }
-}
-
-.sidebar {
-  grid-area: sidebar;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: auto;
 }
 
 .content {
@@ -513,6 +520,7 @@
   height: auto;
   background-color: #f2f2f2;
   border-radius: 4px;
+  overflow: hidden;
   animation: loading 1s 5;
 }
 
@@ -535,8 +543,11 @@
 
 :global(.product-card .chip) {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  bottom: 0;
+  left: 0;
+  border-top-left-radius: 0!important;
+  border-bottom-left-radius: 4px!important;
+  border-bottom-right-radius: 0!important;
   background-color: #2a508f;
   color: #fff;
 }

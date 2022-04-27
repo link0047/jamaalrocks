@@ -37,6 +37,7 @@
   .pagination__item[aria-current="page"],
   .pagination__item:focus {
     box-shadow: inset 0 0 0 2px #2451b2;
+    color: #15306a;
   }
 
   .pagination__item:not([disabled]):hover {

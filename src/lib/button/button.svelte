@@ -7,10 +7,10 @@
 </script>
 <button 
   class="btn"
-  class:btn--primary={ variant === 'primary' }
-  class:btn--outlined={ variant === 'outlined' }
-  class:btn--icon={ variant === 'icon' }
-  class:btn--rounded={ variant === 'rounded' }
+  class:btn--primary={ variant == 'primary' }
+  class:btn--outlined={ variant == 'outlined' }
+  class:btn--icon={ variant == 'icon' }
+  class:btn--rounded={ variant == 'rounded' }
   class:btn--raised={ raised }
   type="{type}"
   disabled={disabled}
@@ -64,7 +64,9 @@
 .btn--rounded {
   box-shadow: inset 0 0 0 2px #000;
   border-radius: 18px;
+  padding: 0;
 }
+
 
 .btn--raised {
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);

@@ -62,14 +62,18 @@
     -webkit-appearance: none;
     appearance: none;
     cursor: pointer;
-    transition: box-shadow .25s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: box-shadow .15s cubic-bezier(.22,.61,.36,1), background-color .35s cubic-bezier(.22,.61,.36,1);
     box-shadow: inset 0 0 0 1px #ccc;
   }
 
   .pagination__control:hover,
   .pagination__control:focus {
-    transition: box-shadow .25s ease-in-out;
     box-shadow: inset 0 0 0 2px #2451b2;
-    /* border-color: #2451b2; */
+    background-color: #E9EDF7;
+  }
+
+  .pagination__control:hover :global(.icon) {
+    fill: #15306a;
+    transition: fill .25s cubic-bezier(.22,.61,.36,1);
   }
 </style>
