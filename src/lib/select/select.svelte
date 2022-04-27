@@ -48,7 +48,7 @@
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  margin: 0 0 8px;
+  margin: 0;
 }
 
 .select__label {

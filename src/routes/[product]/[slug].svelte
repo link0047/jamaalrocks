@@ -10,6 +10,7 @@
   import Checkbox from '$lib/checkbox';
   import Slider from '$lib/slider';
   import Radio from '$lib/radio/radio.svelte';
+  import { Pagination, PaginationItem } from '$lib/pagination';
 
   export let slug;
   export let data;
@@ -32,6 +33,10 @@
 
   let sidebarOpen = false;
   let isMobile = false;
+
+  function noop(event) {
+    event.preventDefault();
+  }
 
   function isEmpty(str) {
     return (!str || str.length === 0 );
@@ -124,10 +129,10 @@
     <Collapsible>
       <svelte:fragment slot="heading">Size</svelte:fragment>
       <svelte:fragment slot="content">
-        <List scrollable grid={2}>
+        <List scrollable grid={2} gap={16}>
           {#each sortedSizes as size}
             <ListItem>
-              <Checkbox variant="swatch">
+              <Checkbox variant="box">
                 { size }
               </Checkbox>
             </ListItem>
@@ -138,10 +143,10 @@
     <Collapsible>
       <svelte:fragment slot="heading">Color</svelte:fragment>
       <svelte:fragment slot="content">
-        <List scrollable grid={4}>
+        <List grid={4}>
           {#each [...colors] as color}
             <ListItem>
-              <Checkbox variant="box">
+              <Checkbox color={color} variant="swatch">
                 { color }
               </Checkbox>
             </ListItem>
@@ -234,8 +239,7 @@
     </section> -->
     <section class="grid grid--products">
     {#each data.products as product, i}
-      <div class="card product-card">
-        
+      <div class="card product-card">    
         <picture class="card__media">
           {#if !isEmpty(product.badge)}
           <Chip size="small" rounded>{product.badge}</Chip>
@@ -272,6 +276,20 @@
       </div>
     {/each}
     </section>
+    <div class="browse-footer">
+      <Pagination>
+        <PaginationItem on:click={noop} href={'/1'} current>1</PaginationItem>
+        <PaginationItem on:click={noop} href={'/2'}>2</PaginationItem>
+        <PaginationItem on:click={noop} href={'/3'}>3</PaginationItem>
+        <PaginationItem on:click={noop} href={'/4'}>4</PaginationItem>
+        <PaginationItem on:click={noop} href={'/5'}>5</PaginationItem>
+        <PaginationItem on:click={noop} href={'/6'}>6</PaginationItem>
+      </Pagination>
+      <Select labelText="Items Per Page" floatLabel>
+        <SelectOption>24</SelectOption>
+        <SelectOption>48</SelectOption>
+      </Select>
+    </div>
   </main>
 </div>
 <style>
@@ -394,6 +412,10 @@
 
 .sidebar {
   grid-area: sidebar;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
 }
 
 .content {
@@ -422,9 +444,17 @@
   height: 20px;
 }
 
+.browse-footer {
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  column-gap: 64px;
+  align-items: center;
+  margin-top: 56px;
+}
+
 .browse-header {
   display: grid;
-  grid-template-columns: 1fr minmax(120px, auto);
+  grid-template-columns: 1fr 120px;
   grid-template-rows: 1fr 24px;
   grid-template-areas:
     "heading sort"

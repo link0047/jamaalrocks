@@ -424,7 +424,7 @@ export const get = async (req) => {
           {
             id: "477261",
             inventory_level: 2147483647,
-            color: "NATURAL",
+            color: "Tan",
             sku: "03691565",
             url: "/services/variant/477261",
             size: "Medium",
@@ -432,7 +432,7 @@ export const get = async (req) => {
           {
             id: "477262",
             inventory_level: 2147483647,
-            color: "NATURAL",
+            color: "Tan",
             sku: "03691557",
             url: "/services/variant/477262",
             size: "Small",
@@ -440,7 +440,7 @@ export const get = async (req) => {
           {
             id: "477263",
             inventory_level: 2147483647,
-            color: "NATURAL",
+            color: "Tan",
             sku: "03691573",
             url: "/services/variant/477263",
             size: "Large",
@@ -448,7 +448,7 @@ export const get = async (req) => {
           {
             id: "477264",
             inventory_level: 2147483647,
-            color: "NATURAL",
+            color: "Tan",
             sku: "03691581",
             url: "/services/variant/477264",
             size: "XL",
@@ -456,7 +456,7 @@ export const get = async (req) => {
           {
             id: "478426",
             inventory_level: 2147483647,
-            color: "NATURAL",
+            color: "Tan",
             sku: "07600422",
             url: "/services/variant/478426",
             size: "2X",
@@ -464,7 +464,7 @@ export const get = async (req) => {
           {
             id: "478427",
             inventory_level: 2147483647,
-            color: "NATURAL",
+            color: "Tan",
             sku: "07600430",
             url: "/services/variant/478427",
             size: "3X",

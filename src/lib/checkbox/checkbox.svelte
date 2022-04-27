@@ -7,6 +7,9 @@
   export let size = undefined;
   export let variant = undefined;
   export let checked = false;
+  export let color = 'transparent';
+  
+  let iconColor = (color.toLowerCase() == 'white') ? `--icon-fill:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='black'%3e%3cpath d='M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z'/%3e%3c/svg%3e")` : '';
 </script>
 <div 
   class="checkbox"
@@ -14,7 +17,7 @@
   class:checkbox--box={ variant == 'box' }
   class:checkbox--swatch={ variant == 'swatch' }
   class:checkbox--card={ variant == 'card' }
-  style={ variant == 'swatch' ? '' : undefined }
+  style={ variant == 'swatch' ? `--swatch-color: ${color};${iconColor}` : undefined }
 >
   <input class="checkbox__native-control" id="{id}" name="{name}" type="checkbox" value="{value}" aria-labelledby="{labelId}" required={required || undefined} {checked}>
   <label id={labelId} class="checkbox__label" for="{id}">
@@ -22,6 +25,9 @@
   </label>
 </div>
 <style>
+:root {
+  --icon-fill: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='white'%3e%3cpath d='M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z'/%3e%3c/svg%3e");
+}
 .checkbox {
   display: inline-flex;
   align-items: center;
@@ -43,10 +49,10 @@
   opacity: 0;
 }
 
-.checkbox__native-control:checked + .checkbox__label:before {
+:not(.checkbox--box):not(.checkbox--swatch) .checkbox__native-control:checked + .checkbox__label:before {
   background-color: #4877da;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='white'%3e%3cpath d='M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z'/%3e%3c/svg%3e");
-  box-shadow: inset 0 0 0 2px #285bc7;
+  background-image: var(--icon-fill);
+  box-shadow: inset 0 0 0 2px #000;
 }
 
 .checkbox__native-control:focus + .checkbox__label:before,
@@ -73,45 +79,63 @@
   background-position: center;
 }
 
-:not(.checkbox--swatch) .checkbox--sizeSmall .checkbox__label:before {
+:not(.checkbox--swatch):not(.checkbox--box) .checkbox--sizeSmall .checkbox__label:before {
   width: 16px;
   height: 16px;
   background-size: 12px;
 }
 
-.checkbox--swatch .checkbox__label {
-  box-shadow: inset 0 0 0 2px #222;
+.checkbox--box .checkbox__label {
+  box-shadow: inset 0 0 0 2px #ccc;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
   min-height: 40px;
+  transition: box-shadow .3s ease;
 }
 
-.checkbox--swatch:focus .checkbox__label,
-.checkbox--swatch:hover .checkbox__label {
-  box-shadow: inset 0 0 0 2px #285bc7;
+.checkbox--box:focus .checkbox__label,
+.checkbox--box:hover .checkbox__label {
+  box-shadow: inset 0 0 0 2px #000;
 }
 
-.checkbox--box {
-  position: relative;
+.checkbox--box .checkbox__native-control:checked + .checkbox__label {
+  background-color: #000;
+  color: #fff;
+  box-shadow: none;
+}
+
+.checkbox--swatch {
   display: grid;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
 }
 
-.checkbox--box:before {
+.checkbox--swatch .checkbox__label:before {
+  background-color: var(--swatch-color);
   content: '';
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 2px #222;
+  box-shadow: 0 0 0 1px #ccc;
+  margin-top: 1px;
 }
 
-.checkbox--box .checkbox__label {
+.checkbox--swatch .checkbox__native-control:checked + .checkbox__label:before {
+  background-image: var(--icon-fill);
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: inset 0 0 0 2px #000;
+}
+
+.checkbox--swatch .checkbox__label {
   display: flex;
+  flex-flow: column;
+  letter-spacing: 0.04em;
+  gap: 8px;
+  align-items: center;
   justify-content: center;
 }
 </style>

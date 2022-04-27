@@ -3,6 +3,11 @@
   export let size = undefined;
   export let scrollable = false;
   export let grid = undefined;
+  export let gap = undefined;
+
+  let gridCol = Number.isInteger(grid) ? `--col:${grid};` : '';
+  let gridGap = Number.isInteger(gap) ? `--gap:${gap}px;` : '';
+  let style = `${gridCol}${gridGap}`;
 </script>
 <ol 
   class="list" {...$$restProps}
@@ -12,13 +17,14 @@
   class:list--scrollable={ scrollable }
   class:list--grid={ Number.isInteger(grid) }
   {...$$restProps}
-  style={Number.isInteger(grid) ? `--col:${grid}` : null }
+  style={ style.length ? style : undefined }
 >
   <slot />
 </ol>
 <style>
 :root{
   --col: 2;
+  --gap: 8px;
 }
 .list {
   margin: 0;
@@ -32,7 +38,8 @@
 
 .list--grid {
   grid-template-columns: repeat(var(--col), 1fr);
-  gap: 8px;
+  gap: var(--gap);
+  row-gap: 8px;
 }
 
 .list--indented {
