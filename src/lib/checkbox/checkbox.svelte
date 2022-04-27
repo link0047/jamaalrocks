@@ -18,8 +18,11 @@
   class:checkbox--swatch={ variant == 'swatch' }
   class:checkbox--card={ variant == 'card' }
   style={ variant == 'swatch' ? `--swatch-color: ${color};${iconColor}` : undefined }
+  on:blur
+  on:focus
+  on:change
 >
-  <input class="checkbox__native-control" id="{id}" name="{name}" type="checkbox" value="{value}" aria-labelledby="{labelId}" required={required || undefined} {checked}>
+  <input class="checkbox__native-control" {id} {name} type="checkbox" {value} aria-labelledby={labelId} required={required || undefined} {checked}>
   <label id={labelId} class="checkbox__label" for="{id}">
     <slot />
   </label>

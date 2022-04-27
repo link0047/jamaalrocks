@@ -1,6 +1,18 @@
-
+<script context="module">
+  import _data from './products.json';
+  export async function load({ params, session }) {
+    return {
+      props: {
+        params,
+        session,
+        data: _data
+      }
+    }
+  }
+</script>
 <script>
-  import { onMount } from 'svelte';
+  import UAParser from "ua-parser-js";
+  import { onMount, afterUpdate } from 'svelte';
   import { Breadcrumb, Crumb } from '$lib/breadcrumbs';
   import { Select, SelectOption } from '$lib/select';
   import { Chips, Chip } from '$lib/chips';
@@ -12,10 +24,76 @@
   import Radio from '$lib/radio/radio.svelte';
   import { Pagination, PaginationItem } from '$lib/pagination';
 
-  export let slug;
+  export let params;
   export let data;
-
-  const title = slug.replace('-',' ');
+  let subCategories = [
+      {
+        name: "Top Sellers",
+        href: "https://www.spencersonline.com/category/tees/top-sellers/pc/3369/4911.uts",
+      },
+      {
+        name: "View All T Shirts",
+        href: "https://www.spencersonline.com/category/tees/view-all-t-shirts/pc/3369/4632.uts",
+      },
+      {
+        name: "Steven Rhodes T Shirts",
+        href: "https://www.spencersonline.com/category/tees/steven-rhodes-t-shirts/pc/3369/5147.uts",
+      },
+      {
+        name: "Plus Size T Shirts",
+        href: "https://www.spencersonline.com/category/tees/plus-size-t-shirts/pc/3369/4631.uts",
+      },
+      {
+        name: "Statement T Shirts",
+        href: "https://www.spencersonline.com/category/tees/statement-t-shirts/pc/3369/5043.uts",
+      },
+      {
+        name: "Music & Band T Shirts",
+        href: "https://www.spencersonline.com/category/tees/music-band-t-shirts-merch/pc/3369/3382.uts",
+      },
+      {
+        name: "Movie T Shirts",
+        href: "https://www.spencersonline.com/category/tees/movie-t-shirts/pc/3369/3399.uts",
+      },
+      {
+        name: "TV T Shirts",
+        href: "https://www.spencersonline.com/category/tees/tv-t-shirts/pc/3369/3400.uts",
+      },
+      {
+        name: "Horror T Shirts",
+        href: "https://www.spencersonline.com/category/tees/horror-t-shirts/pc/3369/5145.uts",
+      },
+      {
+        name: "Hentai T Shirts",
+        href: "https://www.spencersonline.com/category/tees/hentai-t-shirts-merch/pc/3369/5469.uts",
+      },
+      {
+        name: "Anime T Shirts",
+        href: "https://www.spencersonline.com/category/tees/anime-t-shirts/pc/3369/3395.uts",
+      },
+      {
+        name: "Funny T Shirts",
+        href: "https://www.spencersonline.com/category/tees/funny-t-shirts/pc/3369/3383.uts",
+      },
+      {
+        name: "Tie Dye T Shirts",
+        href: "https://www.spencersonline.com/category/tees/tie-dye-t-shirts/pc/3369/4248.uts",
+      },
+      {
+        name: "Button Down Shirts",
+        href: "https://www.spencersonline.com/category/tees/button-down-shirts/pc/3369/5042.uts",
+      },
+      {
+        name: "Holiday T Shirts",
+        href: "https://www.spencersonline.com/category/tees/holiday-t-shirts/pc/3369/3397.uts",
+      },
+      {
+        name: "Clearance T Shirts",
+        href: "https://www.spencersonline.com/category/tees/clearance-t-shirts/pc/3369/3398.uts",
+      },
+    ]
+  const uaParser = new UAParser();
+  const title = params.slug.replace('-',' ');
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const sizes = new Set();
   const colors = new Set();
@@ -31,9 +109,10 @@
     "3x": 7
   };
 
-  let sidebarOpen = false;
-  let isMobile = false;
+  const filters = new Set();
 
+  let sidebarOpen = false;
+  let isMobile = uaParser.getDevice().type == 'mobile';
   function noop(event) {
     event.preventDefault();
   }
@@ -56,30 +135,69 @@
     }
   }
 
-  for (const product of data.products) {
+  for (const product of data[0].page) {
     for (let variant of product.variants) {  
       sizes.add(variant.size);
       colors.add(variant.color);
     } 
   }
+  
+  let pageIdx = 0;
+  function next() {
+    if (pageIdx >= data.length - 1) return;
+    pageIdx += 1;
+  }
+
+  function prev() {
+    if (pageIdx <= 0) {
+      pageIdx = 0;
+      return;
+    } 
+    pageIdx -= 1;
+  }
 
   const sortedSizes = [...sizes].sort(sortSize);
+  
+  function handleSizeChange (event) {
+    const target = event.target;
+    if (target.checked) {
+      filters.add(target.value);
+    } else {
+      filters.delete(target.value);
+    }
+    if (filters.size) {
+      products = { page: sortProducts() };
+    } else {
+      products = data[pageIdx];
+    }
+  }
+
+  function sortProducts() {
+    const arr = [];
+    for (let page of data) {
+      for (let product of page.page) {
+        if (!product.variants) continue; 
+        for (let variant of product.variants) {
+          if (filters.has(variant.size)) {
+            arr.push(product);
+            break;  
+          }
+        }  
+      }  
+    }
+    return arr;  
+  }
+
+  afterUpdate(()=> {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => img.src = img.dataset.src);
+  });
 
   onMount(async () => {
-    isMobile = window.matchMedia('(max-width: 600px)').matches;
-    if ('loading' in HTMLImageElement.prototype) {
-      const images = document.querySelectorAll('img[loading="lazy"]');
-      images.forEach(img => img.src = img.dataset.src);
-    } else {
-      // Dynamically import the LazySizes library
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-      script.setAttribute('integrity','sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==');
-      script.setAttribute('crossorigin','anonymous');
-      script.setAttribute('referrerpolicy','no-referrer');
-      document.body.appendChild(script);
-    }
+    window.__data = data;
   });
+
+  $: products = data[pageIdx];
 </script>
 <div class=" page page--plp">
   <Breadcrumb>
@@ -106,7 +224,7 @@
       <svelte:fragment slot="heading">Category</svelte:fragment>
       <svelte:fragment slot="content">
         <List scrollable>
-          {#each data.subCategories as category}
+          {#each subCategories as category}
             <ListItem>
               <a class="link" href={category.href}>{category.name}</a>
             </ListItem>
@@ -132,7 +250,7 @@
         <List scrollable grid={2} gap={16}>
           {#each sortedSizes as size}
             <ListItem>
-              <Checkbox variant="box">
+              <Checkbox value={size} variant="box" on:change={handleSizeChange}>
                 { size }
               </Checkbox>
             </ListItem>
@@ -146,7 +264,7 @@
         <List grid={4}>
           {#each [...colors] as color}
             <ListItem>
-              <Checkbox color={color} variant="swatch">
+              <Checkbox value={color} color={color} variant="swatch">
                 { color }
               </Checkbox>
             </ListItem>
@@ -238,7 +356,7 @@
       </Chips>
     </section> -->
     <section class="grid grid--products">
-    {#each data.products as product, i}
+    {#each products.page as product, i}
       <div class="card product-card">
         <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
           <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -249,11 +367,18 @@
           {#if !isEmpty(product.badge)}
           <Chip size="small" rounded>{product.badge}</Chip>
           {/if}
-          <source media="(max-width: 560px)" srcset={product.imageUrl}/>
-          <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.imageUrl} alt={product.name} decoding="async" loading="lazy" />
+          <source media="(max-width: 560px)" srcset={product.image}/>
+          <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
         </picture>
-        <div class="product-card__name">{product.name}</div>
-        <div class="product-card__price">{product.price.base}</div>
+        <div class="product-card__name">
+          {product.name}
+        </div>
+        <div class="product-card__price">
+          ${product.price.base}
+          {#if product.price.sale}
+            <div class="strike-through">${product.price.sale}</div>
+          {/if}
+        </div>
         {#if +product.rating > 0} 
           <div class="product-card__rating">
             {#each rating as j}
