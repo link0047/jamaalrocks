@@ -4,6 +4,7 @@
   export let raised = false;
   export let disabled = false;
   export let size = undefined;
+  export let label = '';
  </script>
  <button 
  class="fab"
@@ -14,6 +15,7 @@
  class:fab--sizeSmall={ size == 'small' }
  type={type}
  disabled={disabled}
+ aria-label={label}
  {...$$restProps}
  
  on:click

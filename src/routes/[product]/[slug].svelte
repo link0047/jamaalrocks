@@ -1,17 +1,19 @@
 <script context="module">
   import _data from './products.json';
+  import parser from 'ua-parser-js';
   export async function load({ params, session }) {
+    const ua = parser(session.userAgent);
+    // separate products.json into multiple files
     return {
       props: {
         params,
-        session,
-        data: _data
+        data: _data,
+        isMobile: ua.device.type === 'mobile'
       }
     }
   }
 </script>
 <script>
-  import UAParser from "ua-parser-js";
   import { onMount, afterUpdate } from 'svelte';
   import { Breadcrumb, Crumb } from '$lib/breadcrumbs';
   import { Select, SelectOption } from '$lib/select';
@@ -22,77 +24,78 @@
   import Checkbox from '$lib/checkbox';
   import Slider from '$lib/slider';
   import Radio from '$lib/radio/radio.svelte';
-  import { Pagination, PaginationItem } from '$lib/pagination';
+  import { Pagination } from '$lib/pagination';
 
   export let params;
+  export let isMobile;
   export let data;
+
   let subCategories = [
-      {
-        name: "Top Sellers",
-        href: "https://www.spencersonline.com/category/tees/top-sellers/pc/3369/4911.uts",
-      },
-      {
-        name: "View All T Shirts",
-        href: "https://www.spencersonline.com/category/tees/view-all-t-shirts/pc/3369/4632.uts",
-      },
-      {
-        name: "Steven Rhodes T Shirts",
-        href: "https://www.spencersonline.com/category/tees/steven-rhodes-t-shirts/pc/3369/5147.uts",
-      },
-      {
-        name: "Plus Size T Shirts",
-        href: "https://www.spencersonline.com/category/tees/plus-size-t-shirts/pc/3369/4631.uts",
-      },
-      {
-        name: "Statement T Shirts",
-        href: "https://www.spencersonline.com/category/tees/statement-t-shirts/pc/3369/5043.uts",
-      },
-      {
-        name: "Music & Band T Shirts",
-        href: "https://www.spencersonline.com/category/tees/music-band-t-shirts-merch/pc/3369/3382.uts",
-      },
-      {
-        name: "Movie T Shirts",
-        href: "https://www.spencersonline.com/category/tees/movie-t-shirts/pc/3369/3399.uts",
-      },
-      {
-        name: "TV T Shirts",
-        href: "https://www.spencersonline.com/category/tees/tv-t-shirts/pc/3369/3400.uts",
-      },
-      {
-        name: "Horror T Shirts",
-        href: "https://www.spencersonline.com/category/tees/horror-t-shirts/pc/3369/5145.uts",
-      },
-      {
-        name: "Hentai T Shirts",
-        href: "https://www.spencersonline.com/category/tees/hentai-t-shirts-merch/pc/3369/5469.uts",
-      },
-      {
-        name: "Anime T Shirts",
-        href: "https://www.spencersonline.com/category/tees/anime-t-shirts/pc/3369/3395.uts",
-      },
-      {
-        name: "Funny T Shirts",
-        href: "https://www.spencersonline.com/category/tees/funny-t-shirts/pc/3369/3383.uts",
-      },
-      {
-        name: "Tie Dye T Shirts",
-        href: "https://www.spencersonline.com/category/tees/tie-dye-t-shirts/pc/3369/4248.uts",
-      },
-      {
-        name: "Button Down Shirts",
-        href: "https://www.spencersonline.com/category/tees/button-down-shirts/pc/3369/5042.uts",
-      },
-      {
-        name: "Holiday T Shirts",
-        href: "https://www.spencersonline.com/category/tees/holiday-t-shirts/pc/3369/3397.uts",
-      },
-      {
-        name: "Clearance T Shirts",
-        href: "https://www.spencersonline.com/category/tees/clearance-t-shirts/pc/3369/3398.uts",
-      },
-    ]
-  const uaParser = new UAParser();
+    {
+      name: "Top Sellers",
+      href: "https://www.spencersonline.com/category/tees/top-sellers/pc/3369/4911.uts",
+    },
+    {
+      name: "View All T Shirts",
+      href: "https://www.spencersonline.com/category/tees/view-all-t-shirts/pc/3369/4632.uts",
+    },
+    {
+      name: "Steven Rhodes T Shirts",
+      href: "https://www.spencersonline.com/category/tees/steven-rhodes-t-shirts/pc/3369/5147.uts",
+    },
+    {
+      name: "Plus Size T Shirts",
+      href: "https://www.spencersonline.com/category/tees/plus-size-t-shirts/pc/3369/4631.uts",
+    },
+    {
+      name: "Statement T Shirts",
+      href: "https://www.spencersonline.com/category/tees/statement-t-shirts/pc/3369/5043.uts",
+    },
+    {
+      name: "Music & Band T Shirts",
+      href: "https://www.spencersonline.com/category/tees/music-band-t-shirts-merch/pc/3369/3382.uts",
+    },
+    {
+      name: "Movie T Shirts",
+      href: "https://www.spencersonline.com/category/tees/movie-t-shirts/pc/3369/3399.uts",
+    },
+    {
+      name: "TV T Shirts",
+      href: "https://www.spencersonline.com/category/tees/tv-t-shirts/pc/3369/3400.uts",
+    },
+    {
+      name: "Horror T Shirts",
+      href: "https://www.spencersonline.com/category/tees/horror-t-shirts/pc/3369/5145.uts",
+    },
+    {
+      name: "Hentai T Shirts",
+      href: "https://www.spencersonline.com/category/tees/hentai-t-shirts-merch/pc/3369/5469.uts",
+    },
+    {
+      name: "Anime T Shirts",
+      href: "https://www.spencersonline.com/category/tees/anime-t-shirts/pc/3369/3395.uts",
+    },
+    {
+      name: "Funny T Shirts",
+      href: "https://www.spencersonline.com/category/tees/funny-t-shirts/pc/3369/3383.uts",
+    },
+    {
+      name: "Tie Dye T Shirts",
+      href: "https://www.spencersonline.com/category/tees/tie-dye-t-shirts/pc/3369/4248.uts",
+    },
+    {
+      name: "Button Down Shirts",
+      href: "https://www.spencersonline.com/category/tees/button-down-shirts/pc/3369/5042.uts",
+    },
+    {
+      name: "Holiday T Shirts",
+      href: "https://www.spencersonline.com/category/tees/holiday-t-shirts/pc/3369/3397.uts",
+    },
+    {
+      name: "Clearance T Shirts",
+      href: "https://www.spencersonline.com/category/tees/clearance-t-shirts/pc/3369/3398.uts",
+    },
+  ];
   const title = params.slug.replace('-',' ');
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const sizes = new Set();
@@ -110,12 +113,7 @@
   };
 
   const filters = new Set();
-
   let sidebarOpen = false;
-  let isMobile = uaParser.getDevice().type == 'mobile';
-  function noop(event) {
-    event.preventDefault();
-  }
 
   function isEmpty(str) {
     return (!str || str.length === 0 );
@@ -142,28 +140,35 @@
     } 
   }
   
-  let pageIdx = 0;
-  function next() {
-    if (pageIdx >= data.length - 1) return;
-    pageIdx += 1;
-  }
-
-  function prev() {
-    if (pageIdx <= 0) {
-      pageIdx = 0;
-      return;
-    } 
-    pageIdx -= 1;
-  }
+  let pageIdx = 6;
+  let filterCount = { color: 0, size: 0 };
 
   const sortedSizes = [...sizes].sort(sortSize);
   
-  function handleSizeChange (event) {
+  function handleSizeChange(event) {
     const target = event.target;
     if (target.checked) {
       filters.add(target.value);
+      filterCount.size += 1;
     } else {
       filters.delete(target.value);
+      filterCount.size -= 1;
+    }
+    if (filters.size) {
+      products = { page: sortProducts() };
+    } else {
+      products = data[pageIdx];
+    }
+  }
+
+  function handleColorChange(event) {
+    const target = event.target;
+    if (target.checked) {
+      filters.add(target.value);
+      filterCount.color += 1;
+    } else {
+      filters.delete(target.value);
+      filterCount.color -= 1;
     }
     if (filters.size) {
       products = { page: sortProducts() };
@@ -178,19 +183,23 @@
       for (let product of page.page) {
         if (!product.variants) continue; 
         for (let variant of product.variants) {
-          if (filters.has(variant.size)) {
+          if (filterCount.size > 0 && filters.has(variant.size)) {
+            
             arr.push(product);
             break;  
           }
         }  
       }  
     }
-    return arr;  
+    return arr.slice(0, 24);  
   }
 
   afterUpdate(()=> {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => img.src = img.dataset.src);
+    const images = Array.from(document.querySelectorAll('img[loading="lazy"]'));
+    images.forEach(img => { 
+      img.src = transparentPixel;
+      requestAnimationFrame(() => img.src = img.dataset.src);
+    });
   });
 
   onMount(async () => {
@@ -199,12 +208,15 @@
 
   $: products = data[pageIdx];
 </script>
+<svelte:head>
+  <title>{title}</title>
+</svelte:head>
 <div class=" page page--plp">
   <Breadcrumb>
     <Crumb>Home</Crumb>
     <Crumb current>{ title }</Crumb>
   </Breadcrumb>
-  <div class="sidebar" aria-hidden={!sidebarOpen}>
+  <div class="sidebar" class:sidebar--open={sidebarOpen} aria-hidden={isMobile ? !sidebarOpen : undefined}>
     {#if isMobile}
       <header class="sidebar__header">
         <div class="sidebar__header-title">
@@ -245,7 +257,7 @@
       </Collapsible>
     {/if}
     <Collapsible>
-      <svelte:fragment slot="heading">Size</svelte:fragment>
+      <svelte:fragment slot="heading">Size{ filterCount.size > 0 ? ` (${filterCount.size})` : '' }</svelte:fragment>
       <svelte:fragment slot="content">
         <List scrollable grid={2} gap={16}>
           {#each sortedSizes as size}
@@ -259,12 +271,12 @@
       </svelte:fragment>
     </Collapsible>
     <Collapsible>
-      <svelte:fragment slot="heading">Color</svelte:fragment>
+      <svelte:fragment slot="heading">Color{ filterCount.color > 0 ? ` (${filterCount.color})` : '' }</svelte:fragment>
       <svelte:fragment slot="content">
         <List grid={4}>
           {#each [...colors] as color}
             <ListItem>
-              <Checkbox value={color} color={color} variant="swatch">
+              <Checkbox value={color} color={color} variant="swatch" on:change={handleColorChange}>
                 { color }
               </Checkbox>
             </ListItem>
@@ -356,65 +368,64 @@
       </Chips>
     </section> -->
     <section class="grid grid--products">
-    {#each products.page as product, i}
-      <div class="card product-card">
-        <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
-          <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-            <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
-          </svg>
-        </Fab>  
-        <picture class="card__media">
-          {#if !isEmpty(product.badge)}
-          <Chip size="small" rounded>{product.badge}</Chip>
-          {/if}
-          <source media="(max-width: 560px)" srcset={product.image}/>
-          <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
-        </picture>
-        <div class="product-card__name">
-          {product.name}
-        </div>
-        <div class="product-card__price">
-          ${product.price.base}
-          {#if product.price.sale}
-            <div class="strike-through">${product.price.sale}</div>
-          {/if}
-        </div>
-        {#if +product.rating > 0} 
-          <div class="product-card__rating">
-            {#each rating as j}
+      {#each products.page as product, i}
+        <div class="card product-card">
+          <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
+            <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+              <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
+            </svg>
+          </Fab>
+          <picture class="card__media">
+            {#if !isEmpty(product.badge)}
+            <Chip size="small" rounded>{product.badge}</Chip>
+            {/if}
+            <source media="(max-width: 560px)" srcset={product.image}/>
+            <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
+          </picture>
+          <div class="product-card__name">
+            {product.name}
+            <Button variant="icon" size="small">
               <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-                {#if +product.rating >= j}
-                  <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
-                {:else}
-                  {#if !Number.isInteger(+product.rating) && (+product.rating + 1) > j}
-                    <defs>
-                      <linearGradient id={`grad-${i}-${j}`}>
-                        <stop offset={`${product.rating.split('.')[1]}0%`} stop-color="#000"></stop>
-                        <stop offset={`${(10 - +product.rating.split('.')[1])}0%`} stop-color="#fff"></stop>
-                      </linearGradient>
-                    </defs>
-                    <path fill={`url(#grad-${i}-${j})`} d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
-                    <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
-                  {:else}
-                    <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
-                  {/if}
-                {/if}
+                <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
               </svg>
-            {/each} 
+            </Button>  
           </div>
-        {/if}
-      </div>
-    {/each}
+          <div class="product-card__price">
+            {`$${product.price.base}`}
+            {#if product.price.sale}
+              <div class="product-card__price-sale">$<span class="strike-through">{`${product.price.sale}`}</span></div>
+            {/if}
+          </div>
+          {#if +product.rating > 0} 
+            <div class="product-card__rating">
+              {#each rating as j}
+                <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+                  {#if +product.rating >= j}
+                    <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
+                  {:else}
+                    {#if !Number.isInteger(+product.rating) && (+product.rating + 1) > j}
+                      <defs>
+                        <linearGradient id={`grad-${i}-${j}`}>
+                          <stop offset={`${product.rating.split('.')[1]}0%`} stop-color="#000"></stop>
+                          <stop offset={`${product.rating.split('.')[1]}0%`} stop-color="#fff"></stop>
+                          <stop offset={`${(10 - +product.rating.split('.')[1])}0%`} stop-color="#fff"></stop>
+                        </linearGradient>
+                      </defs>
+                      <path fill={`url(#grad-${i}-${j})`} d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
+                      <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
+                    {:else}
+                      <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
+                    {/if}
+                  {/if}
+                </svg>
+              {/each} 
+            </div>
+          {/if}
+        </div>
+      {/each}
     </section>
     <div class="browse-footer">
-      <Pagination>
-        <PaginationItem on:click={noop} href={'/1'} current>1</PaginationItem>
-        <PaginationItem on:click={noop} href={'/2'}>2</PaginationItem>
-        <PaginationItem on:click={noop} href={'/3'}>3</PaginationItem>
-        <PaginationItem on:click={noop} href={'/4'}>4</PaginationItem>
-        <PaginationItem on:click={noop} href={'/5'}>5</PaginationItem>
-        <PaginationItem on:click={noop} href={'/6'}>6</PaginationItem>
-      </Pagination>
+      <Pagination count={data.length - 1} page={pageIdx + 1} handleChange={(pageIdx) => products = data[pageIdx - 1]} />
       <Select labelText="Items Per Page" floatLabel>
         <SelectOption>24</SelectOption>
         <SelectOption>48</SelectOption>
@@ -427,10 +438,12 @@
   display: flex;
   flex-flow: row nowrap;
 }
+
 .rating-stars .icon{
   width: 20px;
   height: 20px;
 }
+
 .link {
   text-decoration: none;
   -webkit-text-decoration-skip-ink: auto;
@@ -490,8 +503,6 @@
   padding: 8px;
 }
 
-
-
 .sidebar {
   grid-area: sidebar;
   position: sticky;
@@ -514,18 +525,21 @@
     position: fixed;
     height: 100vh;
     top: 0;
-    left: 0;
-    transform: translate3d(100%, 0, 0);
+    left: 100vw;
+    transform: translate3d(0, 0, 0);
     width: 100vw;
     z-index: 10;
-    transition: transform .3s ease-in-out;
     background-color: #fff;
     overflow: scroll;
     padding: 0;
+
+    will-change: transform;
+    transition: transform .3s ease-in-out;
   }
 
-  .sidebar[aria-hidden="false"] {
-    transform: translate3d(0, 0, 0);
+  .sidebar--open {
+    transform: translate3d(-100vw, 0, 0);
+    transition: transform .3s ease-in-out;
   }
 
   .sidebar__header {
@@ -700,6 +714,12 @@
   font-weight: 400;
   margin: 8px 0 0;
   line-height: 1;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+}
+
+.strike-through {
+  text-decoration: line-through;
 }
 
 .product-card__price {
@@ -707,6 +727,15 @@
   font-weight: 500;
   margin: 8px 0 0;
   line-height: 1;
+  display: grid;
+  grid-template-columns: min-content min-content;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.product-card__price-sale {
+  color: #4d4a4f;
+  font-size: 12px;
 }
 
 .product-card__rating {

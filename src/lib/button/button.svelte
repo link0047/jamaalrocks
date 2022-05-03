@@ -3,7 +3,7 @@
  export let variant = 'default';
  export let raised = false;
  export let disabled = false;
-//  export let size = '';
+ export let size = undefined;
 </script>
 <button 
   class="btn"
@@ -12,6 +12,8 @@
   class:btn--icon={ variant == 'icon' }
   class:btn--rounded={ variant == 'rounded' }
   class:btn--raised={ raised }
+  class:btn--sizeSmall={ size == 'small'}
+  class:btn--sizeLarge={ size == 'large'}
   type="{type}"
   disabled={disabled}
   {...$$restProps}
@@ -56,9 +58,13 @@
   gap: 4px;
 }
 
+.btn--sizeSmall {
+  height: 32px;
+}
+
 .btn--icon {
   padding: 0;
-  min-width: 24px;
+  min-width: 32px;
 }
 
 .btn--rounded {
