@@ -142,7 +142,8 @@
     ['SILVER','#C0C0C0'],
   ]);
   let results = 0;
-
+  let pageIdx = 6;
+  let filterCount = { color: 0, size: 0 };
   const filters = new Set();
   let sidebarOpen = false;
 
@@ -173,9 +174,6 @@
     }
     results += page.length;
   }
-  
-  let pageIdx = 6;
-  let filterCount = { color: 0, size: 0 };
 
   const sortedSizes = [...sizes].sort(sortSize);
   
@@ -190,10 +188,38 @@
     }
     if (filters.size) {
       const filtered = filteredProducts();
-      products = { page: filtered };
+      colors.clear();
+      for (const product of filtered) {
+        for (const variant of product.variants) {
+          colors.add(variant.color);
+        }
+      }
+      productColors = [...colors];
+      pageIdx = 0;
+      results = filtered.length;
+      const p = !filtered.length % 24 ? 0 : 1;
+      const n = Math.round(filtered.length / 24) + p;
+      products = Array.from(Array(n).keys(), i => {
+        const start = 24 * i;
+        const end = start + 24;  
+        return { page: filtered.slice(start, end) };  
+      });
     } else {
-      products = data[pageIdx];
+      results = 0;
+      sizes.clear();
+      colors.clear();
+      for (const { page } of data) {
+        for(let product of page) {
+          for (let variant of product.variants) {  
+            sizes.add(variant.size);
+            colors.add(variant.color);
+          }
+        }
+        results += page.length;
+      } 
+      products = data;
     }
+    count = products.length - 1;
   }
 
   function handleColorChange(event) {
@@ -206,11 +232,20 @@
       filterCount.color -= 1;
     }
     if (filters.size) {
+      pageIdx = 0;
       const filtered = filteredProducts();
-      products = { page: filtered };
+
+      const p = !filtered.length % 24 ? 0 : 1;
+      const n = Math.round(filtered.length / 24) + p;
+      products = Array.from(Array(n).keys(), i => {
+        const start = 24 * i;
+        const end = start + 24;  
+        return { page: filtered.slice(start, end) };  
+      });
     } else {
-      products = data[pageIdx];
+      products = data;
     }
+    count = products.length - 1;
   }
 
   function filteredProducts() {
@@ -247,7 +282,9 @@
     window.__data = data;
   });
 
-  $: products = data[pageIdx];
+  $: count = data.length - 1;
+  $: productColors = [...colors];
+  $: products = data;
 </script>
 <svelte:head>
   <title>{title}</title>
@@ -315,7 +352,7 @@
       <svelte:fragment slot="heading">Color{ filterCount.color > 0 ? ` (${filterCount.color})` : '' }</svelte:fragment>
       <svelte:fragment slot="content">
         <List grid={4}>
-          {#each [...colors] as color}
+          {#each productColors as color}
             <ListItem>
               <Checkbox value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
                 { color }
@@ -334,7 +371,7 @@
     <Collapsible>
       <svelte:fragment slot="heading">Rating</svelte:fragment>
       <svelte:fragment slot="content">
-        {#each ['5.0','4.0','3.0','2.0','1.0'] as rate, i}
+        {#each ['4.0','3.0','2.0','1.0'] as rate, i}
           <Radio name="rating">
             <div class="rating-stars">
               {#each rating as j}
@@ -358,6 +395,7 @@
                 </svg>
               {/each}
             </div>
+            &nbsp;& Up
           </Radio>
         {/each} 
       </svelte:fragment>
@@ -409,7 +447,7 @@
       </Chips>
     </section> -->
     <section class="grid grid--products">
-      {#each products.page as product, i}
+      {#each products[pageIdx].page as product, i}
         <div class="card product-card">
           <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -466,7 +504,7 @@
       {/each}
     </section>
     <div class="browse-footer">
-      <Pagination count={data.length - 1} page={pageIdx + 1} handleChange={(pageIdx) => products = data[pageIdx - 1]} />
+      <Pagination count={count} page={pageIdx + 1} handleChange={(pageIdx) => products = products[pageIdx - 1]} />
       <Select labelText="Items Per Page" floatLabel>
         <SelectOption value={24}>24</SelectOption>
         <SelectOption value={48}>48</SelectOption>
@@ -639,6 +677,13 @@
   margin-top: 56px;
 }
 
+@media (max-width: 768px) {
+  .browse-footer {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+}
+
 .browse-header {
   display: grid;
   grid-template-columns: 1fr 120px;
@@ -745,10 +790,11 @@
   transition: opacity .15s ease;
 }
 
-.product-card:hover::after {
-  opacity: 1;
+@media (min-width: 561px) {
+  .product-card:hover::after {
+    opacity: 1;
+  }
 }
-
 
 .product-card__name {
   font-size: 14px;

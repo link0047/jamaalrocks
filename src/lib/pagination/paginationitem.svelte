@@ -43,4 +43,11 @@
   .pagination__item:not([disabled]):hover {
     background-color: #f2f2f2;
   }
+
+  @media (max-width:560px) {
+    .pagination__item {
+      width: 32px;
+      height: 32px;
+    }
+  }
 </style>

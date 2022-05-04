@@ -108,4 +108,9 @@
 .radio__native-control:disabled ~ .radio__outer-circle:before {
   background-color: #afafaf;
 }
+
+.radio__content {
+  display: flex;
+  align-items: center;
+}
 </style>

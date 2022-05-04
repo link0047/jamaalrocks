@@ -76,4 +76,11 @@
     fill: #15306a;
     transition: fill .25s cubic-bezier(.22,.61,.36,1);
   }
+
+  @media (max-width:560px) {
+    .pagination__control {
+      height: 40px;
+      width: 40px;
+    }
+  }
 </style>

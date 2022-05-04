@@ -1,10 +1,12 @@
 <script>
+  import { afterUpdate } from 'svelte';  
   import Paginationitem from "./paginationitem.svelte";
   import Controls from "./controls.svelte";
   export let count = 1;
   export let displayCount = 7;
   export let page = 1;
   export let handleChange;
+  console.log('init', count);
 
   function handleClick(page) {
     handleInternalChange(page);  
@@ -53,6 +55,10 @@
     });
   }
 
+  afterUpdate(() => {
+    items = generateItems();
+  });
+
   const startEllipisBoundary = displayCount - 3;
   const endEllipisBoundary = count - 3;
   $: items = generateItems();
@@ -92,4 +98,16 @@
     grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
     grid-area: list;
   }
+
+  @media (max-width:560px) {
+    .pagination {
+      grid-template-columns: 40px 1fr 40px;
+      gap: 8px;
+    }
+
+    .pagination__list {
+      grid-template-columns: repeat(auto-fit, minmax(24px, 1fr));
+    }
+  }
+
 </style>
