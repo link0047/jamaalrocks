@@ -142,7 +142,7 @@
     ['SILVER','#C0C0C0'],
   ]);
   let results = 0;
-  let pageIdx = 6;
+  let pageIdx = 0;
   let filterCount = { color: 0, size: 0 };
   const filters = new Set();
   let sidebarOpen = false;
@@ -194,6 +194,21 @@
           colors.add(variant.color);
         }
       }
+
+      if (!filterCount.size) {
+        results = 0;
+        console.log('reset colors');
+        colors.clear();
+        for (const { page } of data) {
+          for(let product of page) {
+            for (let variant of product.variants) {  
+              colors.add(variant.color);
+            }
+          }
+          results += page.length;
+        }
+      }
+
       productColors = [...colors];
       pageIdx = 0;
       results = filtered.length;
@@ -217,24 +232,28 @@
         }
         results += page.length;
       } 
+      productColors = [...colors];
       products = data;
     }
-    count = products.length - 1;
+    const len = products.length;
+    count = len > 1 ? len - 1 : len;
   }
 
   function handleColorChange(event) {
     const target = event.target;
     if (target.checked) {
-      filters.add(target.value.toLowerCase());
+      filters.add(target.value);
       filterCount.color += 1;
     } else {
-      filters.delete(target.value.toLowerCase());
+      filters.delete(target.value);
       filterCount.color -= 1;
     }
-    if (filters.size) {
-      pageIdx = 0;
-      const filtered = filteredProducts();
 
+    if (filters.size) {
+      const filtered = filteredProducts();
+      pageIdx = 0;
+      results = filtered.length;
+      productColors = [...colors];
       const p = !filtered.length % 24 ? 0 : 1;
       const n = Math.round(filtered.length / 24) + p;
       products = Array.from(Array(n).keys(), i => {
@@ -243,9 +262,24 @@
         return { page: filtered.slice(start, end) };  
       });
     } else {
+      results = 0;
+      sizes.clear();
+      colors.clear();
+      for (const { page } of data) {
+        for(let product of page) {
+          for (let variant of product.variants) {  
+            sizes.add(variant.size);
+            colors.add(variant.color);
+          }
+        }
+        results += page.length;
+      }
+
+      productColors = [...colors]; 
       products = data;
     }
-    count = products.length - 1;
+    const len = products.length;
+    count = len > 1 ? len - 1 : len;
   }
 
   function filteredProducts() {
@@ -255,7 +289,7 @@
         if (!product.variants) continue; 
         for (let variant of product.variants) {
           const hasSize = filterCount.size > 0 && filters.has(variant.size);
-          const hasColor = filterCount.color > 0 && filters.has(variant.color.toLowerCase());
+          const hasColor = filterCount.color > 0 && filters.has(variant.color);
           if (hasSize && hasColor) {
             arr.push(product);
             break;
@@ -281,7 +315,7 @@
   onMount(async () => {
     window.__data = data;
   });
-
+  
   $: count = data.length - 1;
   $: productColors = [...colors];
   $: products = data;
@@ -354,7 +388,7 @@
         <List grid={4}>
           {#each productColors as color}
             <ListItem>
-              <Checkbox value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
+              <Checkbox checked={filters.has(color)} value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
                 { color }
               </Checkbox>
             </ListItem>
@@ -504,7 +538,7 @@
       {/each}
     </section>
     <div class="browse-footer">
-      <Pagination count={count} page={pageIdx + 1} handleChange={(pageIdx) => products = products[pageIdx - 1]} />
+      <Pagination count={count} page={pageIdx + 1} handleChange={(idx) => pageIdx = idx - 1} />
       <Select labelText="Items Per Page" floatLabel>
         <SelectOption value={24}>24</SelectOption>
         <SelectOption value={48}>48</SelectOption>
@@ -580,6 +614,9 @@
     "sidebar main-content";
   grid-column-gap: 16px;
   padding: 8px;
+
+  row-gap: 8px;
+  grid-template-rows: 32px 56px 1fr;
 }
 
 .sidebar {
@@ -687,11 +724,10 @@
 .browse-header {
   display: grid;
   grid-template-columns: 1fr 120px;
-  grid-template-rows: 1fr 24px;
+  grid-template-rows: 32px 24px;
   grid-template-areas:
     "heading sort"
     "result sort";
-  margin: 8px 0 16px;
   grid-area: browse-header;
   align-items: center;
 }
