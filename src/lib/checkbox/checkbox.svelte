@@ -9,7 +9,7 @@
   export let checked = false;
   export let color = 'transparent';
   // separate swatch and box variant to their own respective components
-  let iconColor = (color.toLowerCase() == 'white') ? `--icon-fill:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='black'%3e%3cpath d='M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z'/%3e%3c/svg%3e")` : '';
+  let iconColor = (color.toLowerCase() == '#fff') ? `--icon-fill:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='black'%3e%3cpath d='M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z'/%3e%3c/svg%3e")` : '';
 </script>
 <div 
   class="checkbox"
@@ -117,7 +117,7 @@
 }
 
 .checkbox--swatch .checkbox__label:before {
-  background-color: var(--swatch-color);
+  background: var(--swatch-color);
   content: '';
   width: 32px;
   height: 32px;
@@ -140,5 +140,7 @@
   gap: 8px;
   align-items: center;
   justify-content: center;
+  font-size: 12px;
+  text-align: center;
 }
 </style>

@@ -112,6 +112,37 @@
     "3x": 7
   };
 
+  const colorMap = new Map([
+    ['KELLY GREEN', '#4CBB17'],
+    ['CHARCOAL', '#36454F'],
+    ['BLACK','#000'],
+    ['NAVY','#000080'],
+    ['WHITE','#fff'],
+    ['TAN','#D2B48C'],
+    ['TIE DYE','linear-gradient(to right, orange , yellow, green, cyan, blue, violet)'],
+    ['PURPLE','#A020F0'],
+    ['LIGHT BLUE','#ADD8E6'],
+    ['GREEN','#008000'],
+    ['GOLD','#FFD700'],
+    ['BLUE','#0000FF'],
+    ['GRAY','#808080'],
+    ['MINT','#3EB489'],
+    ['YELLOW','#FFFF00'],
+    ['HEATHER GREY','#9f9d8b'],
+    ['PINK','#ffc0cb'],
+    ['LIGHT PINK','#ffb6c1'],
+    ['MAROON','#800000'],
+    ['RED','#FF0000'],
+    ['YELLOW AND WHITE','linear-gradient(to right, #ffff00 50%, #fff)'],
+    ['ORANGE','#FFA500'],
+    ['SAND','#C2B280'],
+    ['HEATHER','#a6aac7'],
+    ['TEAL','#008080'],
+    ['CORAL','#FF7F50'],
+    ['SILVER','#C0C0C0'],
+  ]);
+  let results = 0;
+
   const filters = new Set();
   let sidebarOpen = false;
 
@@ -133,11 +164,14 @@
     }
   }
 
-  for (const product of data[0].page) {
-    for (let variant of product.variants) {  
-      sizes.add(variant.size);
-      colors.add(variant.color);
-    } 
+  for (const { page } of data) {
+    for(let product of page) {
+      for (let variant of product.variants) {  
+        sizes.add(variant.size);
+        colors.add(variant.color);
+      }
+    }
+    results += page.length;
   }
   
   let pageIdx = 6;
@@ -155,7 +189,8 @@
       filterCount.size -= 1;
     }
     if (filters.size) {
-      products = { page: sortProducts() };
+      const filtered = filteredProducts();
+      products = { page: filtered };
     } else {
       products = data[pageIdx];
     }
@@ -164,34 +199,40 @@
   function handleColorChange(event) {
     const target = event.target;
     if (target.checked) {
-      filters.add(target.value);
+      filters.add(target.value.toLowerCase());
       filterCount.color += 1;
     } else {
-      filters.delete(target.value);
+      filters.delete(target.value.toLowerCase());
       filterCount.color -= 1;
     }
     if (filters.size) {
-      products = { page: sortProducts() };
+      const filtered = filteredProducts();
+      products = { page: filtered };
     } else {
       products = data[pageIdx];
     }
   }
 
-  function sortProducts() {
+  function filteredProducts() {
     const arr = [];
     for (let page of data) {
       for (let product of page.page) {
         if (!product.variants) continue; 
         for (let variant of product.variants) {
-          if (filterCount.size > 0 && filters.has(variant.size)) {
-            
+          const hasSize = filterCount.size > 0 && filters.has(variant.size);
+          const hasColor = filterCount.color > 0 && filters.has(variant.color.toLowerCase());
+          if (hasSize && hasColor) {
             arr.push(product);
-            break;  
+            break;
+          } else if (hasSize || hasColor) {
+            if (filterCount.size > 0 && filterCount.color > 0) continue;
+            arr.push(product);
+            break;
           }
         }  
       }  
     }
-    return arr.slice(0, 24);  
+    return arr;
   }
 
   afterUpdate(()=> {
@@ -276,7 +317,7 @@
         <List grid={4}>
           {#each [...colors] as color}
             <ListItem>
-              <Checkbox value={color} color={color} variant="swatch" on:change={handleColorChange}>
+              <Checkbox value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
                 { color }
               </Checkbox>
             </ListItem>
@@ -332,7 +373,7 @@
   </div>
   <header class="browse-header">
     <h1 class="page__title">{ title }</h1>
-    <p class="browse-header__product-result-count">1,080 Results</p>
+    <p class="browse-header__product-result-count">{Intl.NumberFormat().format(results)} Results</p>
     {#if isMobile}
       <Button variant="rounded" on:click={handleFilterClick}>
         <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -342,11 +383,11 @@
       </Button>
     {:else}
       <Select class="sort" labelText="Sort By" floatLabel>
-        <SelectOption>Top Seller</SelectOption>
-        <SelectOption>Newest</SelectOption>
-        <SelectOption>Top Rated</SelectOption>
-        <SelectOption>Price - Low to High</SelectOption>
-        <SelectOption>Price - High to Low</SelectOption>
+        <SelectOption value="Top Seller">Top Seller</SelectOption>
+        <SelectOption value="Newest">Newest</SelectOption>
+        <SelectOption value="Top Rated">Top Rated</SelectOption>
+        <SelectOption value="Price - Low to High">Price - Low to High</SelectOption>
+        <SelectOption value="Price - High to Low">Price - High to Low</SelectOption>
       </Select>
     {/if}
   </header>
@@ -427,8 +468,8 @@
     <div class="browse-footer">
       <Pagination count={data.length - 1} page={pageIdx + 1} handleChange={(pageIdx) => products = data[pageIdx - 1]} />
       <Select labelText="Items Per Page" floatLabel>
-        <SelectOption>24</SelectOption>
-        <SelectOption>48</SelectOption>
+        <SelectOption value={24}>24</SelectOption>
+        <SelectOption value={48}>48</SelectOption>
       </Select>
     </div>
   </main>

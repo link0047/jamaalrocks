@@ -154,14 +154,16 @@
         "badge": "Best Seller",
         "rating": "5.0",
         "mastersku": "03821774",
-        "variants": [{
-          "id": "494019",
-          "inventory_level": 25,
-          "color": "BLACK",
-          "sku": "03821790",
-          "url": "/services/variant/494019",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "494019",
+            "inventory_level": 25,
+            "color": "BLACK",
+            "sku": "03821790",
+            "url": "/services/variant/494019",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03429743-a",
@@ -809,7 +811,7 @@
           {
             "id": "477261",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03691565",
             "url": "/services/variant/477261",
             "size": "Medium"
@@ -817,7 +819,7 @@
           {
             "id": "477262",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03691557",
             "url": "/services/variant/477262",
             "size": "Small"
@@ -825,7 +827,7 @@
           {
             "id": "477263",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03691573",
             "url": "/services/variant/477263",
             "size": "Large"
@@ -833,7 +835,7 @@
           {
             "id": "477264",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03691581",
             "url": "/services/variant/477264",
             "size": "XL"
@@ -841,7 +843,7 @@
           {
             "id": "478426",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07600422",
             "url": "/services/variant/478426",
             "size": "2X"
@@ -849,7 +851,7 @@
           {
             "id": "478427",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07600430",
             "url": "/services/variant/478427",
             "size": "3X"
@@ -1526,14 +1528,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03891256",
-        "variants": [{
-          "id": "501357",
-          "inventory_level": 3,
-          "color": "BLACK",
-          "sku": "03891256",
-          "url": "/services/variant/501357",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "501357",
+            "inventory_level": 3,
+            "color": "BLACK",
+            "sku": "03891256",
+            "url": "/services/variant/501357",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03721586-a",
@@ -2436,14 +2440,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03891371",
-        "variants": [{
-          "id": "501326",
-          "inventory_level": 11,
-          "color": "BLACK",
-          "sku": "03891371",
-          "url": "/services/variant/501326",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "501326",
+            "inventory_level": 11,
+            "color": "BLACK",
+            "sku": "03891371",
+            "url": "/services/variant/501326",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03635117-a",
@@ -5198,14 +5204,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03782000",
-        "variants": [{
-          "id": "489725",
-          "inventory_level": 7,
-          "color": "BLACK",
-          "sku": "03782075",
-          "url": "/services/variant/489725",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "489725",
+            "inventory_level": 7,
+            "color": "BLACK",
+            "sku": "03782075",
+            "url": "/services/variant/489725",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03807450-a",
@@ -5638,14 +5646,16 @@
         "badge": "Best Seller",
         "rating": "5.0",
         "mastersku": "03850583",
-        "variants": [{
-          "id": "497426",
-          "inventory_level": 28,
-          "color": "TAN",
-          "sku": "03850617",
-          "url": "/services/variant/497426",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "497426",
+            "inventory_level": 28,
+            "color": "TAN",
+            "sku": "03850617",
+            "url": "/services/variant/497426",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03308202-a",
@@ -7091,14 +7101,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03699238",
-        "variants": [{
-          "id": "478139",
-          "inventory_level": 14,
-          "color": "BLACK",
-          "sku": "03699253",
-          "url": "/services/variant/478139",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "478139",
+            "inventory_level": 14,
+            "color": "BLACK",
+            "sku": "03699253",
+            "url": "/services/variant/478139",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03730678-a",
@@ -8388,14 +8400,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03849528",
-        "variants": [{
-          "id": "497319",
-          "inventory_level": 5,
-          "color": "TIE DYE",
-          "sku": "03849510",
-          "url": "/services/variant/497319",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "497319",
+            "inventory_level": 5,
+            "color": "TIE DYE",
+            "sku": "03849510",
+            "url": "/services/variant/497319",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03317211-a",
@@ -8608,7 +8622,7 @@
           {
             "id": "412838",
             "inventory_level": 3,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03482023",
             "url": "/services/variant/412838",
             "size": "Small"
@@ -8616,7 +8630,7 @@
           {
             "id": "412841",
             "inventory_level": 3,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03482106",
             "url": "/services/variant/412841",
             "size": "XL"
@@ -9492,14 +9506,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03891512",
-        "variants": [{
-          "id": "501318",
-          "inventory_level": 2,
-          "color": "BLACK",
-          "sku": "03891504",
-          "url": "/services/variant/501318",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "501318",
+            "inventory_level": 2,
+            "color": "BLACK",
+            "sku": "03891504",
+            "url": "/services/variant/501318",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03759149-a",
@@ -11622,7 +11638,7 @@
           {
             "id": "475461",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03672300",
             "url": "/services/variant/475461",
             "size": "Medium"
@@ -11630,7 +11646,7 @@
           {
             "id": "475462",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03672292",
             "url": "/services/variant/475462",
             "size": "Small"
@@ -11638,7 +11654,7 @@
           {
             "id": "475463",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03672318",
             "url": "/services/variant/475463",
             "size": "Large"
@@ -11646,7 +11662,7 @@
           {
             "id": "475464",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03672326",
             "url": "/services/variant/475464",
             "size": "XL"
@@ -12256,14 +12272,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03851011",
-        "variants": [{
-          "id": "497527",
-          "inventory_level": 2,
-          "color": "BLACK",
-          "sku": "03851003",
-          "url": "/services/variant/497527",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "497527",
+            "inventory_level": 2,
+            "color": "BLACK",
+            "sku": "03851003",
+            "url": "/services/variant/497527",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03833472-a",
@@ -12864,14 +12882,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03792322",
-        "variants": [{
-          "id": "490725",
-          "inventory_level": 6,
-          "color": "BLACK",
-          "sku": "03792314",
-          "url": "/services/variant/490725",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "490725",
+            "inventory_level": 6,
+            "color": "BLACK",
+            "sku": "03792314",
+            "url": "/services/variant/490725",
+            "size": "Small"
+          }
+        ]
       }
     ]
   },
@@ -12987,14 +13007,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03821386",
-        "variants": [{
-          "id": "493994",
-          "inventory_level": 1,
-          "color": "PINK",
-          "sku": "03821386",
-          "url": "/services/variant/493994",
-          "size": "Large"
-        }]
+        "variants": [
+          {
+            "id": "493994",
+            "inventory_level": 1,
+            "color": "PINK",
+            "sku": "03821386",
+            "url": "/services/variant/493994",
+            "size": "Large"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03790573-a",
@@ -13056,12 +13078,63 @@
         ]
       },
       {
-        "image": "https://spencers.scene7.com/is/image/Spencers/03799640 -a",
+        "image": "https://spencers.scene7.com/is/image/Spencers/03799640-a",
         "name": "Fuckin' Toasted T Shirt",
         "link": "https://www.spencersonline.com/product/fuckin-toasted-t-shirt/229081.uts",
         "price": { "base": 24.99, "sale": null },
         "badge": "",
-        "rating": "5.0"
+        "rating": "5.0",
+        "mastersku": "03799640",
+        "variants": [
+          {
+            "id": "491510",
+            "inventory_level": 2147483647,
+            "color": "GRAY",
+            "sku": "03799640",
+            "url": "/services/variant/491510",
+            "size": "Medium"
+          },
+          {
+            "id": "491511",
+            "inventory_level": 2147483647,
+            "color": "GRAY",
+            "sku": "03799632",
+            "url": "/services/variant/491511",
+            "size": "Small"
+          },
+          {
+            "id": "491512",
+            "inventory_level": 2147483647,
+            "color": "GRAY",
+            "sku": "03799657",
+            "url": "/services/variant/491512",
+            "size": "Large"
+          },
+          {
+            "id": "491513",
+            "inventory_level": 2147483647,
+            "color": "GRAY",
+            "sku": "03799673",
+            "url": "/services/variant/491513",
+            "size": "XL"
+          },
+          {
+            "id": "493181",
+            "inventory_level": 2147483647,
+            "color": "GRAY",
+            "sku": "07628407",
+            "url": "/services/variant/493181",
+            "size": "2X"
+          },
+          {
+            "id": "493182",
+            "inventory_level": 2147483647,
+            "color": "GRAY",
+            "sku": "07628415",
+            "url": "/services/variant/493182",
+            "size": "3X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03762986-a",
@@ -14582,14 +14655,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03821501",
-        "variants": [{
-          "id": "494039",
-          "inventory_level": 2,
-          "color": "GRAY",
-          "sku": "03821493",
-          "url": "/services/variant/494039",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "494039",
+            "inventory_level": 2,
+            "color": "GRAY",
+            "sku": "03821493",
+            "url": "/services/variant/494039",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03769601-a",
@@ -16292,14 +16367,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03806585",
-        "variants": [{
-          "id": "492200",
-          "inventory_level": 1,
-          "color": "WHITE",
-          "sku": "03806585",
-          "url": "/services/variant/492200",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "492200",
+            "inventory_level": 1,
+            "color": "WHITE",
+            "sku": "03806585",
+            "url": "/services/variant/492200",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03755881-a",
@@ -16309,14 +16386,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03755881",
-        "variants": [{
-          "id": "484748",
-          "inventory_level": 1,
-          "color": "BLACK",
-          "sku": "03755873",
-          "url": "/services/variant/484748",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "484748",
+            "inventory_level": 1,
+            "color": "BLACK",
+            "sku": "03755873",
+            "url": "/services/variant/484748",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03785912-a",
@@ -17862,14 +17941,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03777661",
-        "variants": [{
-          "id": "488757",
-          "inventory_level": 6,
-          "color": "BLACK",
-          "sku": "03777661",
-          "url": "/services/variant/488757",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "488757",
+            "inventory_level": 6,
+            "color": "BLACK",
+            "sku": "03777661",
+            "url": "/services/variant/488757",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03808573-a",
@@ -18192,14 +18273,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03742848",
-        "variants": [{
-          "id": "482507",
-          "inventory_level": 14,
-          "color": "BLACK",
-          "sku": "03742848",
-          "url": "/services/variant/482507",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "482507",
+            "inventory_level": 14,
+            "color": "BLACK",
+            "sku": "03742848",
+            "url": "/services/variant/482507",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03895836-a",
@@ -19228,14 +19311,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03853678",
-        "variants": [{
-          "id": "497721",
-          "inventory_level": 2,
-          "color": "BLACK",
-          "sku": "03853660",
-          "url": "/services/variant/497721",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "497721",
+            "inventory_level": 2,
+            "color": "BLACK",
+            "sku": "03853660",
+            "url": "/services/variant/497721",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03843356-a",
@@ -23307,7 +23392,7 @@
           {
             "id": "496028",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03837937",
             "url": "/services/variant/496028",
             "size": "Medium"
@@ -23315,7 +23400,7 @@
           {
             "id": "496029",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03837929",
             "url": "/services/variant/496029",
             "size": "Small"
@@ -23323,7 +23408,7 @@
           {
             "id": "496030",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03837945",
             "url": "/services/variant/496030",
             "size": "Large"
@@ -23331,7 +23416,7 @@
           {
             "id": "496031",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03837952",
             "url": "/services/variant/496031",
             "size": "XL"
@@ -23339,7 +23424,7 @@
           {
             "id": "497388",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07638737",
             "url": "/services/variant/497388",
             "size": "2X"
@@ -23347,7 +23432,7 @@
           {
             "id": "497389",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07638745",
             "url": "/services/variant/497389",
             "size": "3X"
@@ -23581,14 +23666,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "07623358",
-        "variants": [{
-          "id": "490368",
-          "inventory_level": 2,
-          "color": "BLUE",
-          "sku": "07623358",
-          "url": "/services/variant/490368",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "490368",
+            "inventory_level": 2,
+            "color": "BLUE",
+            "sku": "07623358",
+            "url": "/services/variant/490368",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07516974-a",
@@ -24382,14 +24469,16 @@
         "badge": "",
         "rating": "4.8",
         "mastersku": "03273000",
-        "variants": [{
-          "id": "387468",
-          "inventory_level": 37,
-          "color": "BLUE",
-          "sku": "03272994",
-          "url": "/services/variant/387468",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "387468",
+            "inventory_level": 37,
+            "color": "BLUE",
+            "sku": "03272994",
+            "url": "/services/variant/387468",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03851060-a",
@@ -24729,14 +24818,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03728060",
-        "variants": [{
-          "id": "481062",
-          "inventory_level": 1,
-          "color": "BLACK",
-          "sku": "03728086",
-          "url": "/services/variant/481062",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "481062",
+            "inventory_level": 1,
+            "color": "BLACK",
+            "sku": "03728086",
+            "url": "/services/variant/481062",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03815792-a",
@@ -25629,7 +25720,7 @@
           {
             "id": "485825",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07613896",
             "url": "/services/variant/485825",
             "size": "Medium"
@@ -25637,7 +25728,7 @@
           {
             "id": "485826",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07613888",
             "url": "/services/variant/485826",
             "size": "Small"
@@ -25645,7 +25736,7 @@
           {
             "id": "485827",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07613904",
             "url": "/services/variant/485827",
             "size": "Large"
@@ -25653,7 +25744,7 @@
           {
             "id": "485828",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07613912",
             "url": "/services/variant/485828",
             "size": "XL"
@@ -25661,7 +25752,7 @@
           {
             "id": "485829",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07613920",
             "url": "/services/variant/485829",
             "size": "2X"
@@ -25669,7 +25760,7 @@
           {
             "id": "485830",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07613938",
             "url": "/services/variant/485830",
             "size": "3X"
@@ -25684,14 +25775,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "07625916",
-        "variants": [{
-          "id": "492105",
-          "inventory_level": 1,
-          "color": "WHITE",
-          "sku": "07625916",
-          "url": "/services/variant/492105",
-          "size": "Medium"
-        }]
+        "variants": [
+          {
+            "id": "492105",
+            "inventory_level": 1,
+            "color": "WHITE",
+            "sku": "07625916",
+            "url": "/services/variant/492105",
+            "size": "Medium"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03697026-a",
@@ -26116,7 +26209,7 @@
           {
             "id": "498769",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07639503",
             "url": "/services/variant/498769",
             "size": "2X"
@@ -26124,7 +26217,7 @@
           {
             "id": "498770",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07639511",
             "url": "/services/variant/498770",
             "size": "3X"
@@ -26503,7 +26596,7 @@
           {
             "id": "472812",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07583164",
             "url": "/services/variant/472812",
             "size": "Medium"
@@ -26511,7 +26604,7 @@
           {
             "id": "472813",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07583156",
             "url": "/services/variant/472813",
             "size": "Small"
@@ -26519,7 +26612,7 @@
           {
             "id": "472814",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07583172",
             "url": "/services/variant/472814",
             "size": "Large"
@@ -26527,7 +26620,7 @@
           {
             "id": "472815",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07583180",
             "url": "/services/variant/472815",
             "size": "XL"
@@ -26535,7 +26628,7 @@
           {
             "id": "472816",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07583198",
             "url": "/services/variant/472816",
             "size": "2X"
@@ -26543,7 +26636,7 @@
           {
             "id": "472817",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07583214",
             "url": "/services/variant/472817",
             "size": "3X"
@@ -27012,7 +27105,7 @@
           {
             "id": "501720",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03894789",
             "url": "/services/variant/501720",
             "size": "Medium"
@@ -27020,7 +27113,7 @@
           {
             "id": "501721",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03894771",
             "url": "/services/variant/501721",
             "size": "Small"
@@ -27028,7 +27121,7 @@
           {
             "id": "501722",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03894797",
             "url": "/services/variant/501722",
             "size": "Large"
@@ -27036,7 +27129,7 @@
           {
             "id": "501723",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03894805",
             "url": "/services/variant/501723",
             "size": "XL"
@@ -27044,7 +27137,7 @@
           {
             "id": "501724",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07642556",
             "url": "/services/variant/501724",
             "size": "2X"
@@ -27052,7 +27145,7 @@
           {
             "id": "501725",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07642564",
             "url": "/services/variant/501725",
             "size": "3X"
@@ -27263,14 +27356,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03837739",
-        "variants": [{
-          "id": "496048",
-          "inventory_level": 3,
-          "color": "WHITE",
-          "sku": "03837762",
-          "url": "/services/variant/496048",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "496048",
+            "inventory_level": 3,
+            "color": "WHITE",
+            "sku": "03837762",
+            "url": "/services/variant/496048",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03848611-a",
@@ -28831,7 +28926,7 @@
           {
             "id": "506396",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03928421",
             "url": "/services/variant/506396",
             "size": "Medium"
@@ -28839,7 +28934,7 @@
           {
             "id": "506397",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03928413",
             "url": "/services/variant/506397",
             "size": "Small"
@@ -28847,7 +28942,7 @@
           {
             "id": "506398",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03928439",
             "url": "/services/variant/506398",
             "size": "Large"
@@ -28855,7 +28950,7 @@
           {
             "id": "506399",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03928447",
             "url": "/services/variant/506399",
             "size": "XL"
@@ -28863,7 +28958,7 @@
           {
             "id": "506400",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07648439",
             "url": "/services/variant/506400",
             "size": "2X"
@@ -28871,7 +28966,7 @@
           {
             "id": "506401",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07648447",
             "url": "/services/variant/506401",
             "size": "3X"
@@ -29978,14 +30073,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03808342",
-        "variants": [{
-          "id": "492576",
-          "inventory_level": 14,
-          "color": "BLACK",
-          "sku": "03808334",
-          "url": "/services/variant/492576",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "492576",
+            "inventory_level": 14,
+            "color": "BLACK",
+            "sku": "03808334",
+            "url": "/services/variant/492576",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03826468-a",
@@ -31314,14 +31411,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03857604",
-        "variants": [{
-          "id": "498019",
-          "inventory_level": 5,
-          "color": "BLACK",
-          "sku": "03857596",
-          "url": "/services/variant/498019",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "498019",
+            "inventory_level": 5,
+            "color": "BLACK",
+            "sku": "03857596",
+            "url": "/services/variant/498019",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03798782-a",
@@ -34237,14 +34336,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03684735",
-        "variants": [{
-          "id": "476486",
-          "inventory_level": 22,
-          "color": "BLACK",
-          "sku": "03684727",
-          "url": "/services/variant/476486",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "476486",
+            "inventory_level": 22,
+            "color": "BLACK",
+            "sku": "03684727",
+            "url": "/services/variant/476486",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03672557-a",
@@ -36193,14 +36294,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03819380",
-        "variants": [{
-          "id": "493820",
-          "inventory_level": 5,
-          "color": "WHITE",
-          "sku": "03819406",
-          "url": "/services/variant/493820",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "493820",
+            "inventory_level": 5,
+            "color": "WHITE",
+            "sku": "03819406",
+            "url": "/services/variant/493820",
+            "size": "XL"
+          }
+        ]
       }
     ]
   },
@@ -37916,14 +38019,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03897766",
-        "variants": [{
-          "id": "503479",
-          "inventory_level": 1,
-          "color": "BLACK",
-          "sku": "03897790",
-          "url": "/services/variant/503479",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "503479",
+            "inventory_level": 1,
+            "color": "BLACK",
+            "sku": "03897790",
+            "url": "/services/variant/503479",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03898467-a",
@@ -38148,14 +38253,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03565280",
-        "variants": [{
-          "id": "459336",
-          "inventory_level": 14,
-          "color": "BLACK",
-          "sku": "03565272",
-          "url": "/services/variant/459336",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "459336",
+            "inventory_level": 14,
+            "color": "BLACK",
+            "sku": "03565272",
+            "url": "/services/variant/459336",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07598766-a",
@@ -38645,7 +38752,7 @@
           {
             "id": "489320",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619869",
             "url": "/services/variant/489320",
             "size": "Medium"
@@ -38653,7 +38760,7 @@
           {
             "id": "489321",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619851",
             "url": "/services/variant/489321",
             "size": "Small"
@@ -38661,7 +38768,7 @@
           {
             "id": "489322",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619877",
             "url": "/services/variant/489322",
             "size": "Large"
@@ -38669,7 +38776,7 @@
           {
             "id": "489323",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619885",
             "url": "/services/variant/489323",
             "size": "XL"
@@ -38677,7 +38784,7 @@
           {
             "id": "489324",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619893",
             "url": "/services/variant/489324",
             "size": "2X"
@@ -38685,7 +38792,7 @@
           {
             "id": "489325",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619901",
             "url": "/services/variant/489325",
             "size": "3X"
@@ -38967,7 +39074,7 @@
           {
             "id": "498866",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03866555",
             "url": "/services/variant/498866",
             "size": "Medium"
@@ -38975,7 +39082,7 @@
           {
             "id": "498867",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03866548",
             "url": "/services/variant/498867",
             "size": "Small"
@@ -38983,7 +39090,7 @@
           {
             "id": "498868",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03866563",
             "url": "/services/variant/498868",
             "size": "Large"
@@ -38991,7 +39098,7 @@
           {
             "id": "498869",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03866571",
             "url": "/services/variant/498869",
             "size": "XL"
@@ -38999,7 +39106,7 @@
           {
             "id": "498870",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07639529",
             "url": "/services/variant/498870",
             "size": "2X"
@@ -39007,7 +39114,7 @@
           {
             "id": "498871",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07639537",
             "url": "/services/variant/498871",
             "size": "3X"
@@ -39085,7 +39192,7 @@
           {
             "id": "485945",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07615339",
             "url": "/services/variant/485945",
             "size": "Medium"
@@ -39093,7 +39200,7 @@
           {
             "id": "485946",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07615321",
             "url": "/services/variant/485946",
             "size": "Small"
@@ -39101,7 +39208,7 @@
           {
             "id": "485947",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07615347",
             "url": "/services/variant/485947",
             "size": "Large"
@@ -39109,7 +39216,7 @@
           {
             "id": "485948",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07615354",
             "url": "/services/variant/485948",
             "size": "XL"
@@ -39117,7 +39224,7 @@
           {
             "id": "485949",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07615362",
             "url": "/services/variant/485949",
             "size": "2X"
@@ -39125,7 +39232,7 @@
           {
             "id": "485950",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07615370",
             "url": "/services/variant/485950",
             "size": "3X"
@@ -39976,14 +40083,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "07573298",
-        "variants": [{
-          "id": "468539",
-          "inventory_level": 2147483647,
-          "color": "BLACK",
-          "sku": "07573298",
-          "url": "/services/variant/468539",
-          "size": "2X"
-        }]
+        "variants": [
+          {
+            "id": "468539",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "07573298",
+            "url": "/services/variant/468539",
+            "size": "2X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07599244-a",
@@ -40233,7 +40342,7 @@
           {
             "id": "498598",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03864303",
             "url": "/services/variant/498598",
             "size": "2X"
@@ -40241,7 +40350,7 @@
           {
             "id": "498599",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03864329",
             "url": "/services/variant/498599",
             "size": "3X"
@@ -41004,7 +41113,7 @@
           {
             "id": "506053",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03926086",
             "url": "/services/variant/506053",
             "size": "Medium"
@@ -41012,7 +41121,7 @@
           {
             "id": "506054",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03926060",
             "url": "/services/variant/506054",
             "size": "Small"
@@ -41020,7 +41129,7 @@
           {
             "id": "506055",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03926128",
             "url": "/services/variant/506055",
             "size": "Large"
@@ -41028,7 +41137,7 @@
           {
             "id": "506056",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03926136",
             "url": "/services/variant/506056",
             "size": "XL"
@@ -41036,7 +41145,7 @@
           {
             "id": "506057",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07648074",
             "url": "/services/variant/506057",
             "size": "2X"
@@ -41044,7 +41153,7 @@
           {
             "id": "506058",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07648082",
             "url": "/services/variant/506058",
             "size": "3X"
@@ -42123,7 +42232,7 @@
           {
             "id": "498585",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03864378",
             "url": "/services/variant/498585",
             "size": "2X"
@@ -42131,7 +42240,7 @@
           {
             "id": "498586",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03864386",
             "url": "/services/variant/498586",
             "size": "3X"
@@ -42729,7 +42838,7 @@
           {
             "id": "501471",
             "inventory_level": 6,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03892866",
             "url": "/services/variant/501471",
             "size": "Medium"
@@ -42737,7 +42846,7 @@
           {
             "id": "501472",
             "inventory_level": 7,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03892858",
             "url": "/services/variant/501472",
             "size": "Small"
@@ -42745,7 +42854,7 @@
           {
             "id": "501473",
             "inventory_level": 7,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03892874",
             "url": "/services/variant/501473",
             "size": "Large"
@@ -42753,7 +42862,7 @@
           {
             "id": "501474",
             "inventory_level": 6,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03892882",
             "url": "/services/variant/501474",
             "size": "XL"
@@ -44924,7 +45033,7 @@
           {
             "id": "501830",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03895679",
             "url": "/services/variant/501830",
             "size": "Medium"
@@ -44932,7 +45041,7 @@
           {
             "id": "501831",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03895661",
             "url": "/services/variant/501831",
             "size": "Small"
@@ -44940,7 +45049,7 @@
           {
             "id": "501832",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03895687",
             "url": "/services/variant/501832",
             "size": "Large"
@@ -44948,7 +45057,7 @@
           {
             "id": "501833",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03895695",
             "url": "/services/variant/501833",
             "size": "XL"
@@ -44956,7 +45065,7 @@
           {
             "id": "501834",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07642937",
             "url": "/services/variant/501834",
             "size": "2X"
@@ -44964,7 +45073,7 @@
           {
             "id": "501835",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07642945",
             "url": "/services/variant/501835",
             "size": "3X"
@@ -50650,14 +50759,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03755477",
-        "variants": [{
-          "id": "484647",
-          "inventory_level": 10,
-          "color": "CHARCOAL",
-          "sku": "03755493",
-          "url": "/services/variant/484647",
-          "size": "Large"
-        }]
+        "variants": [
+          {
+            "id": "484647",
+            "inventory_level": 10,
+            "color": "CHARCOAL",
+            "sku": "03755493",
+            "url": "/services/variant/484647",
+            "size": "Large"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07610389-a",
@@ -51670,7 +51781,7 @@
           {
             "id": "486097",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07616113",
             "url": "/services/variant/486097",
             "size": "Medium"
@@ -51678,7 +51789,7 @@
           {
             "id": "486098",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07616105",
             "url": "/services/variant/486098",
             "size": "Small"
@@ -51686,7 +51797,7 @@
           {
             "id": "486099",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07616121",
             "url": "/services/variant/486099",
             "size": "Large"
@@ -51694,7 +51805,7 @@
           {
             "id": "486100",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07616139",
             "url": "/services/variant/486100",
             "size": "XL"
@@ -51702,7 +51813,7 @@
           {
             "id": "486101",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07616147",
             "url": "/services/variant/486101",
             "size": "2X"
@@ -51710,7 +51821,7 @@
           {
             "id": "486102",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07616154",
             "url": "/services/variant/486102",
             "size": "3X"
@@ -52319,7 +52430,7 @@
           {
             "id": "489308",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619687",
             "url": "/services/variant/489308",
             "size": "Medium"
@@ -52327,7 +52438,7 @@
           {
             "id": "489309",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619679",
             "url": "/services/variant/489309",
             "size": "Small"
@@ -52335,7 +52446,7 @@
           {
             "id": "489310",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619695",
             "url": "/services/variant/489310",
             "size": "Large"
@@ -52343,7 +52454,7 @@
           {
             "id": "489311",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619703",
             "url": "/services/variant/489311",
             "size": "XL"
@@ -52351,7 +52462,7 @@
           {
             "id": "489312",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619711",
             "url": "/services/variant/489312",
             "size": "2X"
@@ -52359,7 +52470,7 @@
           {
             "id": "489313",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07619729",
             "url": "/services/variant/489313",
             "size": "3X"
@@ -53199,14 +53310,16 @@
         "badge": "",
         "rating": "5.0",
         "mastersku": "03804515",
-        "variants": [{
-          "id": "492024",
-          "inventory_level": 25,
-          "color": "BLACK",
-          "sku": "03804549",
-          "url": "/services/variant/492024",
-          "size": "XL"
-        }]
+        "variants": [
+          {
+            "id": "492024",
+            "inventory_level": 25,
+            "color": "BLACK",
+            "sku": "03804549",
+            "url": "/services/variant/492024",
+            "size": "XL"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07630593-a",
@@ -53259,14 +53372,16 @@
         "badge": "",
         "rating": "0.0",
         "mastersku": "03819943",
-        "variants": [{
-          "id": "493862",
-          "inventory_level": 25,
-          "color": "TAN",
-          "sku": "03819935",
-          "url": "/services/variant/493862",
-          "size": "Small"
-        }]
+        "variants": [
+          {
+            "id": "493862",
+            "inventory_level": 25,
+            "color": "TAN",
+            "sku": "03819935",
+            "url": "/services/variant/493862",
+            "size": "Small"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03820438-a",
@@ -54723,7 +54838,7 @@
           {
             "id": "505455",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03921145",
             "url": "/services/variant/505455",
             "size": "Medium"
@@ -54731,7 +54846,7 @@
           {
             "id": "505456",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03921137",
             "url": "/services/variant/505456",
             "size": "Small"
@@ -54739,7 +54854,7 @@
           {
             "id": "505457",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03921152",
             "url": "/services/variant/505457",
             "size": "Large"
@@ -54747,7 +54862,7 @@
           {
             "id": "505458",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03921160",
             "url": "/services/variant/505458",
             "size": "XL"
@@ -54755,7 +54870,7 @@
           {
             "id": "505459",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07646607",
             "url": "/services/variant/505459",
             "size": "2X"
@@ -54763,7 +54878,7 @@
           {
             "id": "505460",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07646615",
             "url": "/services/variant/505460",
             "size": "3X"
@@ -55317,7 +55432,7 @@
           {
             "id": "505623",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03922366",
             "url": "/services/variant/505623",
             "size": "Medium"
@@ -55325,7 +55440,7 @@
           {
             "id": "505624",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03922358",
             "url": "/services/variant/505624",
             "size": "Small"
@@ -55333,7 +55448,7 @@
           {
             "id": "505625",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03922374",
             "url": "/services/variant/505625",
             "size": "Large"
@@ -55341,7 +55456,7 @@
           {
             "id": "505626",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "03922382",
             "url": "/services/variant/505626",
             "size": "XL"
@@ -55349,7 +55464,7 @@
           {
             "id": "505627",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07646904",
             "url": "/services/variant/505627",
             "size": "2X"
@@ -55357,7 +55472,7 @@
           {
             "id": "505628",
             "inventory_level": 2147483647,
-            "color": "Tan",
+            "color": "TAN",
             "sku": "07646912",
             "url": "/services/variant/505628",
             "size": "3X"
@@ -56420,7 +56535,58 @@
         "link": "https://www.spencersonline.com/product/reach-for-the-stars-t-shirt-kawaii-krypt/236432.uts",
         "price": { "base": 26.99, "sale": null },
         "badge": "",
-        "rating": "0.0"
+        "rating": "0.0",
+        "mastersku": "03928660",
+        "variants": [
+          {
+            "id": "506369",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928660",
+            "url": "/services/variant/506369",
+            "size": "Medium"
+          },
+          {
+            "id": "506370",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928652",
+            "url": "/services/variant/506370",
+            "size": "Small"
+          },
+          {
+            "id": "506371",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928678",
+            "url": "/services/variant/506371",
+            "size": "Large"
+          },
+          {
+            "id": "506372",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928686",
+            "url": "/services/variant/506372",
+            "size": "XL"
+          },
+          {
+            "id": "506373",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "07648553",
+            "url": "/services/variant/506373",
+            "size": "2X"
+          },
+          {
+            "id": "506374",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "07648561",
+            "url": "/services/variant/506374",
+            "size": "3X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03926193-a",
@@ -56428,7 +56594,58 @@
         "link": "https://www.spencersonline.com/product/skullbra-t-shirt-hauntless/236455.uts",
         "price": { "base": 26.99, "sale": null },
         "badge": "",
-        "rating": "0.0"
+        "rating": "0.0",
+        "mastersku": "03926193",
+        "variants": [
+          {
+            "id": "506448",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03926193",
+            "url": "/services/variant/506448",
+            "size": "Medium"
+          },
+          {
+            "id": "506449",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03926185",
+            "url": "/services/variant/506449",
+            "size": "Small"
+          },
+          {
+            "id": "506450",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03926219",
+            "url": "/services/variant/506450",
+            "size": "Large"
+          },
+          {
+            "id": "506451",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03926227",
+            "url": "/services/variant/506451",
+            "size": "XL"
+          },
+          {
+            "id": "506452",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "07648207",
+            "url": "/services/variant/506452",
+            "size": "2X"
+          },
+          {
+            "id": "506453",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "07648215",
+            "url": "/services/variant/506453",
+            "size": "3X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03924685-a",
@@ -56436,7 +56653,58 @@
         "link": "https://www.spencersonline.com/product/dark-lords-t-shirt-moutchy/236507.uts",
         "price": { "base": 26.99, "sale": null },
         "badge": "",
-        "rating": "0.0"
+        "rating": "0.0",
+        "mastersku": "03924685",
+        "variants": [
+          {
+            "id": "506551",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03924685",
+            "url": "/services/variant/506551",
+            "size": "Medium"
+          },
+          {
+            "id": "506552",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03924677",
+            "url": "/services/variant/506552",
+            "size": "Small"
+          },
+          {
+            "id": "506553",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03924693",
+            "url": "/services/variant/506553",
+            "size": "Large"
+          },
+          {
+            "id": "506554",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "03924701",
+            "url": "/services/variant/506554",
+            "size": "XL"
+          },
+          {
+            "id": "506555",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "07647365",
+            "url": "/services/variant/506555",
+            "size": "2X"
+          },
+          {
+            "id": "506556",
+            "inventory_level": 2147483647,
+            "color": "BLACK",
+            "sku": "07647373",
+            "url": "/services/variant/506556",
+            "size": "3X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/03928504-a",
@@ -56444,7 +56712,58 @@
         "link": "https://www.spencersonline.com/product/body-disposal-t-shirt-kawaii-krypt/236539.uts",
         "price": { "base": 26.99, "sale": null },
         "badge": "",
-        "rating": "0.0"
+        "rating": "0.0",
+        "mastersku": "03928504",
+        "variants": [
+          {
+            "id": "506594",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928504",
+            "url": "/services/variant/506594",
+            "size": "Medium"
+          },
+          {
+            "id": "506595",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928496",
+            "url": "/services/variant/506595",
+            "size": "Small"
+          },
+          {
+            "id": "506596",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928512",
+            "url": "/services/variant/506596",
+            "size": "Large"
+          },
+          {
+            "id": "506597",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "03928520",
+            "url": "/services/variant/506597",
+            "size": "XL"
+          },
+          {
+            "id": "506598",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "07648470",
+            "url": "/services/variant/506598",
+            "size": "2X"
+          },
+          {
+            "id": "506599",
+            "inventory_level": 2147483647,
+            "color": "WHITE",
+            "sku": "07648488",
+            "url": "/services/variant/506599",
+            "size": "3X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07647779-a",
@@ -56452,7 +56771,58 @@
         "link": "https://www.spencersonline.com/product/a-wee-bit-fucked-up-t-shirt/236547.uts",
         "price": { "base": 22.99, "sale": null },
         "badge": "",
-        "rating": "0.0"
+        "rating": "0.0",
+        "mastersku": "07647779",
+        "variants": [
+          {
+            "id": "506621",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647779",
+            "url": "/services/variant/506621",
+            "size": "Medium"
+          },
+          {
+            "id": "506622",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647761",
+            "url": "/services/variant/506622",
+            "size": "Small"
+          },
+          {
+            "id": "506623",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647787",
+            "url": "/services/variant/506623",
+            "size": "Large"
+          },
+          {
+            "id": "506624",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647795",
+            "url": "/services/variant/506624",
+            "size": "XL"
+          },
+          {
+            "id": "506625",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647803",
+            "url": "/services/variant/506625",
+            "size": "2X"
+          },
+          {
+            "id": "506626",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647811",
+            "url": "/services/variant/506626",
+            "size": "3X"
+          }
+        ]
       },
       {
         "image": "https://spencers.scene7.com/is/image/Spencers/07647530-a",
@@ -56460,7 +56830,58 @@
         "link": "https://www.spencersonline.com/product/up-in-da-pub-t-shirt/236550.uts",
         "price": { "base": 22.99, "sale": null },
         "badge": "",
-        "rating": "0.0"
+        "rating": "0.0",
+        "mastersku": "07647530",
+        "variants": [
+          {
+            "id": "506639",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647530",
+            "url": "/services/variant/506639",
+            "size": "Medium"
+          },
+          {
+            "id": "506640",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647522",
+            "url": "/services/variant/506640",
+            "size": "Small"
+          },
+          {
+            "id": "506641",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647548",
+            "url": "/services/variant/506641",
+            "size": "Large"
+          },
+          {
+            "id": "506642",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647555",
+            "url": "/services/variant/506642",
+            "size": "XL"
+          },
+          {
+            "id": "506643",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647563",
+            "url": "/services/variant/506643",
+            "size": "2X"
+          },
+          {
+            "id": "506644",
+            "inventory_level": 2147483647,
+            "color": "KELLY GREEN",
+            "sku": "07647571",
+            "url": "/services/variant/506644",
+            "size": "3X"
+          }
+        ]
       }
     ]
   }

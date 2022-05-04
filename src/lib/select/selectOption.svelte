@@ -16,10 +16,10 @@
   
 </script>
 <option
-  value="{value}"
-  selected="{selected}"
-  hidden="{hidden}"
-  disabled="{disabled}"
+  value={value || ''}
+  selected={selected}
+  hidden={hidden}
+  disabled={disabled}
 >
   <slot/>
 </option>
