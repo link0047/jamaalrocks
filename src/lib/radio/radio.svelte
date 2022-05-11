@@ -7,7 +7,20 @@
   export let name = '';
 </script>
 <label class="radio" id="{labelId}" for="{id}">
-  <input class="radio__native-control" id="{id}" name={name} required="{required || undefined}" type="radio" value="{value}" aria-checked="{checked}" aria-labelledby="{labelId}" {checked}>
+  <input 
+    class="radio__native-control" 
+    id={id} 
+    name={name} 
+    required={required || undefined} 
+    type="radio" 
+    value={value} 
+    aria-checked={checked} 
+    aria-labelledby={labelId}
+    {checked}
+    on:focus
+    on:blur
+    on:change
+  >
   <div class="radio__outer-circle"></div>
   <div class="radio__content">
     <slot />

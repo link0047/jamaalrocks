@@ -25,6 +25,7 @@
   import Slider from '$lib/slider';
   import Radio from '$lib/radio/radio.svelte';
   import { Pagination } from '$lib/pagination';
+  import { Action } from '$lib/card';
 
   export let params;
   export let isMobile;
@@ -97,7 +98,9 @@
     },
   ];
   const title = params.slug.replace('-',' ');
-  const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+  // const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+  const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANkAAAEQCAQAAACXJxk1AAABf0lEQVR42u3RAREAAAQEMN+/rQLkcLYKS09xSpQpQxnKlKEMZcpQhjJlKEOZMpShTBnKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZcpQhjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKFOmTBnKUKYMZShThjKUKUMZypShDGXKUIYylClDGcqUoQxlylCGMmUoQ5kylKEMZcpQhjJlKEOZMpShTBnKUKYMZShThjKUoUwZylCmDGUoU4YylClDGcqUoQxlKFOGMpQpQxnKlKEMZcpQhjJlKEOZMmXKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZShThjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKEOZMpShTBnKUKYMZShThjKUKUMZypQpU4YylClDGcqUoQxlylCGsk8Wz28RP36goaIAAAAASUVORK5CYII=";
+
   const sizes = new Set();
   const colors = new Set();
   const rating = [1,2,3,4,5];
@@ -133,7 +136,7 @@
     ['LIGHT PINK','#ffb6c1'],
     ['MAROON','#800000'],
     ['RED','#FF0000'],
-    ['YELLOW AND WHITE','linear-gradient(to right, #ffff00 50%, #fff)'],
+    ['YELLOW AND WHITE','linear-gradient(to right, #ffff00 50%, #fff 50%)'],
     ['ORANGE','#FFA500'],
     ['SAND','#C2B280'],
     ['HEATHER','#a6aac7'],
@@ -282,6 +285,11 @@
     count = len > 1 ? len - 1 : len;
   }
 
+  function handleRatingChange({ target }) {
+    const { value } = target;
+    console.log(value);
+  }
+
   function filteredProducts() {
     const arr = [];
     for (let page of data) {
@@ -328,7 +336,14 @@
     <Crumb>Home</Crumb>
     <Crumb current>{ title }</Crumb>
   </Breadcrumb>
-  <div class="sidebar" class:sidebar--open={sidebarOpen} aria-hidden={isMobile ? !sidebarOpen : undefined}>
+  <div 
+    aria-modal="true"
+    aria-label="Sort and Filters"
+    class="sidebar" 
+    class:sidebar--open={sidebarOpen} 
+    aria-hidden={isMobile ? !sidebarOpen : undefined}
+    role="dialog"
+  >
     {#if isMobile}
       <header class="sidebar__header">
         <div class="sidebar__header-title">
@@ -406,7 +421,7 @@
       <svelte:fragment slot="heading">Rating</svelte:fragment>
       <svelte:fragment slot="content">
         {#each ['4.0','3.0','2.0','1.0'] as rate, i}
-          <Radio name="rating">
+          <Radio name="rating" on:change={handleRatingChange}>
             <div class="rating-stars">
               {#each rating as j}
                 <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -483,18 +498,23 @@
     <section class="grid grid--products">
       {#each products[pageIdx].page as product, i}
         <div class="card product-card">
-          <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
+          <!-- <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
               <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
             </svg>
-          </Fab>
+          </Fab> -->
           <picture class="card__media">
-            {#if !isEmpty(product.badge)}
+            <!-- {#if !isEmpty(product.badge)}
             <Chip size="small" rounded>{product.badge}</Chip>
-            {/if}
+            {/if} -->
             <source media="(max-width: 560px)" srcset={product.image}/>
             <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
+            <Action />
           </picture>
+          
+          {#if !isEmpty(product.badge)}
+            <Chip size="small">{product.badge}</Chip>
+          {/if}
           <div class="product-card__name">
             {product.name}
             <Button variant="icon" size="small">
@@ -504,9 +524,14 @@
             </Button>  
           </div>
           <div class="product-card__price">
-            {`$${product.price.base}`}
             {#if product.price.sale}
-              <div class="product-card__price-sale">$<span class="strike-through">{`${product.price.sale}`}</span></div>
+            <div>${product.price.sale}</div>
+            <div style="display:grid;align-items:center;grid-template-columns:max-content max-content;gap:3px">
+              <span class="product-card__price-sale strike-through">${product.price.base}</span>
+              <span style="color:#005900;font-size:12px;">{100 - Math.round(product.price.sale / product.price.base * 100)}% off</span>
+            </div>
+            {:else}
+              {`$${product.price.base}`}
             {/if}
           </div>
           {#if +product.rating > 0} 
@@ -780,8 +805,8 @@
   display: block;
   height: auto;
   background-color: #f2f2f2;
-  border-radius: 4px;
   overflow: hidden;
+  border-radius: 4px;
   animation: loading 1s 5;
 }
 
@@ -802,7 +827,13 @@
   overflow: initial;
 }
 
-:global(.product-card .chip) {
+.product__action {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+}
+
+:global(.card__media .chip) {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -811,6 +842,14 @@
   border-bottom-right-radius: 0!important;
   background-color: #2a508f;
   color: #fff;
+}
+
+:global(.product-card > .chip) {
+  box-shadow: 0 0 0 2px #2a508f;
+  color: #193055;
+  background-color: #fff;
+  width: max-content;
+  margin-top: 8px;
 }
 
 .product-card::after {
@@ -838,6 +877,7 @@
   margin: 8px 0 0;
   line-height: 1;
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr min-content;
 }
 
