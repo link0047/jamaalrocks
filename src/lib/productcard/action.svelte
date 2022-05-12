@@ -2,6 +2,8 @@
   import InputStepper from "$lib/inputstepper";
   export let count = 0;
   export let label = undefined;
+  export let variant = undefined;
+
   function handleProductAdd() {
     count += 1;
   }
@@ -15,7 +17,8 @@
 <div class="product__action">
   {#if count == 0}
     <button 
-      class="btn--addtocart" 
+      class="btn--addtocart"
+      class:commerce={ variant == 'commerce' }
       type="button" 
       aria-label={label} 
       on:focus
@@ -28,7 +31,7 @@
       Add
     </button>
   {:else}
-    <InputStepper change={handleChange} />
+    <InputStepper change={handleChange} variant={variant} />
   {/if}
 </div>
 <style>
@@ -39,6 +42,7 @@
   }
 
   .btn--addtocart {
+    transition: background-color .3s ease-in;
     -webkit-tap-highlight-color: transparent;
     font-size: 0.875rem;
     font-weight: 500;
@@ -51,7 +55,7 @@
     justify-content: center;
     position: relative;
     height: 40px;
-    padding: 0 8px;
+    padding: 0 12px;
     border: none;
     color: #fff;
     border-radius: 20px;
@@ -68,6 +72,16 @@
     appearance: none;
     cursor: pointer;
   }
+
+  .btn--addtocart.commerce {
+    background-color: #008a00;
+  }
+
+  .btn--addtocart.commerce:focus,
+  .btn--addtocart.commerce:hover {
+    background-color: #006e00;
+  }
+
 
   .icon {
     fill: #fff;

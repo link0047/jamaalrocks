@@ -1,5 +1,6 @@
 <script>
   export let value = 1;
+  export let variant = undefined;
   export let change = () => {};
 
   function handleClick(val) {
@@ -9,6 +10,7 @@
 </script>
 <div 
   class="stepper"
+  class:commerce={ variant == 'commerce' }
   {...$$restProps}
 >
   <button 
@@ -50,6 +52,10 @@
     gap: 2px;
   }
 
+  .stepper.commerce {
+    background-color: #008a00;
+  }
+
   .stepper__value {
     display: inline-flex;
     line-height: 1;
@@ -62,6 +68,7 @@
   }
 
   .stepper__action {
+    transition: background-color .3s ease-in;
     -webkit-tap-highlight-color: transparent;
     font-size: 0.875rem;
     font-weight: 500;
@@ -95,6 +102,11 @@
   .stepper__action:focus,
   .stepper__action:hover {
     background-color: #004f9a;
+  }
+
+  .commerce .stepper__action:focus,
+  .commerce .stepper__action:hover {
+    background-color: #006e00;
   }
 
   .icon {

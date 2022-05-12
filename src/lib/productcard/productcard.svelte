@@ -1,7 +1,7 @@
 <script>
   import { Chip } from '$lib/chips';
   import { Button } from '$lib/button';
-  import Action from '$lib/card/action.svelte';
+  import Action from './action.svelte';
   import { generateId } from './util';
   
   // make transparent
@@ -29,7 +29,7 @@
   <picture class="card__media">
     <source media="(max-width: 560px)" srcset={product.image}/>
     <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
-    <Action count={0} />
+    <Action count={0} variant="commerce" />
   </picture>
   {#if !isEmpty(product.badge)}
     <Chip size="small">{product.badge}</Chip>
@@ -80,6 +80,17 @@
       {/each} 
     </div>
   {/if}
+  <div class="product__store-status">
+    <svg
+      class="icon"
+      viewport="0 0 24 24"
+      role="presentation"
+      focusable="false"
+    >
+      <circle cx="50%" cy="50%" r="4.5" />
+    </svg>
+    In stock at Egg Harbor Twp, NJ
+  </div>
 </div>
 <style>
 .image {
@@ -125,23 +136,16 @@
   overflow: initial;
 }
 
-:global(.card__media .chip) {
+.product-card :global(.chip) {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
-  border-top-left-radius: 0!important;
-  border-bottom-left-radius: 4px!important;
-  border-bottom-right-radius: 0!important;
+  border-top-left-radius: 6px!important;
+  border-top-right-radius: 0!important;
+  border-bottom-left-radius: 0px!important;
+  border-bottom-right-radius: 4px!important;
   background-color: #2a508f;
   color: #fff;
-}
-
-:global(.product-card > .chip) {
-  box-shadow: 0 0 0 2px #2a508f;
-  color: #193055;
-  background-color: #fff;
-  width: max-content;
-  margin-top: 8px;
 }
 
 .product-card::after {
@@ -204,6 +208,23 @@
   align-items: center;
   font-size: 14px;
   line-height: 1;
+}
+
+.product__store-status {
+  display: flex;
+  font-size: 12px;
+  line-height: 1;
+  align-items: center;
+  margin: 4px 0 0;
+}
+
+.product__store-status .icon {
+  width: 22px;
+  height: 22px;
+  fill: #0a8a00;
+  stroke: #0a8a00;
+  stroke-width: 2;
+  margin-right: 4px;
 }
 
 .product-card :global(.btn--icon) {

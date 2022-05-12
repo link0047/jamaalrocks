@@ -9,7 +9,9 @@
   class:chip--sizeSmall={ size == 'small' }
   class:chip--outlined={ variant == 'outlined' }
   class:chip--rounded={ rounded }
-  role="row">
+  role="row"
+  {...$$restProps}
+>
   {#if $$slots.avatar}
     <div role="gridcell">
       <slot name="avatar"></slot>

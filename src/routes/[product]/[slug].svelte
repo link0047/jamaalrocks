@@ -736,6 +736,7 @@
   grid-template-columns: repeat(2, 1fr);
   column-gap: 8px;
   row-gap: 48px;
+  margin: 8px 0 0;
 }
 
 @media (min-width: 320px) {
