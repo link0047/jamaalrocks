@@ -8,7 +8,7 @@
       props: {
         params,
         data: _data,
-        isMobile: ua.device.type === 'mobile'
+        isMobile: ua.device.type === 'mobile' || ua.device.type === 'tablet'
       }
     }
   }
@@ -26,10 +26,13 @@
   import Radio from '$lib/radio/radio.svelte';
   import { Pagination } from '$lib/pagination';
   import { Action } from '$lib/card';
+  import { ProductCard } from '$lib/productcard';
 
   export let params;
   export let isMobile;
   export let data;
+
+  console.log(isMobile);
 
   let subCategories = [
     {
@@ -331,7 +334,10 @@
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
-<div class=" page page--plp">
+<div 
+  class="page page--plp"
+  class:isMobile= { isMobile }
+>
   <Breadcrumb>
     <Crumb>Home</Crumb>
     <Crumb current>{ title }</Crumb>
@@ -497,21 +503,12 @@
     </section> -->
     <section class="grid grid--products">
       {#each products[pageIdx].page as product, i}
-        <div class="card product-card">
-          <!-- <Fab size="small" style="--x:calc(100% - 40px);--y:8px">
-            <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-              <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
-            </svg>
-          </Fab> -->
+        <!-- <div class="card product-card">
           <picture class="card__media">
-            <!-- {#if !isEmpty(product.badge)}
-            <Chip size="small" rounded>{product.badge}</Chip>
-            {/if} -->
             <source media="(max-width: 560px)" srcset={product.image}/>
             <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
             <Action />
           </picture>
-          
           {#if !isEmpty(product.badge)}
             <Chip size="small">{product.badge}</Chip>
           {/if}
@@ -559,7 +556,8 @@
               {/each} 
             </div>
           {/if}
-        </div>
+        </div> -->
+        <ProductCard product={product} />
       {/each}
     </section>
     <div class="browse-footer">
@@ -572,16 +570,6 @@
   </main>
 </div>
 <style>
-.rating-stars {
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.rating-stars .icon{
-  width: 20px;
-  height: 20px;
-}
-
 .link {
   text-decoration: none;
   -webkit-text-decoration-skip-ink: auto;
@@ -595,12 +583,6 @@
 .link:hover {
   color: #000;
   /* text-decoration: underline; */
-}
-
-.image {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 
 .page__title {
@@ -632,86 +614,66 @@
 
 .page--plp {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-areas:
-    "sidebar breadcrumb"
-    "sidebar browse-header"
-    "sidebar main-content";
-  grid-column-gap: 16px;
   padding: 8px;
-
-  row-gap: 8px;
-  grid-template-rows: 32px 56px 1fr;
 }
 
 .sidebar {
-  grid-area: sidebar;
-  position: sticky;
-  top: 0;
+  position: fixed;
   height: 100vh;
-  overflow: auto;
+  top: 0;
+  left: 100vw;
+  transform: translate3d(0, 0, 0);
+  width: 100vw;
+  z-index: 10;
+  background-color: #fff;
+  overflow: scroll;
+  padding: 0;
+  will-change: transform;
+  transition: transform .3s ease-in-out;
 }
 
-@media (max-width: 560px) {
-  .page--plp {
-    grid-template-columns: none;
-    grid-template-areas:
-    "breadcrumb"
-    "browse-header"
-    "sidebar"
-    "main-content";
-  }
+.sidebar--open {
+  transform: translate3d(-100vw, 0, 0);
+  transition: transform .3s ease-in-out;
+}
 
-  .sidebar {
-    position: fixed;
-    height: 100vh;
-    top: 0;
-    left: 100vw;
-    transform: translate3d(0, 0, 0);
-    width: 100vw;
-    z-index: 10;
-    background-color: #fff;
-    overflow: scroll;
-    padding: 0;
+.sidebar__header {
+  display: grid;
+  grid-template-columns: 1fr minmax(36px, auto);
+  justify-content: center;
+  align-items: center;
+  height: 56px;
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  position: sticky;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
 
-    will-change: transform;
-    transition: transform .3s ease-in-out;
-  }
-
-  .sidebar--open {
-    transform: translate3d(-100vw, 0, 0);
-    transition: transform .3s ease-in-out;
-  }
-
-  .sidebar__header {
-    display: grid;
-    grid-template-columns: 1fr minmax(36px, auto);
-    justify-content: center;
-    align-items: center;
-    height: 56px;
-    background-color: #f2f2f2;
-    border-bottom: 1px solid #ccc;
-    padding: 8px;
-    position: sticky;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 99;
-  }
-
-  .sidebar__header-title {
-    display: flex;
-    align-items: center;
-  }
+.sidebar__header-title {
+  display: flex;
+  align-items: center;
 }
 
 .content {
+  width: 100%;
   grid-area: main-content;
 }
 
-.filter {
-  /* border-top: 1px solid #21212140;
-  border-bottom: 1px solid #21212140; */
+.rating-stars {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.rating-stars .icon{
+  width: 20px;
+  height: 20px;
+}
+
+/* .filter {
   margin-bottom: 8px;
 }
 
@@ -729,21 +691,14 @@
 .filter__header .icon {
   width: 20px;
   height: 20px;
-}
+} */
 
 .browse-footer {
   display: grid;
   grid-template-columns: 1fr 120px;
-  column-gap: 64px;
+  column-gap: 16px;
   align-items: center;
   margin-top: 56px;
-}
-
-@media (max-width: 768px) {
-  .browse-footer {
-    grid-template-columns: 1fr;
-    row-gap: 16px;
-  }
 }
 
 .browse-header {
@@ -778,141 +733,63 @@
 }
 
 .grid--products {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 8px;
   row-gap: 48px;
 }
 
-@media (max-width: 560px) {
+@media (min-width: 320px) {
+  .page--plp {
+    grid-template-columns: none;
+    grid-template-areas:
+    "breadcrumb"
+    "browse-header"
+    "sidebar"
+    "main-content";
+  }
+}
+
+@media (min-width: 768px) {
   .grid--products {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .browse-footer {
+    column-gap: 32px;
   }
 }
 
-.card {
-  border-radius: 4px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-  overflow: hidden;
-  position: relative;
-}
-
-.card__media {
-  position: relative;
-  display: block;
-  height: auto;
-  background-color: #f2f2f2;
-  overflow: hidden;
-  border-radius: 4px;
-  animation: loading 1s 5;
-}
-
-@keyframes loading {
-  0% {
-    background-color: rgba(242,242,242,1);
+@media (min-width: 1088px) {
+  .page--plp {
+    grid-template-columns: 300px 1fr;
+    grid-template-areas:
+      "sidebar breadcrumb"
+      "sidebar browse-header"
+      "sidebar main-content";
+    grid-column-gap: 16px;
+    grid-template-rows: 32px 56px 1fr;
   }
-  50% {
-    background-color: rgba(242,242,242,.5);
+  .grid--products {
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 16px;
   }
-  100% {
-    background-color: rgba(242,242,242,1);
+
+  .sidebar {
+    grid-area: sidebar;
+    position: sticky;
+    top: 0;
+    left: initial;
+    height: 100vh;
+    width: initial;
+    overflow: auto;
   }
-}
 
-.product-card {
-  cursor: pointer;
-  overflow: initial;
-}
-
-.product__action {
-  position: absolute;
-  left: 4px;
-  bottom: 4px;
-}
-
-:global(.card__media .chip) {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  border-top-left-radius: 0!important;
-  border-bottom-left-radius: 4px!important;
-  border-bottom-right-radius: 0!important;
-  background-color: #2a508f;
-  color: #fff;
-}
-
-:global(.product-card > .chip) {
-  box-shadow: 0 0 0 2px #2a508f;
-  color: #193055;
-  background-color: #fff;
-  width: max-content;
-  margin-top: 8px;
-}
-
-.product-card::after {
-  content: '';
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  width: calc(100% + 8px);
-  height: calc(100% + 8px);
-  box-shadow: 0 0 0 4px #666;
-  transform: translate(-4px, -4px);
-  border-radius: 4px;
-  transition: opacity .15s ease;
-}
-
-@media (min-width: 561px) {
-  .product-card:hover::after {
-    opacity: 1;
+  .sidebar__header {
+    display: none;
   }
-}
 
-.product-card__name {
-  font-size: 14px;
-  font-weight: 400;
-  margin: 8px 0 0;
-  line-height: 1;
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr min-content;
-}
-
-.strike-through {
-  text-decoration: line-through;
-}
-
-.product-card__price {
-  font-size: 16px;
-  font-weight: 500;
-  margin: 8px 0 0;
-  line-height: 1;
-  display: grid;
-  grid-template-columns: min-content min-content;
-  align-items: flex-end;
-  gap: 4px;
-}
-
-.product-card__price-sale {
-  color: #4d4a4f;
-  font-size: 12px;
-}
-
-.product-card__rating {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  font-size: 14px;
-  line-height: 1;
-  margin: 8px 0 0;
-}
-:global(.btn) .icon,
-.product-card .icon {
-  width: 20px;
-  height: 20px;
+  .browse-footer {
+    column-gap: 64px;
+  }
 }
 </style>
-

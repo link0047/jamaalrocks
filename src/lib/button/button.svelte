@@ -65,6 +65,7 @@
 .btn--icon {
   padding: 0;
   min-width: 32px;
+  transition: transform .3s ease-in;
 }
 
 .btn--rounded {

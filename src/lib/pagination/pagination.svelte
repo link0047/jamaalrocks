@@ -6,7 +6,6 @@
   export let displayCount = 7;
   export let page = 1;
   export let handleChange;
-  console.log('init', count);
 
   function handleClick(page) {
     handleInternalChange(page);  
