@@ -84,8 +84,7 @@
       aria-valuetext={`${prefix}${value}`}
       aria-valuemax={max}
       aria-label={label}
-    ></button>
-    
+    ></button>=
   </div>
   <div class="rail-label">{`${prefix}${max}`}</div>
 </div>

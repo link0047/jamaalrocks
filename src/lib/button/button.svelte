@@ -4,17 +4,23 @@
  export let raised = false;
  export let disabled = false;
  export let size = undefined;
+ export let label = undefined
+ let clazz;
+  export { clazz as class };
+  const css = clazz ? ` ${clazz}` : '';
 </script>
 <button 
-  class="btn"
+  class={`btn${css}`}
   class:btn--primary={ variant == 'primary' }
   class:btn--outlined={ variant == 'outlined' }
+  class:btn--commerce={ variant == 'commerce' }
   class:btn--icon={ variant == 'icon' }
   class:btn--rounded={ variant == 'rounded' }
   class:btn--raised={ raised }
   class:btn--sizeSmall={ size == 'small'}
   class:btn--sizeLarge={ size == 'large'}
-  type="{type}"
+  type={type}
+  aria-label={label}
   disabled={disabled}
   {...$$restProps}
   on:click
@@ -56,6 +62,7 @@
   -webkit-appearance: none;
   appearance: none;
   gap: 4px;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn--sizeSmall {
@@ -91,5 +98,15 @@
 
 .btn:hover {
   cursor: pointer;
+}
+
+.btn--commerce:not(:disabled) {
+  background-color: #008a00;
+  color: #fff;
+}
+
+.btn--commerce:focus,
+.btn--commerce:hover {
+  background-color: #006e00;
 }
 </style>

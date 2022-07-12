@@ -1,11 +1,53 @@
 <script>
   import InputStepper from "$lib/inputstepper";
+  import { dataStore } from '$lib/store';
   export let count = 0;
   export let label = undefined;
   export let variant = undefined;
+  export let data = {};
+
+  const sizeArr = [];
+  const colorArr = [];
+
+  const sizeScorer = {
+    "xs": 0,
+    "small": 1,
+    "medium": 2,
+    "large": 3,
+    "xl": 4,
+    "xxl": 5,
+    "2x": 6,
+    "3x": 7
+  };
+
+  function sortSize(a,b) {
+    return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
+  }
+
+  for (let i = 0; i < data.variants.length; i++) {
+    const { color, size } = data.variants[i];
+
+    if (color && !colorArr.includes(color)) {
+      colorArr.push(color);
+    }
+
+    if (size && !sizeArr.includes(size)) {
+      sizeArr.push(size);
+    }
+  }
+
+  sizeArr.sort(sortSize);
 
   function handleProductAdd() {
-    count += 1;
+    // count += 1;
+    $dataStore.open = true;
+    $dataStore.panel = {
+      name: data.name,
+      image: data.image,
+      size: sizeArr,
+      color: colorArr,
+      price: data.price
+    }
   }
 
   function handleChange(val) {
@@ -13,6 +55,7 @@
       count = 0;
     }
   }
+
 </script>
 <div class="product__action">
   {#if count == 0}
@@ -81,7 +124,6 @@
   .btn--addtocart.commerce:hover {
     background-color: #006e00;
   }
-
 
   .icon {
     fill: #fff;

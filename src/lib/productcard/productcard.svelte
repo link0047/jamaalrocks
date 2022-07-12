@@ -3,6 +3,7 @@
   import { Button } from '$lib/button';
   import Action from './action.svelte';
   import { generateId } from './util';
+  import Productstatus from './productstatus.svelte';
   
   // make transparent
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANkAAAEQCAQAAACXJxk1AAABf0lEQVR42u3RAREAAAQEMN+/rQLkcLYKS09xSpQpQxnKlKEMZcpQhjJlKEOZMpShTBnKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZcpQhjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKFOmTBnKUKYMZShThjKUKUMZypShDGXKUIYylClDGcqUoQxlylCGMmUoQ5kylKEMZcpQhjJlKEOZMpShTBnKUKYMZShThjKUoUwZylCmDGUoU4YylClDGcqUoQxlKFOGMpQpQxnKlKEMZcpQhjJlKEOZMmXKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZShThjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKEOZMpShTBnKUKYMZShThjKUKUMZypQpU4YylClDGcqUoQxlylCGsk8Wz28RP36goaIAAAAASUVORK5CYII=";
@@ -21,6 +22,10 @@
     }
   };
   
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
   function isEmpty(str) {
     return (!str || str.length === 0 );
   }
@@ -29,7 +34,7 @@
   <picture class="card__media">
     <source media="(max-width: 560px)" srcset={product.image}/>
     <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
-    <Action count={0} variant="commerce" />
+    <Action count={0} variant="commerce" data={product} />
   </picture>
   {#if !isEmpty(product.badge)}
     <Chip size="small">{product.badge}</Chip>
@@ -80,17 +85,8 @@
       {/each} 
     </div>
   {/if}
-  <div class="product__store-status">
-    <svg
-      class="icon"
-      viewport="0 0 24 24"
-      role="presentation"
-      focusable="false"
-    >
-      <circle cx="50%" cy="50%" r="4.5" />
-    </svg>
-    In stock at Egg Harbor Twp, NJ
-  </div>
+  <div class="promo">Buy 1 Get 1 $5</div>
+  <Productstatus store="Egg Harbor Twp, NJ" availibility={randomInt(1,10) > 5 ? 1 : 0 }/>
 </div>
 <style>
 .image {
@@ -210,21 +206,21 @@
   line-height: 1;
 }
 
-.product__store-status {
+.promo {
+  background-color: #e7eef8;
+  color: #182e52;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 8px 0;
+  width: max-content;
+  padding: 0 8px;
+  height: 24px;
   display: flex;
-  font-size: 12px;
-  line-height: 1;
+  justify-content: center;
   align-items: center;
-  margin: 4px 0 0;
-}
-
-.product__store-status .icon {
-  width: 22px;
-  height: 22px;
-  fill: #0a8a00;
-  stroke: #0a8a00;
-  stroke-width: 2;
-  margin-right: 4px;
+  line-height: 1;
+  border-radius: 4px;
+  box-shadow: 0 0 1px #182e52;
 }
 
 .product-card :global(.btn--icon) {

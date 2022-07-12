@@ -1,9 +1,12 @@
 <script>
   import InputStepper from "$lib/inputstepper";
+  import { dataStore } from '$lib/store';
   export let count = 0;
   export let label = undefined;
   function handleProductAdd() {
-    count += 1;
+    // count += 1;
+    $dataStore.open = true;
+    console.log('open');
   }
 
   function handleChange(val) {

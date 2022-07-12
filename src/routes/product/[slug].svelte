@@ -27,12 +27,11 @@
   import { Pagination } from '$lib/pagination';
   import { Action } from '$lib/card';
   import { ProductCard } from '$lib/productcard';
-
+  import Drawer from '$lib/drawer/drawer.svelte';
+  import { dataStore } from '$lib/store';
   export let params;
   export let isMobile;
   export let data;
-
-  console.log(isMobile);
 
   let subCategories = [
     {
@@ -104,6 +103,7 @@
   // const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANkAAAEQCAQAAACXJxk1AAABf0lEQVR42u3RAREAAAQEMN+/rQLkcLYKS09xSpQpQxnKlKEMZcpQhjJlKEOZMpShTBnKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZcpQhjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKFOmTBnKUKYMZShThjKUKUMZypShDGXKUIYylClDGcqUoQxlylCGMmUoQ5kylKEMZcpQhjJlKEOZMpShTBnKUKYMZShThjKUoUwZylCmDGUoU4YylClDGcqUoQxlKFOGMpQpQxnKlKEMZcpQhjJlKEOZMmXKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZShThjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKEOZMpShTBnKUKYMZShThjKUKUMZypQpU4YylClDGcqUoQxlylCGsk8Wz28RP36goaIAAAAASUVORK5CYII=";
 
+  
   const sizes = new Set();
   const colors = new Set();
   const rating = [1,2,3,4,5];
@@ -485,78 +485,8 @@
     {/if}
   </header>
   <main class="content">
-    <!-- <section class="filter">
-      <header class="filter__header">
-        <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-          <path d="M6 13h12v-2H6M3 6v2h18V6M10 18h4v-2h-4v2Z"/>
-        </svg>
-        All filters (5)
-      </header>
-      <Chips>
-        {#each [...Array(5).keys()] as i, j}
-          <Chip variant="outlined" size="small">
-            <div slot="avatar" class="avatar">J</div>
-            {j}
-          </Chip>
-        {/each}
-      </Chips>
-    </section> -->
     <section class="grid grid--products">
       {#each products[pageIdx].page as product, i}
-        <!-- <div class="card product-card">
-          <picture class="card__media">
-            <source media="(max-width: 560px)" srcset={product.image}/>
-            <img class="image lazyload" width="217" height="272" src={transparentPixel} data-src={product.image} alt={product.name} decoding="async" loading="lazy" />
-            <Action />
-          </picture>
-          {#if !isEmpty(product.badge)}
-            <Chip size="small">{product.badge}</Chip>
-          {/if}
-          <div class="product-card__name">
-            {product.name}
-            <Button variant="icon" size="small">
-              <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-                <path d="m12.1 18.55-.1.1-.11-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04 1 3.57 2.36h1.86C13.46 6 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05M16.5 3c-1.74 0-3.41.81-4.5 2.08C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.41 2 8.5c0 3.77 3.4 6.86 8.55 11.53L12 21.35l1.45-1.32C18.6 15.36 22 12.27 22 8.5 22 5.41 19.58 3 16.5 3Z"/>
-              </svg>
-            </Button>  
-          </div>
-          <div class="product-card__price">
-            {#if product.price.sale}
-            <div>${product.price.sale}</div>
-            <div style="display:grid;align-items:center;grid-template-columns:max-content max-content;gap:3px">
-              <span class="product-card__price-sale strike-through">${product.price.base}</span>
-              <span style="color:#005900;font-size:12px;">{100 - Math.round(product.price.sale / product.price.base * 100)}% off</span>
-            </div>
-            {:else}
-              {`$${product.price.base}`}
-            {/if}
-          </div>
-          {#if +product.rating > 0} 
-            <div class="product-card__rating">
-              {#each rating as j}
-                <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-                  {#if +product.rating >= j}
-                    <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
-                  {:else}
-                    {#if !Number.isInteger(+product.rating) && (+product.rating + 1) > j}
-                      <defs>
-                        <linearGradient id={`grad-${i}-${j}`}>
-                          <stop offset={`${product.rating.split('.')[1]}0%`} stop-color="#000"></stop>
-                          <stop offset={`${product.rating.split('.')[1]}0%`} stop-color="#fff"></stop>
-                          <stop offset={`${(10 - +product.rating.split('.')[1])}0%`} stop-color="#fff"></stop>
-                        </linearGradient>
-                      </defs>
-                      <path fill={`url(#grad-${i}-${j})`} d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
-                      <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
-                    {:else}
-                      <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
-                    {/if}
-                  {/if}
-                </svg>
-              {/each} 
-            </div>
-          {/if}
-        </div> -->
         <ProductCard product={product} />
       {/each}
     </section>
@@ -567,6 +497,51 @@
         <SelectOption value={48}>48</SelectOption>
       </Select>
     </div>
+    <Drawer open={$dataStore.open} position="right">
+      <header class="drawer__header">
+        <Button class="drawer__close-btn" label="Close Button" on:click={() => { $dataStore.open = false; }}>
+          <svg focusable="false" role="presentation" class="icon" viewBox="0 0 24 24">
+            <path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z" />
+          </svg>
+          Back
+        </Button>
+        <h2 id="drawer-0-title" class="drawer__title">Product Detail</h2>
+      </header>
+      <div class="drawer__content">
+        <picture>
+          <img alt={$dataStore.panel.name} src={$dataStore.panel.image} decoding="async" class="image" />
+        </picture>
+        <div class="product-info">
+          <p>{$dataStore.panel.name}</p>
+          <div class="product-card__price">
+            {#if $dataStore.panel.price.sale}
+            <div>${$dataStore.panel.price.sale}</div>
+            <div style="display:grid;align-items:center;grid-template-columns:max-content max-content;gap:3px">
+              <span class="product-card__price-sale strike-through">${$dataStore.panel.price.base}</span>
+              <span style="color:#005900;font-size:12px;">{100 - Math.round($dataStore.panel.price.sale / $dataStore.panel.price.base * 100)}% off</span>
+            </div>
+            {:else}
+              {`$${$dataStore.panel.price.base}`}
+            {/if}
+          </div>
+        </div>
+        {#if $dataStore.panel.size.length}
+        <Select selected="Medium" labelText="Size">
+          {#each $dataStore.panel.size as size}
+            <SelectOption value={size}>{size}</SelectOption>
+          {/each}
+        </Select>
+        {/if}
+        {#if $dataStore.panel.color.length}
+        <Select labelText="Color">
+          {#each $dataStore.panel.color as color}
+            <SelectOption value={color}>{color}</SelectOption>
+          {/each}
+        </Select>
+        {/if}
+        <Button variant="commerce">Add to Cart</Button>
+      </div>
+    </Drawer>
   </main>
 </div>
 <style>
@@ -673,26 +648,6 @@
   height: 20px;
 }
 
-/* .filter {
-  margin-bottom: 8px;
-}
-
-.filter__header {
-  display: grid;
-  grid-template-columns: 20px 1fr;
-  gap: 4px;
-  align-items: center;
-  height: 24px;
-  line-height: 1;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.filter__header .icon {
-  width: 20px;
-  height: 20px;
-} */
-
 .browse-footer {
   display: grid;
   grid-template-columns: 1fr 120px;
@@ -792,5 +747,57 @@
   .browse-footer {
     column-gap: 64px;
   }
+}
+
+.drawer__header {
+  width: 100%;
+  height: 48px;
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  background-color: #f5f6f7;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.drawer__title {
+  font-weight: 500;
+  font-size: 20px;
+  margin: 0;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.drawer__content {
+  padding: 8px;
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
+  height: calc(100% - 48px);
+  overflow: auto;
+}
+
+:global(.drawer .drawer__close-btn) {
+  padding: 0;
+  margin-left: 4px;
+}
+
+.strike-through {
+  text-decoration: line-through;
+}
+
+.product-card__price {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  display: grid;
+  grid-template-columns: min-content min-content;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.product-card__price-sale {
+  color: #4d4a4f;
+  font-size: 12px;
 }
 </style>

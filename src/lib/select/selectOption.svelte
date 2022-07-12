@@ -1,5 +1,5 @@
 <script>
-  import { getContext, onMount } from "svelte";
+  import { afterUpdate, getContext, onDestroy, onMount } from "svelte";
   export let value = undefined;
   export let hidden = undefined;
   export let disabled = undefined;
@@ -14,6 +14,13 @@
     if ($ctx && $ctx == value) selected = true;
   });
   
+  afterUpdate(() => {
+    console.log('update', $ctx);
+  }); 
+
+  onDestroy(() => {
+    console.log('dead')
+  });
 </script>
 <option
   value={value || ''}
