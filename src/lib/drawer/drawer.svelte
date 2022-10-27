@@ -1,5 +1,5 @@
 <script>
-  import { browser } from '$app/env'
+  import { browser } from '$app/environment';
   import { afterUpdate } from 'svelte';
   export let open = false;
   export let position = "left";

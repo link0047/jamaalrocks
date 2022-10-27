@@ -1,5 +1,5 @@
 <script>
-  import Separator from "$lib/separator/separator.svelte";
+  import Separator from "../separator/separator.svelte";
   export let open = false;
   const id = 'collapsible-1'//generateId('collapsible');
   const disclosureID = `${id}-disclosure`;

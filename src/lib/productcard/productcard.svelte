@@ -1,6 +1,6 @@
 <script>
-  import { Chip } from '$lib/chips';
-  import { Button } from '$lib/button';
+  import { Chip } from '../chips';
+  import { Button } from '../button';
   import Action from './action.svelte';
   import { generateId } from './util';
   import Productstatus from './productstatus.svelte';

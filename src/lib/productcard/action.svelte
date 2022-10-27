@@ -1,6 +1,6 @@
 <script>
-  import InputStepper from "$lib/inputstepper";
-  import { dataStore } from '$lib/store';
+  import InputStepper from "../inputstepper";
+  import { dataStore } from '../store';
   export let count = 0;
   export let label = undefined;
   export let variant = undefined;

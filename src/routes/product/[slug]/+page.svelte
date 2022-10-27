@@ -1,4 +1,4 @@
-<script context="module">
+<!-- <script context="module">
   import _data from './products.json';
   import parser from 'ua-parser-js';
   export async function load({ params, session }) {
@@ -12,28 +12,28 @@
       }
     }
   }
-</script>
+</script> -->
 <script>
-  import GlobalHeader from '$lib/globalheader';
   import { onMount, afterUpdate } from 'svelte';
-  import { Breadcrumb, Crumb } from '$lib/breadcrumbs';
-  import { Select, SelectOption } from '$lib/select';
-  import { Chips, Chip } from '$lib/chips';
-  import { Collapsible } from '$lib/collapsible';
-  import { List, ListItem } from '$lib/list';
-  import { Button, Fab } from '$lib/button';
-  import Checkbox from '$lib/checkbox';
-  import Slider from '$lib/slider';
-  import Radio from '$lib/radio/radio.svelte';
-  import { Pagination } from '$lib/pagination';
-  import { Action } from '$lib/card';
-  import { ProductCard } from '$lib/productcard';
-  import Drawer from '$lib/drawer/drawer.svelte';
-  import { dataStore } from '$lib/store';
-  import Globalheader from '../../lib/globalheader/globalheader.svelte';
-  export let params;
-  export let isMobile;
+  import { Breadcrumb, Crumb } from '../../../lib/breadcrumbs';
+  import { Select, SelectOption } from '../../../lib/select';
+  import { Chips, Chip } from '../../../lib/chips';
+  import { Collapsible } from '../../../lib/collapsible';
+  import { List, ListItem } from '../../../lib/list';
+  import { Button, Fab } from '../../../lib/button';
+  import Checkbox from '../../../lib/checkbox';
+  import Slider from '../../../lib/slider';
+  import { Radio } from '../../../lib/radio';
+  import { Pagination } from '../../../lib/pagination';
+  import { Action } from '../../../lib/card';
+  import { ProductCard } from '../../../lib/productcard';
+  import Drawer from '../../../lib/drawer/drawer.svelte';
+  import GlobalHeader from '../../../lib/globalheader';
+  import { dataStore } from '../../../lib/store';
+  
   export let data;
+
+  const isMobile = false
 
   let subCategories = [
     {
@@ -101,7 +101,7 @@
       href: "https://www.spencersonline.com/category/tees/clearance-t-shirts/pc/3369/3398.uts",
     },
   ];
-  const title = params.slug.replace('-',' ');
+  const title = data.params.slug.replace('-',' ');
   // const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANkAAAEQCAQAAACXJxk1AAABf0lEQVR42u3RAREAAAQEMN+/rQLkcLYKS09xSpQpQxnKlKEMZcpQhjJlKEOZMpShTBnKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZcpQhjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKFOmTBnKUKYMZShThjKUKUMZypShDGXKUIYylClDGcqUoQxlylCGMmUoQ5kylKEMZcpQhjJlKEOZMpShTBnKUKYMZShThjKUoUwZylCmDGUoU4YylClDGcqUoQxlKFOGMpQpQxnKlKEMZcpQhjJlKEOZMmXKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZShThjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKEOZMpShTBnKUKYMZShThjKUKUMZypQpU4YylClDGcqUoQxlylCGsk8Wz28RP36goaIAAAAASUVORK5CYII=";
 
@@ -175,7 +175,7 @@
     }
   }
 
-  for (const { page } of data) {
+  for (const { page } of data.products) {
     for(let product of page) {
       for (let variant of product.variants) {  
         sizes.add(variant.size);
@@ -212,7 +212,7 @@
         results = 0;
         console.log('reset colors');
         colors.clear();
-        for (const { page } of data) {
+        for (const { page } of data.products) {
           for(let product of page) {
             for (let variant of product.variants) {  
               colors.add(variant.color);
@@ -305,7 +305,7 @@
 
   function filteredProducts() {
     const arr = [];
-    for (let page of data) {
+    for (let page of data.products) {
       for (let product of page.page) {
         if (!product.variants) continue; 
         for (let variant of product.variants) {
@@ -345,7 +345,7 @@
   });
 
   onMount(async () => {
-    window.__data = data;
+    window.__data = data.products;
     if (isMobile) {
       const observer = new IntersectionObserver(handleIntersection, {
         threshold: [0,1]
@@ -354,14 +354,14 @@
     }
   });
   
-  $: count = data.length - 1;
+  $: count = data.products.length - 1;
   $: productColors = [...colors];
-  $: products = data;
+  $: products = data.products;
 </script>
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
-<Globalheader/>
+<GlobalHeader/>
 <div 
   class="page page--plp"
   class:isMobile= { isMobile }
