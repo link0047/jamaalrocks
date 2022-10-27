@@ -84,7 +84,18 @@
       aria-valuetext={`${prefix}${value}`}
       aria-valuemax={max}
       aria-label={label}
-    ></button>=
+    ></button>
+    <button
+      use:action={railRef}
+      type="button"
+      role="slider"
+      class="rail__thumb"
+      aria-valuemin={min}
+      aria-valuenow={value}
+      aria-valuetext={`${prefix}${value}`}
+      aria-valuemax={max}
+      aria-label={label}
+    ></button>
   </div>
   <div class="rail-label">{`${prefix}${max}`}</div>
 </div>

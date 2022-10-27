@@ -5,10 +5,12 @@ import { afterUpdate } from "svelte";
   export let name = undefined;
   export let value = undefined;
   export let required = false;
+  export let disabled = false;
   export let size = undefined;
   export let variant = undefined;
   export let checked = false;
   export let color = 'transparent';
+
   // separate swatch and box variant to their own respective components
   const blackCheck = `--icon-fill:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='black'%3e%3cpath d='M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z'/%3e%3c/svg%3e")`;
   let iconColor = '';
@@ -23,11 +25,12 @@ import { afterUpdate } from "svelte";
   class:checkbox--swatch={ variant == 'swatch' }
   class:checkbox--card={ variant == 'card' }
   style={ variant == 'swatch' ? `--swatch-color: ${color};${iconColor}` : undefined }
+  on:click
   on:blur
   on:focus
   on:change
 >
-  <input class="checkbox__native-control" {id} {name} type="checkbox" {value} aria-labelledby={labelId} required={required || undefined} {checked}>
+  <input class="checkbox__native-control" {id} {name} type="checkbox" {value} aria-labelledby={labelId} required={required || undefined} disabled={disabled} {checked} {...$$restProps}>
   <label id={labelId} class="checkbox__label" for="{id}">
     <slot />
   </label>

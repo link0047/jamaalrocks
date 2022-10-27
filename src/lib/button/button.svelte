@@ -4,18 +4,21 @@
  export let raised = false;
  export let disabled = false;
  export let size = undefined;
- export let label = undefined
- let clazz;
+ export let label = undefined;
+ export let el = undefined;
+ export let rounded = false;
+ let clazz = undefined;
   export { clazz as class };
   const css = clazz ? ` ${clazz}` : '';
 </script>
 <button 
+  bind:this={el}
   class={`btn${css}`}
   class:btn--primary={ variant == 'primary' }
   class:btn--outlined={ variant == 'outlined' }
   class:btn--commerce={ variant == 'commerce' }
   class:btn--icon={ variant == 'icon' }
-  class:btn--rounded={ variant == 'rounded' }
+  class:btn--rounded={ rounded }
   class:btn--raised={ raised }
   class:btn--sizeSmall={ size == 'small'}
   class:btn--sizeLarge={ size == 'large'}
@@ -78,7 +81,7 @@
 .btn--rounded {
   box-shadow: inset 0 0 0 2px #000;
   border-radius: 18px;
-  padding: 0;
+  padding: 0 12px;
 }
 
 
@@ -108,5 +111,14 @@
 .btn--commerce:focus,
 .btn--commerce:hover {
   background-color: #006e00;
+}
+
+.btn.btn--primary {
+  background-color: #2a508f;
+  color: #fff;
+}
+
+.btn--rounded.btn--primary {
+  box-shadow: inset 0 0 0 2px #1D3864;
 }
 </style>

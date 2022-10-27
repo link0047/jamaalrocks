@@ -19,6 +19,7 @@
   <svg class="icon" role="presentation" focusable="false" viewBox="0 0 24 24">
     <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
   </svg>
+  <slot name="facets" />
 </button>
 <div 
   id={id} 
@@ -46,7 +47,7 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    height: 48px;
+    min-height: 48px;
     padding: 0 0 0 16px;
     margin: 0;
     text-align: left;

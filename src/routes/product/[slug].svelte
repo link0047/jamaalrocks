@@ -14,6 +14,7 @@
   }
 </script>
 <script>
+  import GlobalHeader from '$lib/globalheader';
   import { onMount, afterUpdate } from 'svelte';
   import { Breadcrumb, Crumb } from '$lib/breadcrumbs';
   import { Select, SelectOption } from '$lib/select';
@@ -29,6 +30,7 @@
   import { ProductCard } from '$lib/productcard';
   import Drawer from '$lib/drawer/drawer.svelte';
   import { dataStore } from '$lib/store';
+  import Globalheader from '../../lib/globalheader/globalheader.svelte';
   export let params;
   export let isMobile;
   export let data;
@@ -151,6 +153,8 @@
   let pageIdx = 0;
   let filterCount = { color: 0, size: 0 };
   const filters = new Set();
+  $: _filters = [];
+  $: filtersCount = 0;
   let sidebarOpen = false;
 
   function isEmpty(str) {
@@ -188,10 +192,13 @@
     if (target.checked) {
       filters.add(target.value);
       filterCount.size += 1;
+      filtersCount += 1;
     } else {
       filters.delete(target.value);
       filterCount.size -= 1;
+      filtersCount -= 1;
     }
+    _filters = [...filters];
     if (filters.size) {
       const filtered = filteredProducts();
       colors.clear();
@@ -250,10 +257,13 @@
     if (target.checked) {
       filters.add(target.value);
       filterCount.color += 1;
+      filtersCount += 1;
     } else {
       filters.delete(target.value);
       filterCount.color -= 1;
+      filtersCount -= 1;
     }
+    _filters = [...filters];
 
     if (filters.size) {
       const filtered = filteredProducts();
@@ -315,6 +325,17 @@
     return arr;
   }
 
+  let menubar;
+  let filterBtn;
+  let showMenu = false;
+  function handleIntersection([e]) {
+    if (e.intersectionRatio === 0) {
+      showMenu = true;
+    } else if (e.intersectionRatio === 1) {
+      showMenu = false;
+    }
+  }
+
   afterUpdate(()=> {
     const images = Array.from(document.querySelectorAll('img[loading="lazy"]'));
     images.forEach(img => { 
@@ -325,6 +346,12 @@
 
   onMount(async () => {
     window.__data = data;
+    if (isMobile) {
+      const observer = new IntersectionObserver(handleIntersection, {
+        threshold: [0,1]
+      });
+      observer.observe(filterBtn);
+    }
   });
   
   $: count = data.length - 1;
@@ -334,6 +361,7 @@
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
+<Globalheader/>
 <div 
   class="page page--plp"
   class:isMobile= { isMobile }
@@ -348,8 +376,7 @@
     class="sidebar" 
     class:sidebar--open={sidebarOpen} 
     aria-hidden={isMobile ? !sidebarOpen : undefined}
-    role="dialog"
-  >
+    role="dialog">
     {#if isMobile}
       <header class="sidebar__header">
         <div class="sidebar__header-title">
@@ -365,115 +392,218 @@
         </Button>
       </header>
     {/if}
-    <Collapsible open>
-      <svelte:fragment slot="heading">Category</svelte:fragment>
-      <svelte:fragment slot="content">
-        <List scrollable>
-          {#each subCategories as category}
-            <ListItem>
-              <a class="link" href={category.href}>{category.name}</a>
-            </ListItem>
-          {/each}
-        </List>
-      </svelte:fragment>
-    </Collapsible>
-    {#if isMobile}  
-      <Collapsible>
-        <svelte:fragment slot="heading">Sort</svelte:fragment>
+    <section class="sidebar__content">
+      {#if filtersCount}
+      <div class="selected-filters">
+        <header class="selected-filters__header">
+          <h2 class="selected-filters__heading">Selected filters</h2>
+          <Button>Clear all</Button>
+        </header>
+        <div class="selected-filters__content">
+          <Chips>
+            {#each _filters as filter}
+              <Chip 
+                size="small" 
+                variant="outlined" 
+                rounded 
+                onDelete={() => {_filters = _filters.filter(value => value !== filter);document.querySelector(`[data-facet="${filter}"]`).click();filters.delete(filter)}}
+              >
+                {filter}
+              </Chip>
+            {/each}
+          </Chips>
+        </div>
+      </div>
+      {/if}
+      <Collapsible open>
+        <svelte:fragment slot="heading">Category</svelte:fragment>
         <svelte:fragment slot="content">
-          <Radio name="sort" checked>Top Seller</Radio>
-          <Radio name="sort">Newest</Radio>
-          <Radio name="sort">Top Rated</Radio>
-          <Radio name="sort">Price - Low to High</Radio>
-          <Radio name="sort">Price - High to Low</Radio>
+          <List scrollable>
+            {#each subCategories as category}
+              <ListItem>
+                <a class="link" href={category.href}>{category.name}</a>
+              </ListItem>
+            {/each}
+          </List>
         </svelte:fragment>
       </Collapsible>
-    {/if}
-    <Collapsible>
-      <svelte:fragment slot="heading">Size{ filterCount.size > 0 ? ` (${filterCount.size})` : '' }</svelte:fragment>
-      <svelte:fragment slot="content">
-        <List scrollable grid={2} gap={16}>
-          {#each sortedSizes as size}
-            <ListItem>
-              <Checkbox value={size} variant="box" on:change={handleSizeChange}>
-                { size }
-              </Checkbox>
-            </ListItem>
-          {/each}
-        </List>
-      </svelte:fragment>
-    </Collapsible>
-    <Collapsible>
-      <svelte:fragment slot="heading">Color{ filterCount.color > 0 ? ` (${filterCount.color})` : '' }</svelte:fragment>
-      <svelte:fragment slot="content">
-        <List grid={4}>
-          {#each productColors as color}
-            <ListItem>
-              <Checkbox checked={filters.has(color)} value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
-                { color }
-              </Checkbox>
-            </ListItem>
-          {/each}
-        </List>
-      </svelte:fragment>
-    </Collapsible>
-    <Collapsible>
-      <svelte:fragment slot="heading">Price</svelte:fragment>
-      <svelte:fragment slot="content">
-        <Slider prefix="$" min={0} max={250}></Slider>
-      </svelte:fragment>
-    </Collapsible>
-    <Collapsible>
-      <svelte:fragment slot="heading">Rating</svelte:fragment>
-      <svelte:fragment slot="content">
-        {#each ['4.0','3.0','2.0','1.0'] as rate, i}
-          <Radio name="rating" on:change={handleRatingChange}>
-            <div class="rating-stars">
-              {#each rating as j}
-                <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-                  {#if +rate >= j}
-                    <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
-                  {:else}
-                    {#if !Number.isInteger(+rate) && (+rate + 1) > j}
-                      <defs>
-                        <linearGradient id={`rad-${i}-${j}`}>
-                          <stop offset={`${rate.split('.')[1]}0%`} stop-color="#000"></stop>
-                          <stop offset={`${(10 - +rate.split('.')[1])}0%`} stop-color="#fff"></stop>
-                        </linearGradient>
-                      </defs>
-                      <path fill={`url(#rad-${i}-${j})`} d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
-                      <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
+      {#if isMobile}  
+        <Collapsible>
+          <svelte:fragment slot="heading">Sort</svelte:fragment>
+          <svelte:fragment slot="content">
+            <Radio name="sort" checked>Top Seller</Radio>
+            <Radio name="sort">Newest</Radio>
+            <Radio name="sort">Top Rated</Radio>
+            <Radio name="sort">Price - Low to High</Radio>
+            <Radio name="sort">Price - High to Low</Radio>
+          </svelte:fragment>
+        </Collapsible>
+      {/if}
+      <Collapsible>
+        <svelte:fragment slot="heading">
+          Size{ filterCount.size > 0 ? ` (${filterCount.size})` : '' }
+        </svelte:fragment>
+        <svelte:fragment slot="facets">
+          <Chips>
+            {#each _filters as filter}
+              {#if filter.toLowerCase() in sizeScorer}
+              <Chip 
+                size="small" 
+                variant="outlined" 
+                rounded 
+                onDelete={() => {_filters = _filters.filter(value => value !== filter);document.querySelector(`[data-facet="${filter}"]`).click();filters.delete(filter)}}
+              >
+                {filter}
+              </Chip>
+              {/if}
+            {/each}
+          </Chips>
+        </svelte:fragment>
+        <svelte:fragment slot="content">
+          <List scrollable grid={2} gap={16}>
+            {#each sortedSizes as size}
+              <ListItem>
+                <Checkbox data-facet={size} value={size} variant="box" on:change={handleSizeChange}>
+                  { size }
+                </Checkbox>
+              </ListItem>
+            {/each}
+          </List>
+        </svelte:fragment>
+      </Collapsible>
+      <Collapsible>
+        <svelte:fragment slot="heading">
+          Color{ filterCount.color > 0 ? ` (${filterCount.color})` : '' }
+        </svelte:fragment>
+        <svelte:fragment slot="facets">
+          <Chips>
+            {#each _filters as filter}
+              {#if colorMap.has(filter)}
+              <Chip 
+                size="small" 
+                variant="outlined" 
+                rounded 
+                onDelete={() => {_filters = _filters.filter(value => value !== filter);document.querySelector(`[data-facet="${filter}"]`).click();filters.delete(filter)}}
+              >
+                {filter}
+              </Chip>
+              {/if}
+            {/each}
+          </Chips>
+        </svelte:fragment>
+        <svelte:fragment slot="content">
+          <List grid={4}>
+            {#each productColors as color}
+              <ListItem>
+                <Checkbox data-facet={color} checked={filters.has(color)} value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
+                  { color }
+                </Checkbox>
+              </ListItem>
+            {/each}
+          </List>
+        </svelte:fragment>
+      </Collapsible>
+      <Collapsible>
+        <svelte:fragment slot="heading">Price</svelte:fragment>
+        <svelte:fragment slot="content">
+          <Slider prefix="$" min={0} max={250}></Slider>
+        </svelte:fragment>
+      </Collapsible>
+      <Collapsible>
+        <svelte:fragment slot="heading">Rating</svelte:fragment>
+        <svelte:fragment slot="content">
+          {#each ['4.0','3.0','2.0','1.0'] as rate, i}
+            <Radio name="rating" on:change={handleRatingChange}>
+              <div class="rating-stars">
+                {#each rating as j}
+                  <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+                    {#if +rate >= j}
+                      <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
                     {:else}
-                      <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
+                      {#if !Number.isInteger(+rate) && (+rate + 1) > j}
+                        <defs>
+                          <linearGradient id={`rad-${i}-${j}`}>
+                            <stop offset={`${rate.split('.')[1]}0%`} stop-color="#000"></stop>
+                            <stop offset={`${(10 - +rate.split('.')[1])}0%`} stop-color="#fff"></stop>
+                          </linearGradient>
+                        </defs>
+                        <path fill={`url(#rad-${i}-${j})`} d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.45 4.73L5.82 21 12 17.27Z"/>
+                        <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
+                      {:else}
+                        <path d="m12 15.39-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28M22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.45 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24Z"/>
+                      {/if}
                     {/if}
-                  {/if}
-                </svg>
-              {/each}
-            </div>
-            &nbsp;& Up
-          </Radio>
-        {/each} 
-      </svelte:fragment>
-    </Collapsible>
-    <Collapsible>
-      <svelte:fragment slot="heading">Shop my store</svelte:fragment>
-      <svelte:fragment slot="content">
-        <Checkbox>
-          See what's available at Egg Hbr Twp
-        </Checkbox>
-      </svelte:fragment>
-    </Collapsible>
+                  </svg>
+                {/each}
+              </div>
+              &nbsp;& Up
+            </Radio>
+          {/each} 
+        </svelte:fragment>
+      </Collapsible>
+      <Collapsible>
+        <svelte:fragment slot="heading">Shop my store</svelte:fragment>
+        <svelte:fragment slot="content">
+          <Checkbox>
+            See what's available at Egg Hbr Twp
+          </Checkbox>
+        </svelte:fragment>
+      </Collapsible>
+    </section>
+    {#if _filters.length}
+    <footer class="sidebar__footer">
+      <Button style="width:100%" variant="primary" rounded on:click={handleFilterClick}>Apply Filters</Button>
+    </footer>
+    {/if}
   </div>
   <header class="browse-header">
     <h1 class="page__title">{ title }</h1>
     <p class="browse-header__product-result-count">{Intl.NumberFormat().format(results)} Results</p>
     {#if isMobile}
-      <Button variant="rounded" on:click={handleFilterClick}>
+      <Button bind:el={filterBtn} rounded on:click={handleFilterClick}>
         <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
           <path d="M15 19.88c.04.3-.06.62-.29.83a.996.996 0 0 1-1.41 0L9.29 16.7a.989.989 0 0 1-.29-.83v-5.12L4.21 4.62a1 1 0 0 1 .17-1.4c.19-.14.4-.22.62-.22h14c.22 0 .43.08.62.22a1 1 0 0 1 .17 1.4L15 10.75v9.13M7.04 5 11 10.06v5.52l2 2v-7.53L16.96 5H7.04Z"/>
         </svg>
         Sort & Filter
       </Button>
+      <div bind:this={menubar} class="menubar" class:menubar--show={showMenu} role="menubar" aria-label="">
+        <div>
+          <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
+            Sort
+            <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+              <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
+            </svg>
+          </button>
+          <div class="menu" aria-label="Sort" tabindex="-1" role="menu">
+
+          </div>
+        </div>
+        <div>
+          <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
+            Category
+            <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+              <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
+            Size
+            <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+              <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button type="button" role="menuitem" tabindex="-1" class="menubar__item" on:click={handleFilterClick}>
+            Filter
+            <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
+              <path d="M18.5 7v1h-16V7zM18.5 14v1h-16v-1z" />
+              <path d="M6.5 5v5h-1V5zM15.5 12v5h-1v-5z" />
+            </svg>
+          </button>
+        </div>
+      </div>
     {:else}
       <Select class="sort" labelText="Sort By" floatLabel>
         <SelectOption value="Top Seller">Top Seller</SelectOption>
@@ -545,6 +675,87 @@
   </main>
 </div>
 <style>
+.selected-filters {
+  margin: 0 0 16px;
+}
+
+.selected-filters__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 16px;
+}
+
+.selected-filters :global(.chips) {
+  padding: 0 8px 0 16px;
+}
+
+.selected-filters__heading {
+  font-size: 1rem;
+}
+
+.selected-filters__header :global(.btn) {
+  font-size: .75rem;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.menubar {
+  pointer-events: none;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+  height: 40px;
+  display: grid;
+  gap: 8px;
+  background-color: #fff;
+  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(72px, min-content));
+  box-shadow: rgb(33 33 33 / 15%) 0px 1px 2px;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menubar--show {
+  pointer-events: initial;
+  opacity: 1;
+}
+
+.menubar__item {
+  -webkit-tap-highlight-color: transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.875rem;
+  text-decoration: none;
+  text-transform: initial;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-width: 64px;
+  height: 36px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 4px;
+  outline: 0;
+  background-color: transparent;
+  overflow: hidden;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  will-change: background-color;
+  gap: 4px;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .link {
   text-decoration: none;
   -webkit-text-decoration-skip-ink: auto;
@@ -601,7 +812,7 @@
   width: 100vw;
   z-index: 10;
   background-color: #fff;
-  overflow: scroll;
+  
   padding: 0;
   will-change: transform;
   transition: transform .3s ease-in-out;
@@ -633,6 +844,39 @@
   align-items: center;
 }
 
+.sidebar__content {
+  overflow: auto;
+  height: calc(100vh - 56px);
+  padding-bottom: 72px;
+}
+
+.sidebar__footer {
+  border-top: 1px solid #f1f1f2;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: end;
+  height: 64px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  padding: 0 8px;
+  z-index: 99;
+}
+
+@media (min-width: 561px) {
+  .sidebar__content {
+    height: auto;
+    padding: 0;
+  }
+  .sidebar__footer {
+    position: relative;
+    bottom: unset;
+    left: unset;
+  }
+}
+
 .content {
   width: 100%;
   grid-area: main-content;
@@ -643,22 +887,32 @@
   flex-flow: row nowrap;
 }
 
-.rating-stars .icon{
+.rating-stars .icon {
   width: 20px;
   height: 20px;
 }
 
 .browse-footer {
   display: grid;
-  grid-template-columns: 1fr 120px;
   column-gap: 16px;
   align-items: center;
   margin-top: 56px;
+  row-gap: 16px;
+}
+
+:global(.browse-footer .select) {
+  width: 120px;
+}
+
+@media (min-width: 768px) {
+  .browse-footer {
+    grid-template-columns: 1fr 120px;
+  }
 }
 
 .browse-header {
   display: grid;
-  grid-template-columns: 1fr 120px;
+  grid-template-columns: 1fr 140px;
   grid-template-rows: 32px 24px;
   grid-template-areas:
     "heading sort"
