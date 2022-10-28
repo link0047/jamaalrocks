@@ -33,7 +33,7 @@
   
   export let data;
 
-  const isMobile = false
+  let isMobile = data.isMobile;
 
   let subCategories = [
     {
