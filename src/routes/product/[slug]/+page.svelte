@@ -555,9 +555,9 @@
                   { gender }
                 </Checkbox>
               </ListItem>
-              {#if (genders.length - 1) != i }
+              <!-- {#if (genders.length - 1) != i }
                 <Separator />
-              {/if}
+              {/if} -->
             {/each}
           </List>
         </svelte:fragment>
@@ -572,9 +572,9 @@
                   { group }
                 </Checkbox>
               </ListItem>
-              {#if (ageGroups.length - 1) != i }
+              <!-- {#if (ageGroups.length - 1) != i }
                 <Separator />
-              {/if}
+              {/if} -->
             {/each}
           </List>
         </svelte:fragment>

@@ -43,10 +43,6 @@
   row-gap: 8px;
 }
 
-.list--sizeSmall {
-  gap: unset;
-}
-
 .list--indented {
   padding-left: 16px;
 }
