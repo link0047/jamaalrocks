@@ -12,6 +12,7 @@
 <ol 
   class="list" {...$$restProps}
   class:list--indented={ variant == 'indented' }
+  class:list--underlined={ variant == 'underlined'}
   class:list--sizeSmall={ size == 'small' }
   class:list--sizeLarge={ size == 'large' }
   class:list--scrollable={ scrollable }
@@ -40,6 +41,10 @@
   grid-template-columns: repeat(var(--col), 1fr);
   gap: var(--gap);
   row-gap: 8px;
+}
+
+.list--sizeSmall {
+  gap: unset;
 }
 
 .list--indented {

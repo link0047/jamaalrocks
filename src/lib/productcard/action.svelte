@@ -118,6 +118,7 @@
 
   .btn--addtocart.commerce {
     background-color: #008a00;
+    box-shadow: 0 1px 2px 1px #00000026;
   }
 
   .btn--addtocart.commerce:focus,

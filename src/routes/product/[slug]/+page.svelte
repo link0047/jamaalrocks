@@ -15,21 +15,22 @@
 </script> -->
 <script>
   import { onMount, afterUpdate } from 'svelte';
-  import { Breadcrumb, Crumb } from '../../../lib/breadcrumbs';
-  import { Select, SelectOption } from '../../../lib/select';
-  import { Chips, Chip } from '../../../lib/chips';
-  import { Collapsible } from '../../../lib/collapsible';
-  import { List, ListItem } from '../../../lib/list';
-  import { Button, Fab } from '../../../lib/button';
-  import Checkbox from '../../../lib/checkbox';
-  import Slider from '../../../lib/slider';
-  import { Radio } from '../../../lib/radio';
-  import { Pagination } from '../../../lib/pagination';
-  import { Action } from '../../../lib/card';
-  import { ProductCard } from '../../../lib/productcard';
-  import Drawer from '../../../lib/drawer/drawer.svelte';
-  import GlobalHeader from '../../../lib/globalheader';
-  import { dataStore } from '../../../lib/store';
+  import { Breadcrumb, Crumb } from '$lib/breadcrumbs';
+  import { Select, SelectOption } from '$lib/select';
+  import { Chips, Chip } from '$lib/chips';
+  import { Collapsible } from '$lib/collapsible';
+  import { List, ListItem } from '$lib/list';
+  import { Button, Fab } from '$lib/button';
+  import Checkbox from '$lib/checkbox';
+  import Slider from '$lib/slider';
+  import { Radio } from '$lib/radio';
+  import { Pagination } from '$lib/pagination';
+  import { Action } from '$lib/card';
+  import { ProductCard } from '$lib/productcard';
+  import Drawer from '$lib/drawer/drawer.svelte';
+  import GlobalHeader from '$lib/globalheader';
+  import Separator from '$lib/separator';
+  import { dataStore } from '$lib/store';
   
   export let data;
 
@@ -105,7 +106,6 @@
   // const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANkAAAEQCAQAAACXJxk1AAABf0lEQVR42u3RAREAAAQEMN+/rQLkcLYKS09xSpQpQxnKlKEMZcpQhjJlKEOZMpShTBnKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZcpQhjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKFOmTBnKUKYMZShThjKUKUMZypShDGXKUIYylClDGcqUoQxlylCGMmUoQ5kylKEMZcpQhjJlKEOZMpShTBnKUKYMZShThjKUoUwZylCmDGUoU4YylClDGcqUoQxlKFOGMpQpQxnKlKEMZcpQhjJlKEOZMmXKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZShThjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKEOZMpShTBnKUKYMZShThjKUKUMZypQpU4YylClDGcqUoQxlylCGsk8Wz28RP36goaIAAAAASUVORK5CYII=";
 
-  
   const sizes = new Set();
   const colors = new Set();
   const rating = [1,2,3,4,5];
@@ -119,6 +119,9 @@
     "2x": 6,
     "3x": 7
   };
+
+  const genders = ['Male', 'Female', 'Unisex'];
+  const ageGroups = ['Baby','Kids','Adult','Adult/Kids','Pet'];
 
   const colorMap = new Map([
     ['KELLY GREEN', '#4CBB17'],
@@ -506,14 +509,15 @@
       <Collapsible>
         <svelte:fragment slot="heading">Price</svelte:fragment>
         <svelte:fragment slot="content">
-          <Slider prefix="$" min={0} max={250}></Slider>
+          <Slider prefix="$" min={1} max={75}></Slider>
         </svelte:fragment>
       </Collapsible>
       <Collapsible>
         <svelte:fragment slot="heading">Rating</svelte:fragment>
         <svelte:fragment slot="content">
-          {#each ['4.0','3.0','2.0','1.0'] as rate, i}
-            <Radio name="rating" on:change={handleRatingChange}>
+          <div class="grid grid--gap-8">
+          {#each ['5.0','4.0','3.0','2.0','1.0'] as rate, i}
+            <Checkbox name="rating" on:change={handleRatingChange}>
               <div class="rating-stars">
                 {#each rating as j}
                   <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -536,9 +540,43 @@
                   </svg>
                 {/each}
               </div>
-              &nbsp;& Up
-            </Radio>
+            </Checkbox>
           {/each} 
+          </div>
+        </svelte:fragment>
+      </Collapsible>
+      <Collapsible>
+        <svelte:fragment slot="heading">Gender</svelte:fragment>
+        <svelte:fragment slot="content">
+          <List size="small">
+            {#each genders as gender, i}
+              <ListItem>
+                <Checkbox data-facet={gender} checked={filters.has(gender)} value={gender}>
+                  { gender }
+                </Checkbox>
+              </ListItem>
+              {#if (genders.length - 1) != i }
+                <Separator />
+              {/if}
+            {/each}
+          </List>
+        </svelte:fragment>
+      </Collapsible>
+      <Collapsible>
+        <svelte:fragment slot="heading">Age Group</svelte:fragment>
+        <svelte:fragment slot="content">
+          <List size="small">
+            {#each ageGroups as group, i}
+              <ListItem>
+                <Checkbox data-facet={group} checked={filters.has(group)} value={group}>
+                  { group }
+                </Checkbox>
+              </ListItem>
+              {#if (ageGroups.length - 1) != i }
+                <Separator />
+              {/if}
+            {/each}
+          </List>
         </svelte:fragment>
       </Collapsible>
       <Collapsible>
@@ -878,7 +916,6 @@
 }
 
 .content {
-  width: 100%;
   grid-area: main-content;
 }
 
@@ -941,8 +978,12 @@
   display: grid;
 }
 
+.grid--gap-8 {
+  gap: 8px;
+}
+
 .grid--products {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 8px;
   row-gap: 48px;
   margin: 8px 0 0;
@@ -961,7 +1002,7 @@
 
 @media (min-width: 768px) {
   .grid--products {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .browse-footer {
@@ -980,7 +1021,7 @@
     grid-template-rows: 32px 56px 1fr;
   }
   .grid--products {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: 16px;
   }
 

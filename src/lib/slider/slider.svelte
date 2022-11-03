@@ -1,6 +1,6 @@
 <script>
   // export let multithumb = false;
-  export let min = 0;
+  export let min = 1;
   export let max = 10;
   export let value = 0;
   export let prefix = '';
@@ -13,6 +13,7 @@
     let move = 0;
     let railRect;
     let thumbRect;
+    console.log('init thumb')
     
     function handleMouseLeave (event) {  
       if (event.clientY <= 0 || event.clientX <= 0 || (event.clientX >= window.innerWidth || event.clientY >= window.innerHeight)) {  
@@ -72,13 +73,13 @@
   }
 </script>
 <div class="silder">
-  <div class="rail-label">{`${prefix}${min}`}</div>
+  <div class="range-label">{`$${min} - $${max}`}</div>
   <div class="rail" bind:this={railRef}>
     <button
       use:action={railRef}
       type="button"
       role="slider"
-      class="rail__thumb"
+      class="rail__thumb rail__thumb--left"
       aria-valuemin={min}
       aria-valuenow={value}
       aria-valuetext={`${prefix}${value}`}
@@ -89,7 +90,7 @@
       use:action={railRef}
       type="button"
       role="slider"
-      class="rail__thumb"
+      class="rail__thumb rail__thumb--right"
       aria-valuemin={min}
       aria-valuenow={value}
       aria-valuetext={`${prefix}${value}`}
@@ -97,41 +98,62 @@
       aria-label={label}
     ></button>
   </div>
-  <div class="rail-label">{`${prefix}${max}`}</div>
+  <div class="rail-label min">{`${prefix}${min}`}</div>
+  <div class="rail-label max">{`${prefix}${max}`}</div>
 </div>
 <style>
   .silder {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(24px, auto) 1fr minmax(24px, auto);
-    height: 32px;
+    grid-template-areas:
+      "range range" 
+      "rail rail"
+      "min max";
     align-items: center;
-    gap: 4px;
+    row-gap: 16px;
+  }
+
+  .range-label {
+    color: #2e2f32;
+    font-size: 16px;
+    font-weight: 700;
+    grid-area: range;
+    text-align: center;
   }
   
   .rail-label {
     line-height: 1;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 14px;
+    margin-top: 4px;
   }
 
   .rail {
     position: relative;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to right, rgb(144, 145, 150) 0%, rgb(144, 145, 150) 0%, rgb(0, 113, 220) 0%, rgb(0, 113, 220) 71.1111%, rgb(144, 145, 150) 71.1111%, rgb(144, 145, 150) 100%);
+    background: linear-gradient(to right, rgb(144, 145, 150) 0%, rgb(144, 145, 150) 50px, rgb(0, 113, 220) 50px, rgb(0, 113, 220) 71.1111%, rgb(144, 145, 150) 71.1111%, rgb(144, 145, 150) 100%);
     border-radius: 2px;
+    grid-area: rail;
+  }
+
+  .min {
+    grid-area: min;
+    text-align: left;
+  }
+
+  .max {
+    grid-area: max;
+    text-align: right;
   }
 
   .rail:before,
   .rail:after {
     content: '';
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background-color: rgb(144, 145, 150);
     position: absolute;
@@ -144,15 +166,14 @@
   }
 
   .rail__thumb {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     position: absolute;
     left: 0;
-    border: 1px dash #285bc7;
     top: 50%;
     transform: translateY(-50%);
     background-color: transparent;
-    border: 1px dashed #285bc7;
+    border: none;
     cursor: pointer;
     z-index: 1;
     display: flex;
@@ -162,6 +183,11 @@
     margin: 0;
   }
 
+  .rail__thumb:focus,
+  .rail__thumb:hover {
+    border: 1px dashed #285bc7;
+  }
+
   .rail__thumb:before {
     content: '';
     width: 24px;
@@ -169,5 +195,13 @@
     display: block;
     background-color: #285bc7;
     border-radius: 50%;
+  }
+
+  .rail__thumb--left {
+    transform: translate(50px, -50%);
+  }
+
+  .rail__thumb--right {
+    transform: translate(200px, -50%);
   }
 </style>

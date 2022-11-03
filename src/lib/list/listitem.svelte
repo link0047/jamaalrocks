@@ -26,4 +26,8 @@
 :global(.list--grid) .list__item:hover {
   background-color: transparent;
 }
+
+:global(.list--sizeSmall) .list__item {
+  min-height: 24px;
+}
 </style>

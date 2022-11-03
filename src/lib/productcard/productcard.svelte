@@ -48,7 +48,7 @@
       <div>${product.price.sale}</div>
       <div style="display:grid;align-items:center;grid-template-columns:max-content max-content;gap:3px">
         <span class="product-card__price-sale strike-through">${product.price.base}</span>
-        <span style="color:#005900;font-size:12px;">{100 - Math.round(product.price.sale / product.price.base * 100)}% off</span>
+        <span style="color:red;font-size:12px;">{100 - Math.round(product.price.sale / product.price.base * 100)}% Off</span>
       </div>
       {:else}
         {`$${product.price.base}`}
@@ -85,7 +85,10 @@
       {/each} 
     </div>
   {/if}
-  <div class="promo">Buy 1 Get 1 $5</div>
+  <div class="promos">
+    <div class="promo">Buy 1 Get 1 $5</div>
+    <div class="promo">Buy 1 Get 1 $1</div>
+  </div>
   <Productstatus store="Egg Harbor Twp, NJ" availibility={randomInt(1,10) > 5 ? 1 : 0 }/>
 </div>
 <style>
@@ -206,15 +209,21 @@
   line-height: 1;
 }
 
+.promos {
+  display: flex;
+  gap: 8px;
+  flex-flow: row wrap;
+  margin: 8px 4px;
+}
+
 .promo {
   background-color: #e7eef8;
   color: #182e52;
   font-size: 14px;
   font-weight: 500;
-  margin: 8px 0;
   width: max-content;
   padding: 0 8px;
-  height: 24px;
+  min-height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
