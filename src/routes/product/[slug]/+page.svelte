@@ -106,7 +106,7 @@
   const title = data.params.slug.replace('-',' ');
   // const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANkAAAEQCAQAAACXJxk1AAABf0lEQVR42u3RAREAAAQEMN+/rQLkcLYKS09xSpQpQxnKlKEMZcpQhjJlKEOZMpShTBnKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZcpQhjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKFOmTBnKUKYMZShThjKUKUMZypShDGXKUIYylClDGcqUoQxlylCGMmUoQ5kylKEMZcpQhjJlKEOZMpShTBnKUKYMZShThjKUoUwZylCmDGUoU4YylClDGcqUoQxlKFOGMpQpQxnKlKEMZcpQhjJlKEOZMmXKUIYyZShDmTKUoUwZylCmDGUoU4YylKFMGcpQpgxlKFOGMpQpQxnKlKEMZShThjKUKUMZypShDGXKUIYyZShDmTKUoQxlylCGMmUoQ5kylKFMGcpQpgxlKEOZMpShTBnKUKYMZShThjKUKUMZypQpU4YylClDGcqUoQxlylCGsk8Wz28RP36goaIAAAAASUVORK5CYII=";
-
+  
   const sizes = new Set();
   const colors = new Set();
   const rating = [1,2,3,4,5];
@@ -121,6 +121,7 @@
     "3x": 7
   };
 
+  const sorting = ['Top Seller', 'Newest', 'Top Rated', 'Price - Low to High', 'Price - High to Low'];
   const genders = ['Male', 'Female', 'Unisex'];
   const ageGroups = ['Baby','Kids','Adult','Adult/Kids','Pet'];
 
@@ -154,6 +155,7 @@
     ['SILVER','#C0C0C0'],
   ]);
 
+  let selectedSort = 'Top Seller';
   const licenses = [
     "A Christmas Story",
     "Naruto",
@@ -641,11 +643,9 @@
         <Collapsible>
           <svelte:fragment slot="heading">Sort</svelte:fragment>
           <svelte:fragment slot="content">
-            <Radio name="sort" checked>Top Seller</Radio>
-            <Radio name="sort">Newest</Radio>
-            <Radio name="sort">Top Rated</Radio>
-            <Radio name="sort">Price - Low to High</Radio>
-            <Radio name="sort">Price - High to Low</Radio>
+            {#each sorting as sort}
+              <Radio name="sort" checked={sort == selectedSort}>{sort}</Radio>
+            {/each}
           </svelte:fragment>
         </Collapsible>
       {/if}
@@ -762,9 +762,6 @@
                   { gender }
                 </Checkbox>
               </ListItem>
-              <!-- {#if (genders.length - 1) != i }
-                <Separator />
-              {/if} -->
             {/each}
           </List>
         </svelte:fragment>
@@ -779,9 +776,6 @@
                   { group }
                 </Checkbox>
               </ListItem>
-              <!-- {#if (ageGroups.length - 1) != i }
-                <Separator />
-              {/if} -->
             {/each}
           </List>
         </svelte:fragment>
@@ -841,14 +835,14 @@
             </svg>
           </button>
           <div class="menu" aria-label="Sort" tabindex="-1" role="menu">
-
+            <button role="menuitem" type="button"></button>
           </div>
         </div>
         <div>
           <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
             Category
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
-              <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
+              <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>s
             </svg>
           </button>
         </div>
@@ -872,11 +866,9 @@
       </div>
     {:else}
       <Select class="sort" labelText="Sort By" floatLabel>
-        <SelectOption value="Top Seller">Top Seller</SelectOption>
-        <SelectOption value="Newest">Newest</SelectOption>
-        <SelectOption value="Top Rated">Top Rated</SelectOption>
-        <SelectOption value="Price - Low to High">Price - Low to High</SelectOption>
-        <SelectOption value="Price - High to Low">Price - High to Low</SelectOption>
+        {#each sorting as sort}
+          <SelectOption value={sort}>{sort}</SelectOption>
+        {/each}
       </Select>
     {/if}
   </header>
@@ -1078,7 +1070,8 @@
   width: 100vw;
   z-index: 10;
   background-color: #fff;
-  
+  opacity: 0;
+  pointer-events: none;
   padding: 0;
   will-change: transform;
   transition: transform .3s ease-in-out;
@@ -1086,7 +1079,8 @@
 
 .sidebar--open {
   transform: translate3d(-100vw, 0, 0);
-  transition: transform .3s ease-in-out;
+  opacity: 1;
+  pointer-events: initial;
 }
 
 .sidebar__header {

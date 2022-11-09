@@ -19,7 +19,7 @@
   }); 
 
   onDestroy(() => {
-    console.log('dead');
+    
   });
 </script>
 <option

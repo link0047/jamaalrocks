@@ -18,7 +18,12 @@
 >
   <slot />
 </aside>
-<div class="drawer-scrim" on:click={() => open = false}></div>
+<div 
+  class="drawer-scrim" 
+  on:click={() => open = false}
+  on:keydown
+>
+</div>
 <style>
   .drawer {
     position: fixed;
@@ -31,6 +36,8 @@
     transform: translate3d(-100%, 0, 0);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
+    opacity: 0;
+    pointer-events: none;
   }
 
   @media (min-width: 561px) {
@@ -61,6 +68,8 @@
 
   .drawer--open {
     transform: translate3d(0, 0, 0);
+    opacity: 1;
+    pointer-events: initial;
   }
 
   .drawer--open::after {
