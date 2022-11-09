@@ -26,6 +26,7 @@ import { afterUpdate } from "svelte";
   class:checkbox--card={ variant == 'card' }
   style={ variant == 'swatch' ? `--swatch-color: ${color};${iconColor}` : undefined }
   on:click
+  on:keydown
   on:blur
   on:focus
   on:change
@@ -106,6 +107,7 @@ import { afterUpdate } from "svelte";
   overflow: hidden;
   min-height: 40px;
   transition: box-shadow .3s ease;
+  padding: 0 8px;
 }
 
 .checkbox--box:focus .checkbox__label,

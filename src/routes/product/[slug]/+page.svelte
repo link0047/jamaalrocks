@@ -537,14 +537,26 @@
     return arr;
   }
 
-  let menubar;
+  function handlePopover({ target }) {
+    const popoverID = target.getAttribute('aria-controls');
+    const $popover = document.querySelector(`#${popoverID}`);
+    const $openedPopover = document.querySelector('.popover--open');
+
+    if ($openedPopover && popoverID !== $openedPopover.id) $openedPopover.classList.remove('popover--open');
+
+    $popover.classList.contains('popover--open') 
+      ? $popover.classList.remove('popover--open')
+      : $popover.classList.add('popover--open')
+  }
+
+  let toolbar;
   let filterBtn;
-  let showMenu = false;
+  let showToolbar = false;
   function handleIntersection([e]) {
     if (e.intersectionRatio === 0) {
-      showMenu = true;
+      showToolbar = true;
     } else if (e.intersectionRatio === 1) {
-      showMenu = false;
+      showToolbar = false;
     }
   }
 
@@ -826,36 +838,69 @@
         </svg>
         Sort & Filter
       </Button>
-      <div bind:this={menubar} class="menubar" class:menubar--show={showMenu} role="menubar" aria-label="">
+      <div bind:this={toolbar} class="toolbar" class:toolbar--show={showToolbar} role="toolbar" aria-label="">
         <div>
-          <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
+          <button type="button" tabindex="-1" class="toolbar__item" aria-controls="popover-1" aria-haspopup="dialog" aria-expanded="false" on:click={handlePopover}>
             Sort
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
               <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
             </svg>
           </button>
-          <div class="menu" aria-label="Sort" tabindex="-1" role="menu">
-            <button role="menuitem" type="button"></button>
+          <div id="popover-1" class="popover" aria-label="Sort" tabindex="-1" role="dialog">
+            <h4 class="popover__heading">Sort By</h4>
+            <List scrollable inline>
+              {#each sorting as sort}
+                <ListItem>
+                  <Checkbox data-facet={sort} value={sort} variant="box" on:change={handleSizeChange}>
+                    { sort }
+                  </Checkbox>
+                </ListItem>
+              {/each}
+            </List>
           </div>
         </div>
         <div>
-          <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
-            Category
+          <button type="button" tabindex="-1" class="toolbar__item" aria-controls="popover-2" aria-haspopup="dialog" aria-expanded="false" on:click={handlePopover}>
+            Color
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
               <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>s
             </svg>
           </button>
+          <div id="popover-2" class="popover" aria-label="Color" tabindex="-1" role="dialog">
+            <h4 class="popover__heading">Color</h4>
+            <List grid={4}>
+              {#each productColors as color}
+                <ListItem>
+                  <Checkbox data-facet={color} checked={filters.has(color)} value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
+                    { color }
+                  </Checkbox>
+                </ListItem>
+              {/each}
+            </List>
+          </div>
         </div>
         <div>
-          <button type="button" role="menuitem" tabindex="-1" class="menubar__item">
+          <button type="button" tabindex="-1" class="toolbar__item" aria-controls="popover-3" aria-haspopup="dialog" aria-expanded="false" on:click={handlePopover}>
             Size
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
               <path d="M7.41 8.58 12 13.17l4.59-4.59L18 10l-6 6-6-6 1.41-1.42Z"/>
             </svg>
           </button>
+          <div id="popover-3" class="popover" aria-label="Size" tabindex="-1" role="dialog">
+            <h4 class="popover__heading">Size</h4>
+            <List scrollable grid={2} gap={4}>
+              {#each sortedSizes as size}
+                <ListItem>
+                  <Checkbox data-facet={size} value={size} variant="box" on:change={handleSizeChange}>
+                    { size }
+                  </Checkbox>
+                </ListItem>
+              {/each}
+            </List>
+          </div>
         </div>
         <div>
-          <button type="button" role="menuitem" tabindex="-1" class="menubar__item" on:click={handleFilterClick}>
+          <button type="button" tabindex="-1" class="toolbar__item" on:click={handleFilterClick}>
             Filter
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
               <path d="M18.5 7v1h-16V7zM18.5 14v1h-16v-1z" />
@@ -933,6 +978,31 @@
   </main>
 </div>
 <style>
+.popover {
+  position: fixed;
+  left: 0;
+  will-change: opacity;
+  opacity: 0;
+  background-color: #fff;
+  pointer-events: none;
+  padding: 8px;
+  width: 100%;
+  box-shadow: rgb(33 33 33 / 15%) 0px 1px 2px;
+  border: 1px solid rgba(33, 33, 33, 0.25);
+  z-index: 999;
+}
+
+.popover__heading {
+  font-size: 14px;
+  line-height: 1;
+  margin: 0 0 8px;
+}
+
+.popover:global(.popover--open) {
+  opacity: 1;
+  pointer-events: initial;
+}
+
 .selected-filters {
   margin: 0 0 16px;
 }
@@ -958,7 +1028,7 @@
   padding: 0;
 }
 
-.menubar {
+.toolbar {
   pointer-events: none;
   opacity: 0;
   position: fixed;
@@ -976,12 +1046,12 @@
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.menubar--show {
+.toolbar--show {
   pointer-events: initial;
   opacity: 1;
 }
 
-.menubar__item {
+.toolbar__item {
   -webkit-tap-highlight-color: transparent;
   font-size: 0.875rem;
   font-weight: 500;
@@ -1070,7 +1140,6 @@
   width: 100vw;
   z-index: 10;
   background-color: #fff;
-  
   padding: 0;
   will-change: transform;
   transition: transform .3s ease-in-out;
@@ -1078,7 +1147,6 @@
 
 .sidebar--open {
   transform: translate3d(-100vw, 0, 0);
-  transition: transform .3s ease-in-out;
 }
 
 .sidebar__header {
