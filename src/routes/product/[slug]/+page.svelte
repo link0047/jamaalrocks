@@ -900,7 +900,11 @@
           </div>
         </div>
         <div>
-          <button type="button" tabindex="-1" class="toolbar__item" on:click={handleFilterClick}>
+          <button type="button" tabindex="-1" class="toolbar__item" on:click={() => {
+            const $popover = document.querySelector('.popover--open');
+            if ($popover) $popover.classList.remove('popover--open');
+            handleFilterClick();
+          }}>
             Filter
             <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
               <path d="M18.5 7v1h-16V7zM18.5 14v1h-16v-1z" />
