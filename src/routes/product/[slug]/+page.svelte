@@ -1070,8 +1070,7 @@
   width: 100vw;
   z-index: 10;
   background-color: #fff;
-  opacity: 0;
-  pointer-events: none;
+  
   padding: 0;
   will-change: transform;
   transition: transform .3s ease-in-out;
@@ -1079,8 +1078,7 @@
 
 .sidebar--open {
   transform: translate3d(-100vw, 0, 0);
-  opacity: 1;
-  pointer-events: initial;
+  transition: transform .3s ease-in-out;
 }
 
 .sidebar__header {
