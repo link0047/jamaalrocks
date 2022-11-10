@@ -23,7 +23,7 @@
   padding: 0;
 }
 
-:global(.list--grid) .list__item:hover {
+:global(.list--nohover) .list__item:hover {
   background-color: transparent;
 }
 

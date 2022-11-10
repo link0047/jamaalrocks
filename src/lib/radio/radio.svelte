@@ -4,9 +4,15 @@
   export let value = '';
   export let checked = false;
   export let required = false;
+  export let variant = undefined;
   export let name = '';
 </script>
-<label class="radio" id="{labelId}" for="{id}">
+<label 
+  class="radio"
+  class:radio--box={ variant == 'box' }
+  id={labelId} 
+  for={id}
+>
   <input 
     class="radio__native-control" 
     id={id} 
@@ -21,7 +27,9 @@
     on:blur
     on:change
   >
+  {#if variant != 'box' }
   <div class="radio__outer-circle"></div>
+  {/if}
   <div class="radio__content">
     <slot />
   </div>
@@ -39,6 +47,25 @@
   margin-top: 6px;
   margin-bottom: 6px;
   cursor: pointer;
+}
+
+.radio--box {
+  box-shadow: inset 0 0 0 2px #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  min-height: 40px;
+  transition: box-shadow .3s ease;
+  padding: 0 8px;
+  margin: 0
+}
+
+.radio--box:focus,
+.radio--box:hover {
+  box-shadow: inset 0 0 0 2px #000;
 }
 
 .radio__outer-circle {

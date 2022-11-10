@@ -120,11 +120,9 @@
     "2x": 6,
     "3x": 7
   };
-
   const sorting = ['Top Seller', 'Newest', 'Top Rated', 'Price - Low to High', 'Price - High to Low'];
   const genders = ['Male', 'Female', 'Unisex'];
   const ageGroups = ['Baby','Kids','Adult','Adult/Kids','Pet'];
-
   const colorMap = new Map([
     ['KELLY GREEN', '#4CBB17'],
     ['CHARCOAL', '#36454F'],
@@ -154,7 +152,6 @@
     ['CORAL','#FF7F50'],
     ['SILVER','#C0C0C0'],
   ]);
-
   let selectedSort = 'Top Seller';
   const licenses = [
     "A Christmas Story",
@@ -537,8 +534,8 @@
     return arr;
   }
 
-  function handlePopover({ target }) {
-    const popoverID = target.getAttribute('aria-controls');
+  function handlePopover({ currentTarget }) {
+    const popoverID = currentTarget.getAttribute('aria-controls');
     const $popover = document.querySelector(`#${popoverID}`);
     const $openedPopover = document.querySelector('.popover--open');
 
@@ -682,7 +679,7 @@
           </Chips>
         </svelte:fragment>
         <svelte:fragment slot="content">
-          <List scrollable grid={2} gap={16}>
+          <List scrollable grid={2} gap={16} nohover>
             {#each sortedSizes as size}
               <ListItem>
                 <Checkbox data-facet={size} value={size} variant="box" on:change={handleSizeChange}>
@@ -714,7 +711,7 @@
           </Chips>
         </svelte:fragment>
         <svelte:fragment slot="content">
-          <List grid={4}>
+          <List grid={4} nohover>
             {#each productColors as color}
               <ListItem>
                 <Checkbox data-facet={color} checked={filters.has(color)} value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
@@ -848,12 +845,12 @@
           </button>
           <div id="popover-1" class="popover" aria-label="Sort" tabindex="-1" role="dialog">
             <h4 class="popover__heading">Sort By</h4>
-            <List scrollable inline>
+            <List scrollable inline nohover>
               {#each sorting as sort}
                 <ListItem>
-                  <Checkbox data-facet={sort} value={sort} variant="box" on:change={handleSizeChange}>
+                  <Radio name="sort" data-facet={sort} value={sort} variant="box">
                     { sort }
-                  </Checkbox>
+                  </Radio>
                 </ListItem>
               {/each}
             </List>
@@ -868,7 +865,7 @@
           </button>
           <div id="popover-2" class="popover" aria-label="Color" tabindex="-1" role="dialog">
             <h4 class="popover__heading">Color</h4>
-            <List grid={4}>
+            <List grid={4} nohover>
               {#each productColors as color}
                 <ListItem>
                   <Checkbox data-facet={color} checked={filters.has(color)} value={color} color={colorMap.get(color)} variant="swatch" on:change={handleColorChange}>
@@ -888,7 +885,7 @@
           </button>
           <div id="popover-3" class="popover" aria-label="Size" tabindex="-1" role="dialog">
             <h4 class="popover__heading">Size</h4>
-            <List scrollable grid={2} gap={4}>
+            <List scrollable grid={2} gap={4} nohover>
               {#each sortedSizes as size}
                 <ListItem>
                   <Checkbox data-facet={size} value={size} variant="box" on:change={handleSizeChange}>

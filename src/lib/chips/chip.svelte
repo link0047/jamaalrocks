@@ -55,6 +55,13 @@
   -webkit-font-smoothing: antialiased;
   appearance: none;
   cursor: pointer;
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chip:focus,
+.chip:hover {
+  border-color: #000;
+  box-shadow: inset 0 0 0 1px #000;
 }
 
 [role="gridcell"] {
@@ -107,6 +114,7 @@
   user-select: none;
   -webkit-appearance: none;
   appearance: none;
+  cursor: pointer;
   transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

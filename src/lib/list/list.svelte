@@ -2,6 +2,7 @@
   export let variant = undefined;
   export let size = undefined;
   export let inline = false;
+  export let nohover = false;
   export let scrollable = false;
   export let grid = undefined;
   export let gap = undefined;
@@ -22,6 +23,7 @@
   class:list--sizeSmall={ size == 'small' }
   class:list--sizeLarge={ size == 'large' }
   class:list--scrollable={ scrollable }
+  class:list--nohover={ nohover }
   class:list--grid={ grid }
   {...$$restProps}
   style={ style.length ? style : undefined }
