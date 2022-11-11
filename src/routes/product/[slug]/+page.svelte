@@ -32,10 +32,13 @@
   import Separator from '$lib/separator';
   import { dataStore } from '$lib/store';
   import Textfield from '$lib/textfield';
-  
+  import Toast from '$lib/toast';
+  import image from '$lib/assets/notfound.png';
   export let data;
-
+  console.log(data)
   let isMobile = data.isMobile;
+
+  let toast;
 
   let subCategories = [
     {
@@ -546,6 +549,12 @@
       : $popover.classList.add('popover--open')
   }
 
+  function clearFilters() {
+    _filters = [];
+    filters.clear();
+    filtersCount = 0;
+  }
+
   let toolbar;
   let filterBtn;
   let showToolbar = false;
@@ -573,6 +582,9 @@
       });
       observer.observe(filterBtn);
     }
+    if (title != 'notfound') {
+      toast.open();
+    }
   });
   
   $: count = data.products.length - 1;
@@ -587,10 +599,12 @@
   class="page page--plp"
   class:isMobile= { isMobile }
 >
+  {#if title != 'notfound'}
   <Breadcrumb>
     <Crumb>Home</Crumb>
     <Crumb current>{ title }</Crumb>
   </Breadcrumb>
+  {/if}
   <div 
     aria-modal="true"
     aria-label="Sort and Filters"
@@ -618,7 +632,7 @@
       <div class="selected-filters">
         <header class="selected-filters__header">
           <h2 class="selected-filters__heading">Selected filters</h2>
-          <Button>Clear all</Button>
+          <Button on:click={clearFilters}>Clear all</Button>
         </header>
         <div class="selected-filters__content">
           <Chips>
@@ -825,6 +839,7 @@
     </footer>
     {/if}
   </div>
+  {#if title != 'notfound'}
   <header class="browse-header">
     <h1 class="page__title">{ title }</h1>
     <p class="browse-header__product-result-count">{Intl.NumberFormat().format(results)} Results</p>
@@ -918,7 +933,9 @@
       </Select>
     {/if}
   </header>
+  {/if}
   <main class="content">
+    {#if title != 'notfound'}
     <section class="grid grid--products">
       {#each products[pageIdx].page as product, i}
         <ProductCard product={product} />
@@ -931,6 +948,21 @@
         <SelectOption value={48}>48</SelectOption>
       </Select>
     </div>
+    {:else}
+    <div class="notfound">
+      <img class="image notfound__image" alt="" src={image} />
+      <p class="notfound__heading">Oh crap!</p>
+      <p class="notfound__subheading">You've got nothing</p>
+      <div class="notfound__recommendations">
+        <p class="notfound__heading">Other items you may like</p>
+        <section class="grid grid--products">
+          {#each products[0].page.slice(0,4) as product, i}
+            <ProductCard product={product} />
+          {/each}
+        </section>
+      </div>
+    </div>
+    {/if}
     <Drawer open={$dataStore.open} position="right">
       <header class="drawer__header">
         <Button class="drawer__close-btn" label="Close Button" on:click={() => { $dataStore.open = false; }}>
@@ -978,7 +1010,41 @@
     </Drawer>
   </main>
 </div>
+<Toast bind:this={toast}>
+  Connection timed out. Please press retry to try again.
+  <svelte:fragment slot="actions">
+    <Button on:click={toast.close} style="color:#ecfe40">
+      Retry
+    </Button>
+  </svelte:fragment>
+</Toast>
 <style>
+.notfound {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.notfound__recommendations {
+  margin: 56px 0;
+}
+
+.notfound__image {
+  max-width: 600px;
+}
+.notfound__heading,
+.notfound__subheading {
+  margin: 0;
+  line-height: 1.3;
+  font-size: 24px;
+  font-weight: 500;
+  color: #212121;
+}
+
+.notfound__subheading {
+  color: #989898;
+}
+
 .popover {
   position: fixed;
   left: 0;
