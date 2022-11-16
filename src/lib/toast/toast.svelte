@@ -52,4 +52,9 @@
     transform: translate3d(0,0,0);
   }
 
+  @media (max-width: 560px) {
+    .toast {
+      width: calc(100% - 16px); 
+    }
+  }
 </style>

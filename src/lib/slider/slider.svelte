@@ -131,4 +131,9 @@
 	.thumb {
 		fill: #285bc7;
 	}
+
+  .thumb:focus,
+  .thumb:hover {
+    
+  }
 </style>
