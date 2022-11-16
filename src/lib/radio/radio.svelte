@@ -44,8 +44,7 @@
   align-items: center;
   flex-direction: row;
   line-height: 1;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  margin: 0;
   cursor: pointer;
 }
 

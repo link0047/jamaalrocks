@@ -1,207 +1,134 @@
 <script>
-  // export let multithumb = false;
-  export let min = 1;
-  export let max = 10;
-  export let value = 0;
-  export let prefix = '';
-  export let label = '';
+	export let min = 0;
+	export let max = 75;
+	export let width = 300;
 
-  let railRef;
+	let svg;
+	let diffValue = max - min;
+  let railHeight = 4;
+  let railWidth = width;
+  let rangeHeight = 4;
+  let rangeWidth = width;
+	let rangeX = 0;
+	let thumbRadius = 12;
+	let railLimit = railWidth - thumbRadius;
+	let lthumbX = 12;
+	let rthumbX = railLimit;
+	let svgX = 0;
+	let currentThumb = null;
+	let minValue = min;
+	let maxValue = max;
+	
+	function handleMouseMove({ clientX }) {
+		let x = Math.round(Math.min(clientX - svgX, railLimit));
+		if (currentThumb == 'min') {
+		  minValue = Math.round(Math.max(0,(x * diffValue) / railLimit)) + min;	
+			x = Math.min(Math.max(12, x), rthumbX);
+			const diff = x - lthumbX;
+			lthumbX = x;
+			rangeX = x;
+			rangeWidth = rangeWidth - diff;
+		} else if (currentThumb == 'max') {
+			x = Math.max(lthumbX, x);
+			maxValue = Math.round((x * diffValue) / railLimit) + min;
+			rthumbX = x;
+			rangeWidth = x - rangeX;
+		}
+	}
+	
+	function handleMouseUp() {
+		document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+	}
 
-  function action(node, params) {
-    let x = 0;
-    let move = 0;
-    let railRect;
-    let thumbRect;
-    console.log('init thumb')
-    
-    function handleMouseLeave (event) {  
-      if (event.clientY <= 0 || event.clientX <= 0 || (event.clientX >= window.innerWidth || event.clientY >= window.innerHeight)) {  
-        console.log("I'm out");  
-      }
-    }
-
-    function handleMouseDown(event) {
-      railRect = params.getBoundingClientRect();
-      thumbRect = node.getBoundingClientRect();
-
-      x = event.clientX;
-      document.addEventListener('mousemove', handleMouseMove);
+  function handleMouseDown({ target }) {
+    svgX = svg.getBoundingClientRect().x;
+    if (target.classList.contains('thumb')) {
+			currentThumb = target.classList.contains('minimum') ? 'min' : 'max';
+			document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
-      // document.addEventListener("mouseleave", handleMouseLeave);
-    }
+		}
+  }
 
-    function handleMouseMove(event) {
-      const currentX = event.clientX;
-      console.log('x values', { move, x, currentX });
-      move += currentX - x;
-      // console.log('move', move);
-      if (move <= 0) {
-        console.log('you shall not pass');
-        move = 0;
-        node.style.cssText = `transform:translate3d(${move}px,-50%,0)`;
-        return;
-      }
-
-      if (move >= (Math.round(railRect.width) - (thumbRect.width))) {
-        console.log(thumbRect)
-        move = Math.round(railRect.width) - (thumbRect.width);
-        node.style.cssText = `transform:translate3d(${move}px,-50%,0)`;
-        return;
-      }
-      
-      node.style.cssText = `transform:translate3d(${move}px,-50%,0)`;
-      x = currentX;
-    }
-
-    function handleMouseUp(event) {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    }
-
+  function sliderAction(node) {
     node.addEventListener('mousedown', handleMouseDown);
     return {
-      update(new_params) {
-        params = new_params;
-      },
       destroy() {
         node.removeEventListener('mousedown', handleMouseDown);
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
+				document.removeEventListener('mousemove', handleMouseMove);
+	      document.removeEventListener('mouseup', handleMouseUp);
       }
     }
   }
 </script>
-<div class="silder">
-  <div class="range-label">{`$${min} - $${max}`}</div>
-  <div class="rail" bind:this={railRef}>
-    <button
-      use:action={railRef}
-      type="button"
-      role="slider"
-      class="rail__thumb rail__thumb--left"
-      aria-valuemin={min}
-      aria-valuenow={value}
-      aria-valuetext={`${prefix}${value}`}
-      aria-valuemax={max}
-      aria-label={label}
-    ></button>
-    <button
-      use:action={railRef}
-      type="button"
-      role="slider"
-      class="rail__thumb rail__thumb--right"
-      aria-valuemin={min}
-      aria-valuenow={value}
-      aria-valuetext={`${prefix}${value}`}
-      aria-valuemax={max}
-      aria-label={label}
-    ></button>
+<div class="slider">
+	<div class="slider__label">
+		${minValue} - ${maxValue}
+	</div>
+	<svg bind:this={svg} role="none" use:sliderAction viewBox="0 0 {width} 24" width={width} height="24">
+		<g aria-hidden="true" class="rail">
+			<circle cx="8" cy="12" r="8"/>
+			<rect y="10" rx="2" ry="2" height={railHeight} width={railWidth} />
+			<circle cx={railWidth - 8} cy="12" r="8"/>
+		</g>
+		<g aria-hidden="true" class="range">
+			<rect x={rangeX} y="10" height={rangeHeight} width={rangeWidth} />
+		</g>
+		<g role="slider" tabindex="0" aria-valuemin={min} aria-valuenow={minValue} aria-valuemax={maxValue} aria-label="Minimum Price in US dollars">
+			<circle class="minimum thumb" cx={lthumbX} cy="12" r={thumbRadius} />
+		</g>
+		<g role="slider" tabindex="0" aria-valuemin={minValue} aria-valuenow={maxValue} aria-valuemax={max} aria-label="Maximum Price in US dollars">
+			<circle class="maximum thumb" cx={rthumbX} cy="12" r={thumbRadius} />
+		</g>
+	</svg>
+  <div class="slider__endcaps">
+    <div class="start">${min}</div>
+    <div class="end">${max}</div>
   </div>
-  <div class="rail-label min">{`${prefix}${min}`}</div>
-  <div class="rail-label max">{`${prefix}${max}`}</div>
 </div>
 <style>
-  .silder {
-    position: relative;
-    display: grid;
-    grid-template-areas:
-      "range range" 
-      "rail rail"
-      "min max";
-    align-items: center;
-    row-gap: 16px;
-  }
-
-  .range-label {
-    color: #2e2f32;
-    font-size: 16px;
-    font-weight: 700;
-    grid-area: range;
-    text-align: center;
-  }
-  
-  .rail-label {
-    line-height: 1;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+	.slider {
+		display: flex;
+		flex-flow: column wrap;
+		align-items: center;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		color: #212121;
     font-weight: 500;
-    font-size: 14px;
-    margin-top: 4px;
-  }
+		font-size: 14px;
+    line-height: 1;
+	}
 
-  .rail {
-    position: relative;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(to right, rgb(144, 145, 150) 0%, rgb(144, 145, 150) 50px, rgb(0, 113, 220) 50px, rgb(0, 113, 220) 71.1111%, rgb(144, 145, 150) 71.1111%, rgb(144, 145, 150) 100%);
-    border-radius: 2px;
-    grid-area: rail;
+  svg {
+    margin: 8px 0;
   }
+	
+	.slider__label {
+		text-align: center;
+	}
 
-  .min {
-    grid-area: min;
-    text-align: left;
-  }
-
-  .max {
-    grid-area: max;
-    text-align: right;
-  }
-
-  .rail:before,
-  .rail:after {
-    content: '';
-    display: block;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: rgb(144, 145, 150);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .rail:after {
-    right: 0
-  }
-
-  .rail__thumb {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 1;
+  .slider__endcaps {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-    margin: 0;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: space-between;
   }
-
-  .rail__thumb:focus,
-  .rail__thumb:hover {
-    border: 1px dashed #285bc7;
-  }
-
-  .rail__thumb:before {
-    content: '';
-    width: 24px;
-    height: 24px;
-    display: block;
-    background-color: #285bc7;
-    border-radius: 50%;
-  }
-
-  .rail__thumb--left {
-    transform: translate(50px, -50%);
-  }
-
-  .rail__thumb--right {
-    transform: translate(200px, -50%);
-  }
+	
+	.rail {
+		fill: #909196;
+	}
+	
+	[role="slider"] {
+		-webkit-tap-highlight-color: transparent;
+		outline: 0;
+	}
+	
+	.minimum,
+	.maximum {
+		cursor: pointer;
+	}
+	
+	.range,
+	.thumb {
+		fill: #285bc7;
+	}
 </style>

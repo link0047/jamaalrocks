@@ -35,11 +35,9 @@
   import Toast from '$lib/toast';
   import image from '$lib/assets/notfound.png';
   export let data;
-  console.log(data)
+
   let isMobile = data.isMobile;
-
   let toast;
-
   let subCategories = [
     {
       name: "Top Sellers",
@@ -739,7 +737,7 @@
       <Collapsible>
         <svelte:fragment slot="heading">Price</svelte:fragment>
         <svelte:fragment slot="content">
-          <Slider prefix="$" min={1} max={75}></Slider>
+          <Slider width={280} min={0} max={75}></Slider>
         </svelte:fragment>
       </Collapsible>
       <Collapsible>
@@ -747,7 +745,7 @@
         <svelte:fragment slot="content">
           <div class="grid grid--gap-8">
           {#each ['5.0','4.0','3.0','2.0','1.0'] as rate, i}
-            <Checkbox name="rating" on:change={handleRatingChange}>
+            <Radio name="rating" on:change={handleRatingChange}>
               <div class="rating-stars">
                 {#each rating as j}
                   <svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -770,7 +768,7 @@
                   </svg>
                 {/each}
               </div>
-            </Checkbox>
+            </Radio>
           {/each} 
           </div>
         </svelte:fragment>
