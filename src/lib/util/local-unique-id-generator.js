@@ -4,7 +4,7 @@ function nextId() {
   return ++id;
 }
 
-const omni = (() => this)();
+const omni = Function('return this')();
 
 if (typeof omni.__nextId !== 'function') {
   omni.__nextId = nextId;
